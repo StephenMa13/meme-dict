@@ -9,7 +9,7 @@ const hotMemes = ref([])
 const searchQuery = ref('')
 const showModal = ref(false)
 
-const newForm = ref({ term: '', pinyin: '', summary: '',category: '默认' })
+const newForm = ref({ term: '', summary: '',category: '默认' })
 
 // ⭐️ 改用本地方法加载数据
 const loadData = () => {
@@ -40,7 +40,7 @@ const submitMeme = () => {
   if (!newForm.value.term || !newForm.value.summary) return alert('不能为空哦！')
   localAdd({ ...newForm.value }) // 保存到本地硬盘
   showModal.value = false
-  newForm.value = { term: '', pinyin: '', summary: '' }
+  newForm.value = { term: '', summary: '',category: '默认' }
   loadData() // 刷新列表
 }
 // 在 Home.vue 的脚本里添加这个缺失的函数
@@ -104,7 +104,6 @@ const goToDetail = (id) => {
       <div class="modal-content">
         <h3>贡献新梗</h3>
         <input v-model="newForm.term" placeholder="名字" class="modal-input" />
-        <input v-model="newForm.pinyin" placeholder="拼音缩写" class="modal-input" />
         <textarea v-model="newForm.summary" placeholder="解释一下..." class="modal-textarea"></textarea>
         <select v-model="newForm.category" class="modal-input">
           <option value="默认">选择分类...</option>
@@ -243,5 +242,105 @@ const goToDetail = (id) => {
 }
 @media (min-width: 1024px) { 
   .card-grid { grid-template-columns: repeat(3, 1fr); } 
+}
+
+/* ====================================================
+   🎁 4. 弹窗样式修复区：让“贡献新梗”弹窗居中且美观
+   ==================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; /* 撑满全宽 */
+  height: 100vh; /* 撑满全高 */
+  background-color: rgba(0, 0, 0, 0.6); /* 半透明黑底遮罩 */
+  backdrop-filter: blur(3px); /* 增加一点毛玻璃效果，更显高级 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* 💡 必须大于底部导航栏的 z-index(1000) */
+}
+
+.modal-content {
+  background: #ffffff;
+  width: 90%;
+  max-width: 360px; /* 控制最大宽度，手机端看起来更精致 */
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: modal-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 弹出动画 */
+}
+
+/* 弹窗小动画：让它出现时有“弹一下”的 Q 弹感 */
+@keyframes modal-pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.modal-content h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+/* 输入框统一风格 */
+.modal-input, .modal-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  box-sizing: border-box; /* 💡 防止 padding 撑破父容器 */
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.modal-input:focus, .modal-textarea:focus {
+  border-color: #FFD700; /* 聚焦时边框变色，和你的黄色主题呼应 */
+  background-color: #fff;
+}
+
+.modal-textarea {
+  resize: vertical; /* 允许垂直拉伸 */
+  min-height: 80px;
+}
+
+/* 按钮区域排列 */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.cancel-btn, .submit-btn {
+  flex: 1; /* 两个按钮平分宽度 */
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  background-color: #f1f2f5;
+  color: #666;
+}
+
+.submit-btn {
+  background-color: #FFD700;
+  color: #333;
+}
+
+.cancel-btn:active, .submit-btn:active {
+  transform: scale(0.96); /* 点击时的按压反馈 */
 }
 </style>
