@@ -2,7 +2,6 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getMemeById } from '../db.js'
-// 💡 确保引入了所有的全局状态和方法
 import { favoriteIds, toggleFavorite, markNotInterested, likedIds, toggleLike } from '../store.js'
 
 const route = useRoute()
@@ -13,7 +12,6 @@ const goBack = () => {
   router.back() 
 }
 
-// 💡 统一：减少推荐后自动返回
 const handleNotInterested = (id) => {
   markNotInterested(id)
   router.back() // 既然用户没兴趣，点完直接送他回上一页（回到首页后，这个梗也会因为全局状态更新而自动隐藏）
@@ -39,12 +37,30 @@ const categoryConfig = {
 onMounted(() => {
   const localMeme = getMemeById(route.params.id)
   if (localMeme) {
-    const config = categoryConfig[localMeme.category] || categoryConfig['默认']
+    // 1. 兼容处理：如果 category 是数组就直接用，如果是以前的单字符串就包成数组，如果啥也没写就给个'默认'
+    let categories = []
+    if (Array.isArray(localMeme.category)) {
+      categories = localMeme.category
+    } else if (localMeme.category) {
+      categories = [localMeme.category]
+    } else {
+      categories = ['默认']
+    }
+
+    // 2. 把每个分类名字，映射成带颜色和图标的对象
+    const processedTags = categories.map(cat => {
+      const config = categoryConfig[cat] || categoryConfig['默认']
+      return { name: cat, icon: config.icon, color: config.color }
+    })
+
+    // 3. 取第一个标签作为头像的主题色（如果一个标签都没有，就用默认）
+    const primaryConfig = processedTags[0] || categoryConfig['默认']
+
     meme.value = {
       ...localMeme,
-      icon: config.icon,
-      bgColor: config.color,
-      // 保持之前的 summary，如果 content 为空则给个默认文字
+      tagsInfo: processedTags, // 🌟 新增：存入处理好的多标签数组
+      icon: primaryConfig.icon, // 主头像图标
+      bgColor: primaryConfig.color, // 主头像背景色
       content: localMeme.content || `这里是关于“${localMeme.term}”的详细解析...`
     }
   }
@@ -62,8 +78,11 @@ onMounted(() => {
       
       <h1 class="title">{{ meme.term }}</h1>
       <div class="tags">
-        <span class="tag-badge" :style="{ backgroundColor: meme.bgColor }">
-          {{ meme.category || '未分类' }}
+        <span v-for="tag in meme.tagsInfo" 
+              :key="tag.name" 
+              class="tag-badge" 
+              :style="{ backgroundColor: tag.color }">
+          {{ tag.icon }} {{ tag.name }}
         </span>
       </div>
       
@@ -102,7 +121,13 @@ onMounted(() => {
   margin: 0 auto 20px; display: flex; justify-content: center; align-items: center; 
   font-size: 50px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
 }
-.tags { margin-bottom: 30px; }
+.tags { 
+  margin-bottom: 30px; 
+  display: flex; 
+  justify-content: center; 
+  flex-wrap: wrap; /* 标签太多会自动换行 */
+  gap: 10px; /* 🌟 让多个标签之间保持 10px 的距离 */
+}
 .tag-badge { padding: 6px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; color: #333; }
 
 .content { text-align: left; margin-top: 30px; border-top: 1px solid #eee; padding-top: 30px; }
