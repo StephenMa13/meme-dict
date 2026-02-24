@@ -6,6 +6,9 @@ import { getMemeById } from '../db.js'
 const route = useRoute()
 const router = useRouter()
 const meme = ref(null)
+const goBack = () => {
+  router.back() 
+}
 
 // ⭐️ 魔法配置：根据不同标签，赋予不同的 Emoji 和背景色
 const categoryConfig = {
@@ -32,7 +35,7 @@ onMounted(() => {
 
 <template>
   <div class="detail-container" v-if="meme">
-    <button class="back-btn" @click="router.push('/')">🔙 返回</button>
+    <button class="back-btn" @click="router.back('/')">🔙 返回</button>
     
     <div class="card">
       <div class="avatar" :style="{ backgroundColor: meme.bgColor }">

@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #f5f6fa; /* 💡 整体背景改成淡灰色，这样白色的卡片才能凸显出来 */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,67 +13,82 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+  /* 移除了 place-items: center，防止内容强制居中对齐 */
+}
+
 a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
-a:hover {
-  color: #535bf2;
-}
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
+/* 👇 重置 button 的默认样式，让我们的自定义 class 生效 */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-.card {
-  padding: 2em;
+  transition: all 0.2s;
 }
 
 #app {
+  width: 100%; /* 让 app 撑满宽度 */
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  /* 删除了 padding，交由具体页面控制 */
+}
+
+/* =========================================
+   📦 全局卡片样式 
+   ========================================= */
+.card-grid { 
+  display: grid; 
+  grid-template-columns: 1fr; 
+  gap: 16px; 
+}
+
+.card { 
+  background: #ffffff !important; /* 💡 强制白色背景 */
+  border-radius: 12px; 
+  padding: 16px 20px; /* 稍微缩小一点内边距 */
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  /* 💡 增加明显的阴影，让白框浮现出来 */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+  cursor: pointer; 
+  transition: 0.2s; 
+  /* 确保卡片内的文字颜色是深色 */
+  color: #333; 
+}
+
+.card:hover { 
+  transform: translateY(-2px); 
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+}
+
+/* 强制左侧的序号和标题在一行横向排列 */
+.card-left { 
+  display: flex; 
+  align-items: center; 
+  flex: 1; 
+  overflow: hidden; 
+}
+
+/* 右侧按钮区 */
+.card-right { 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  margin-left: 10px; 
+  flex-wrap: nowrap; /* 尽量不换行 */
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+    background-color: #f5f6fa; /* 浅色模式也是淡灰背景 */
   }
 }
