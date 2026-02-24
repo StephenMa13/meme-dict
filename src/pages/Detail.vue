@@ -2,29 +2,21 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getMemeById } from '../db.js'
-// 💡 统一引入：添加不感兴趣的功能
-import { favoriteIds, toggleFavorite, markNotInterested } from '../store.js'
+// 💡 确保引入了所有的全局状态和方法
+import { favoriteIds, toggleFavorite, markNotInterested, likedIds, toggleLike } from '../store.js'
 
 const route = useRoute()
 const router = useRouter()
 const meme = ref(null)
 
-// 💡 修正：router.back 不需要参数
 const goBack = () => {
   router.back() 
-}
-
-// 💡 统一：点赞逻辑
-const likeMeme = () => {
-  if (meme.value) {
-    meme.value.view_count = (meme.value.view_count || 0) + 1
-  }
 }
 
 // 💡 统一：减少推荐后自动返回
 const handleNotInterested = (id) => {
   markNotInterested(id)
-  router.back() // 既然用户没兴趣，点完直接送他回上一页
+  router.back() // 既然用户没兴趣，点完直接送他回上一页（回到首页后，这个梗也会因为全局状态更新而自动隐藏）
 }
 
 const categoryConfig = {
@@ -32,6 +24,15 @@ const categoryConfig = {
   '科技': { icon: '🤖', color: '#E0F7FA' },
   '二次元': { icon: '🌸', color: '#F3E5F5' },
   '方言': { icon: '🐒', color: '#FFF9C4' },
+  '职场': { icon: '💻', color: '#E8F5E9' },       // 适合：牛马、摸鱼、打工人、画大饼
+  '情感': { icon: '❤️‍🔥', color: '#FCE4EC' },     // 适合：恋爱脑、纯爱战神、舔狗
+  '游戏': { icon: '🎮', color: '#E8EAF6' },       // 适合：破防、菜就多练、猪队友
+  '抽象': { icon: '🤡', color: '#F3E5F5' },       // 适合：泰裤辣、鸡你太美、依托答辩
+  '社交': { icon: '💬', color: '#E3F2FD' },       // 适合：e人/i人、社交牛逼症、搭子
+  '生活': { icon: '🛋️', color: '#F5F5F5' },       // 适合：躺平、摆烂、消费降级、特种兵旅游
+  '饭圈': { icon: '🌟', color: '#FFF3E0' },       // 适合：塌房、打call、绝绝子
+  '校园': { icon: '🎓', color: '#FFFDE7' },       // 适合：卷王、脆皮大学生、早八
+  '谐音梗': { icon: '📢', color: '#FBE9E7' },      // 适合：尊嘟假嘟、耗子尾汁、蓝瘦香菇
   '默认': { icon: '💡', color: '#F0F0F0' } 
 }
 
@@ -70,15 +71,15 @@ onMounted(() => {
         <h3>📖 一句话秒懂</h3>
         <p>{{ meme.summary }}</p>
         <h3>🕵️‍♂️ 深度科普</h3>
-        <p>{{ meme.content }}</p>
+        <p v-html="meme.content"></p>
       </div>
 
       <div class="detail-actions" v-if="meme">
         <button class="action-btn fav-btn" :class="{ 'active': favoriteIds.includes(meme.id) }" @click="toggleFavorite(meme.id)">
           {{ favoriteIds.includes(meme.id) ? '⭐ 已收藏' : '☆ 收藏' }}
         </button>
-        <button class="action-btn like-btn" @click="likeMeme">
-          👍 点赞 {{ meme.view_count || 0 }}
+        <button class="action-btn like-btn" :class="{ 'liked-active': likedIds.includes(meme.id) }" @click="toggleLike(meme.id)">
+          👍 点赞
         </button>
         <button class="action-btn not-interested-btn" @click="handleNotInterested(meme.id)">
           🙈 减少推荐
@@ -107,7 +108,7 @@ onMounted(() => {
 .content { text-align: left; margin-top: 30px; border-top: 1px solid #eee; padding-top: 30px; }
 .content h3 { color: #000; font-size: 20px; border-left: 4px solid #FFD700; padding-left: 10px; }
 .content p { line-height: 1.8; color: #444; font-size: 16px; }
-/* ... 保留之前的 avatar, tags 等样式 ... */
+
 .detail-actions {
   display: flex;
   justify-content: center; /* 详情页按钮居中排布 */
@@ -137,4 +138,10 @@ onMounted(() => {
 .fav-btn { background-color: #f0f4f8; color: #4a90e2; }
 .fav-btn.active { background-color: #fff0f0; color: #ff4757; }
 .like-btn { background-color: #fff8e1; color: #ff8f00; }
+
+/* 💡 补全：点赞激活后的样式，让按钮按下去有视觉反馈 */
+.liked-active { 
+  background-color: #ffe0b2 !important; 
+  color: #e65100 !important; 
+}
 </style>
