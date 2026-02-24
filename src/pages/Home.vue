@@ -1,8 +1,8 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue' // 把所有的写在一起
 import { useRouter } from 'vue-router'
-import { getMemes, addMeme as localAdd, deleteMeme as localDelete } from '../db.js' // ⭐️ 引入本地引擎
-import { favoriteIds, toggleFavorite } from '../store.js'
+import { getMemes, addMeme as localAdd, deleteMeme as localDelete } from '../db.js'
+import { favoriteIds, toggleFavorite, notInterestedIds, markNotInterested } from '../store.js'
 
 const router = useRouter()
 const hotMemes = ref([])
@@ -19,10 +19,21 @@ const loadData = () => {
 onMounted(() => loadData())
 
 const filteredMemes = computed(() => {
-  if (searchQuery.value === '') return hotMemes.value
-  const keyword = searchQuery.value.toLowerCase()
-  return hotMemes.value.filter(meme => meme.term.includes(keyword) || meme.pinyin.includes(keyword))
-})
+  // 1. 先拿到“没被屏蔽”的所有词条
+  let list = hotMemes.value.filter(meme => !notInterestedIds.value.includes(meme.id));
+
+  // 2. 如果没有搜索关键词，直接返回剩下的这些
+  if (searchQuery.value === '') {
+    return list;
+  }
+
+  // 3. 如果有关键词，在“没被屏蔽”的列表里进行搜索
+  const keyword = searchQuery.value.toLowerCase();
+  return list.filter(meme => 
+    meme.term.includes(keyword) || 
+    (meme.pinyin && meme.pinyin.includes(keyword))
+  );
+});
 
 // ⭐️ 改用本地方法提交
 const submitMeme = () => {
@@ -73,10 +84,10 @@ const goToDetail = (id) => {
           
           <div class="card-right">
             <button class="action-btn fav-btn" @click.stop="toggleFavorite(meme.id)">
-              {{ favoriteIds.includes(meme.id) ? '⭐' : '☆' }}
+              {{ favoriteIds.includes(meme.id) ? '⭐ 已收藏' : '☆ 收藏' }}
             </button>
-            <button class="action-btn like-btn" @click.stop="likeMeme(meme.id)">👍 {{ meme.view_count }}</button>
-            <button class="action-btn delete-btn" @click.stop="deleteMeme(meme.id)">🗑️</button>
+            <button class="action-btn like-btn" @click.stop="likeMeme(meme.id)">👍点赞 {{ meme.view_count }}</button>
+            <button class="action-btn not-interested-btn" @click.stop="markNotInterested(meme.id)">🙈 减少推荐</button>
           </div>
         </div>
       </div>
@@ -196,13 +207,35 @@ const goToDetail = (id) => {
 }
 
 /* 按钮统一风格 */
-.action-btn { 
-  border: none; padding: 6px 12px; border-radius: 12px; font-size: 12px; 
-  font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; 
+.action-btn {
+  /* ... 你原有的属性 ... */
+  
+  border: none;
+  padding: 6px 0;          /* 上下保持 6px，左右设为 0 因为我们要靠宽度撑开 */
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 确保文字在固定宽度的按钮里居中 */
+  gap: 4px;
+
+  /* 👇 关键修改：固定宽度 */
+  width: 85px;             /* 根据你的文字长度，85px 到 90px 通常比较合适 */
+  flex-shrink: 0;          /* 防止在屏幕窄时按钮被挤压变形 */
+  transition: all 0.2s;
+}
+
+/* 针对“减少推荐”这种字数更多的按钮，我们可以单独让它宽一点 */
+.not-interested-btn {
+  width: 95px !important; 
+  background-color: #f1f2f5;
+  color: #666;
 }
 .fav-btn { background-color: #f0f4f8; color: #4a90e2; } /* 蓝色系收藏框 */
 .like-btn { background-color: #fff8e1; color: #ff8f00; } /* 橙色系点赞 */
-.delete-btn { background-color: #ffebee; color: #e53935; } /* 红色系删除 */
+/*.delete-btn { background-color: #ffebee; color: #e53935; } /* 红色系删除 */
 
 @media (min-width: 768px) { 
   .card-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } 

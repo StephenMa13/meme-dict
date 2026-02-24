@@ -94,15 +94,49 @@ onMounted(() => {
 .content { text-align: left; margin-top: 30px; border-top: 1px solid #eee; padding-top: 30px; }
 .content h3 { color: #000; font-size: 20px; border-left: 4px solid #FFD700; padding-left: 10px; }
 .content p { line-height: 1.8; color: #444; font-size: 16px; }
+/* 详情页的操作区域容器 */
 .detail-actions {
   display: flex;
-  gap: 15px;
-  margin-top: 20px;
+  gap: 12px;
+  margin: 24px 0;
+  padding: 0 20px;
 }
-.action-btn { 
-  border: none; padding: 8px 16px; border-radius: 12px; font-size: 14px; 
-  font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; 
+
+/* 统一样式，复制首页那种精致感 */
+.action-btn {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.1s;
 }
-.fav-btn { background-color: #f0f4f8; color: #4a90e2; }
-.like-btn { background-color: #fff8e1; color: #ff8f00; }
+
+.action-btn:active {
+  transform: scale(0.95); /* 点击时有个缩小的反馈，手感更好 */
+}
+
+/* 具体的颜色配对 */
+.fav-btn { 
+  background-color: #f0f4f8; 
+  color: #4a90e2; 
+}
+.fav-btn.active { 
+  background-color: #fff0f0; 
+  color: #ff4757; 
+}
+
+.like-btn { 
+  background-color: #fff8e1; 
+  color: #ff8f00; 
+}
+
+.not-interested-btn {
+  background-color: #f1f2f5;
+  color: #666;
+}
 </style>
