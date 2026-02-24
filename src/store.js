@@ -28,3 +28,10 @@ export function markNotInterested(memeId) {
     notInterestedIds.value.push(memeId)
   }
 }
+
+export function removeNotInterested(memeId) {
+  const index = notInterestedIds.value.indexOf(memeId)
+  if (index !== -1) {
+    notInterestedIds.value.splice(index, 1) // 删掉它，它就会重新在首页出现了！
+  }
+}
