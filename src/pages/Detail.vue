@@ -2,12 +2,19 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getMemeById } from '../db.js'
+import { favoriteIds, toggleFavorite } from '../store.js'
 
 const route = useRoute()
 const router = useRouter()
 const meme = ref(null)
 const goBack = () => {
   router.back() 
+}
+const likeMeme = () => {
+  if (meme.value) {
+    meme.value.view_count++ // 假设 view_count 是点赞数
+    // 如果你有 db.js 里的更新方法，可以在这里调用
+  }
 }
 
 // ⭐️ 魔法配置：根据不同标签，赋予不同的 Emoji 和背景色
@@ -55,6 +62,15 @@ onMounted(() => {
         <h3>🕵️‍♂️ 深度科普</h3>
         <p>{{ meme.content }}</p>
       </div>
+
+      <div class="detail-actions" v-if="meme">
+        <button class="action-btn fav-btn" @click="toggleFavorite(meme.id)">
+          {{ favoriteIds.includes(meme.id) ? '⭐ 已收藏' : '☆ 收藏' }}
+        </button>
+        <button class="action-btn like-btn" @click="likeMeme">
+          👍 {{ meme.view_count || '点赞' }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -78,4 +94,15 @@ onMounted(() => {
 .content { text-align: left; margin-top: 30px; border-top: 1px solid #eee; padding-top: 30px; }
 .content h3 { color: #000; font-size: 20px; border-left: 4px solid #FFD700; padding-left: 10px; }
 .content p { line-height: 1.8; color: #444; font-size: 16px; }
+.detail-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+.action-btn { 
+  border: none; padding: 8px 16px; border-radius: 12px; font-size: 14px; 
+  font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; 
+}
+.fav-btn { background-color: #f0f4f8; color: #4a90e2; }
+.like-btn { background-color: #fff8e1; color: #ff8f00; }
 </style>
