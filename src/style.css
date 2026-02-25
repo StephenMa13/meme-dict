@@ -1,24 +1,45 @@
+/* =========================================
+   🌟 定义颜色变量（魔法的核心）
+   ========================================= */
+/* 1. 白天模式的颜色 */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #f5f6fa; /* 💡 整体背景改成淡灰色，这样白色的卡片才能凸显出来 */
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* 自定义颜色变量 */
+  --bg-color: #f5f6fa;       /* 整体淡灰背景 */
+  --card-bg: #ffffff;        /* 卡片纯白背景 */
+  --text-main: #333333;      /* 主要文字颜色 */
+  --nav-bg: #ffffff;         /* 导航栏背景 */
+  --border-color: #e4e6eb;   /* 边框和分割线 */
 }
 
+/* 2. 夜间模式的颜色（当 html 标签加上 dark-mode 类时生效） */
+html.dark-mode {
+  --bg-color: #121212;       /* 深黑背景 */
+  --card-bg: #1e1e1e;        /* 深灰卡片 */
+  --text-main: #e0e0e0;      /* 浅灰文字（防刺眼） */
+  --nav-bg: #1e1e1e;         /* 深色导航栏 */
+  --border-color: #333333;   /* 暗色边框 */
+}
+
+/* =========================================
+   📦 基础标签样式 
+   ========================================= */
 body {
   margin: 0;
   display: flex;
   min-width: 320px;
   min-height: 100vh;
-  /* 移除了 place-items: center，防止内容强制居中对齐 */
+  /* 👇 使用变量，并加上丝滑的过渡动画 */
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {
@@ -27,17 +48,15 @@ a {
   text-decoration: inherit;
 }
 
-/* 👇 重置 button 的默认样式，让我们的自定义 class 生效 */
 button {
   font-family: inherit;
   transition: all 0.2s;
 }
 
 #app {
-  width: 100%; /* 让 app 撑满宽度 */
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  /* 删除了 padding，交由具体页面控制 */
 }
 
 /* =========================================
@@ -50,18 +69,17 @@ button {
 }
 
 .card { 
-  background: #ffffff !important; /* 💡 强制白色背景 */
+  /* 👇 使用变量代替写死的颜色 */
+  background: var(--card-bg) !important; 
+  color: var(--text-main); 
   border-radius: 12px; 
-  padding: 16px 20px; /* 稍微缩小一点内边距 */
+  padding: 16px 20px; 
   display: flex; 
   justify-content: space-between; 
   align-items: center; 
-  /* 💡 增加明显的阴影，让白框浮现出来 */
   box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
   cursor: pointer; 
-  transition: 0.2s; 
-  /* 确保卡片内的文字颜色是深色 */
-  color: #333; 
+  transition: all 0.3s ease; /* 加上过渡 */
 }
 
 .card:hover { 
@@ -69,7 +87,6 @@ button {
   box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
 }
 
-/* 强制左侧的序号和标题在一行横向排列 */
 .card-left { 
   display: flex; 
   align-items: center; 
@@ -77,18 +94,10 @@ button {
   overflow: hidden; 
 }
 
-/* 右侧按钮区 */
 .card-right { 
   display: flex; 
   align-items: center; 
   gap: 10px; 
   margin-left: 10px; 
-  flex-wrap: nowrap; /* 尽量不换行 */
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #f5f6fa; /* 浅色模式也是淡灰背景 */
-  }
+  flex-wrap: nowrap; 
 }

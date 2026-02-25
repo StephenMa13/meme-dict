@@ -107,13 +107,33 @@ const deleteMeme = (id) => {
 const goToDetail = (id) => {
   router.push(`/meme/${id}`)
 }
+
+// 获取当前是否是夜间模式，用来正确显示“白天/夜间”文字
+const isDark = ref(localStorage.getItem('theme') === 'dark')
+
+const toggleTheme = () => {
+  isDark.value = !isDark.value
+  if (isDark.value) {
+    document.documentElement.classList.add('dark-mode')
+    localStorage.setItem('theme', 'dark')
+  } else {
+    document.documentElement.classList.remove('dark-mode')
+    localStorage.setItem('theme', 'light')
+  }
+}
 </script>
 
 <template>
   <div class="app-container">
     <nav class="navbar">
       <div class="logo">🔥 梗百科</div>
-      <button class="add-btn" @click="showModal = true">➕ 贡献</button>
+      
+      <div class="nav-actions">
+        <button class="theme-toggle-btn" @click="toggleTheme">
+          {{ isDark ? '🌙 夜间' : '☀️ 白天' }}
+        </button>
+        <button class="add-btn" @click="showModal = true">➕ 贡献</button>
+      </div>
     </nav>
 
     <header class="hero">
@@ -200,30 +220,37 @@ const goToDetail = (id) => {
 </template>
 
 <style scoped>
-/* 样式部分完全保留，无需任何改动，这里省略以节省篇幅，你可以直接用你目前的样式 */
-.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f0f2f5 !important; min-height: 100vh; padding-bottom: 80px; }
+/* 💡 注意：我已经把里面写死的 #fff, #333, #f0f2f5 等全部替换成了 var() 全局变量 */
+
+.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-color) !important; min-height: 100vh; padding-bottom: 80px; transition: background-color 0.3s; }
 .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; }
-.logo { font-size: 20px; font-weight: 900; color: #333; }
+.logo { font-size: 20px; font-weight: 900; color: var(--text-main); }
 .add-btn { background-color: #FFD700; border: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; cursor: pointer; color: #333; }
-.hero { padding: 20px 20px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); text-align: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; margin-bottom: 20px; }
+
+/* 顶部醒目的黄色区域，夜间模式下我们会用滤镜稍微压暗它 */
+.hero { padding: 20px 20px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); text-align: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; margin-bottom: 20px; transition: filter 0.3s; }
 .hero-title { font-size: 22px; font-weight: 800; margin: 0 0 16px 0; color: #000; }
+
 .search-wrapper { position: relative; max-width: 600px; margin: 0 auto; width: 100%; }
-.search-box { display: flex; background: #fff; border-radius: 30px; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; }
-.search-input { flex: 1; border: none; padding: 10px 20px; font-size: 15px; border-radius: 30px; outline: none; background: transparent; }
-.history-dropdown { position: absolute; top: 55px; left: 0; width: 100%; background: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); z-index: 100; overflow: hidden; text-align: left; }
-.history-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background-color: #f9f9f9; font-size: 13px; color: #888; }
+.search-box { display: flex; background: var(--card-bg); border-radius: 30px; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; border: 1px solid var(--border-color); }
+.search-input { flex: 1; border: none; padding: 10px 20px; font-size: 15px; border-radius: 30px; outline: none; background: transparent; color: var(--text-main); }
+
+.history-dropdown { position: absolute; top: 55px; left: 0; width: 100%; background: var(--card-bg); border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); z-index: 100; overflow: hidden; text-align: left; border: 1px solid var(--border-color); }
+.history-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background-color: var(--bg-color); font-size: 13px; color: var(--text-secondary); }
 .clear-btn { cursor: pointer; color: #ff4757; font-weight: bold; transition: opacity 0.2s; }
 .clear-btn:hover { opacity: 0.8; }
 .history-list { list-style: none; margin: 0; padding: 0; }
-.history-list li { padding: 14px 20px; font-size: 15px; color: #333; cursor: pointer; transition: background 0.2s; }
-.history-list li:hover { background-color: #f1f2f5; }
+.history-list li { padding: 14px 20px; font-size: 15px; color: var(--text-main); cursor: pointer; transition: background 0.2s; }
+.history-list li:hover { background-color: var(--bg-color); }
+
 .hot-list { max-width: 1200px; margin: 0 auto; padding: 10px 20px; }
 .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-.section-title { font-size: 18px; font-weight: bold; margin: 0; color: #333; }
-.refresh-random-btn { background-color: #e4e6eb; border: none; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; color: #333; cursor: pointer; transition: background-color 0.2s; }
-.refresh-random-btn:hover { background-color: #d1d4d9; }
+.section-title { font-size: 18px; font-weight: bold; margin: 0; color: var(--text-main); }
+.refresh-random-btn { background-color: var(--bg-color); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; color: var(--text-main); cursor: pointer; transition: background-color 0.2s; }
+.refresh-random-btn:hover { filter: brightness(0.9); }
+
 .card-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-.card { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: center !important; background: #ffffff !important; border: 1px solid #e4e6eb; border-radius: 12px; padding: 16px 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.04); cursor: pointer; }
+.card { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: center !important; background: var(--card-bg) !important; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.04); cursor: pointer; color: var(--text-main); }
 .card-left { display: flex !important; flex-direction: row !important; align-items: center !important; flex: 1; overflow: hidden; }
 .card-right { display: flex !important; flex-direction: row !important; align-items: center !important; gap: 10px !important; margin-left: 10px; }
 .rank { font-size: 18px; font-weight: 900; color: #bbb; width: 24px; margin-right: 12px; flex-shrink: 0; text-align: center; }
@@ -231,24 +258,49 @@ const goToDetail = (id) => {
 .rank-2 { color: #FF8C00; font-size: 20px; }
 .rank-3 { color: #FFA500; font-size: 18px; }
 .meme-info { flex: 1; display: flex; align-items: center; }
-.meme-term { font-size: 16px; font-weight: bold; margin: 0 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333; }
+.meme-term { font-size: 16px; font-weight: bold; margin: 0 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-main); }
+
 .action-btn { border: none; padding: 6px 0; border-radius: 12px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; width: 85px; flex-shrink: 0; transition: all 0.2s; }
-.not-interested-btn { width: 95px !important; background-color: #f1f2f5; color: #666; }
-.fav-btn { background-color: #f0f4f8; color: #4a90e2; }
-.like-btn { background-color: #fff8e1; color: #ff8f00; }
+.not-interested-btn { width: 95px !important; background-color: var(--bg-color); color: var(--text-secondary); border: 1px solid var(--border-color); }
+.fav-btn { background-color: rgba(74, 144, 226, 0.1); color: #4a90e2; }
+.like-btn { background-color: rgba(255, 143, 0, 0.1); color: #ff8f00; }
 .liked-active { background-color: #ffe0b2 !important; color: #e65100 !important; }
+
 @media (min-width: 768px) { .card-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
 @media (min-width: 1024px) { .card-grid { grid-template-columns: repeat(3, 1fr); } }
+
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(3px); display: flex; justify-content: center; align-items: center; z-index: 2000; }
-.modal-content { background: #ffffff; width: 90%; max-width: 360px; padding: 24px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 12px; animation: modal-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.modal-content { background: var(--card-bg); width: 90%; max-width: 360px; padding: 24px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 12px; animation: modal-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 @keyframes modal-pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-.modal-content h3 { margin: 0 0 10px 0; color: #333; text-align: center; font-size: 20px; font-weight: 900; }
-.modal-input, .modal-textarea { width: 100%; padding: 12px 14px; border: 1px solid #ddd; border-radius: 10px; font-size: 14px; background-color: #f9f9f9; box-sizing: border-box; outline: none; font-family: inherit; transition: border-color 0.2s; }
-.modal-input:focus, .modal-textarea:focus { border-color: #FFD700; background-color: #fff; }
+.modal-content h3 { margin: 0 0 10px 0; color: var(--text-main); text-align: center; font-size: 20px; font-weight: 900; }
+.modal-input, .modal-textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--border-color); border-radius: 10px; font-size: 14px; background-color: var(--bg-color); color: var(--text-main); box-sizing: border-box; outline: none; font-family: inherit; transition: border-color 0.2s; }
+.modal-input:focus, .modal-textarea:focus { border-color: #FFD700; background-color: var(--card-bg); }
 .modal-textarea { resize: vertical; min-height: 80px; }
 .modal-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; }
 .cancel-btn, .submit-btn { flex: 1; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 15px; font-weight: bold; }
-.cancel-btn { background-color: #f1f2f5; color: #666; }
+.cancel-btn { background-color: var(--bg-color); color: var(--text-secondary); border: 1px solid var(--border-color); }
 .submit-btn { background-color: #FFD700; color: #333; }
 .cancel-btn:active, .submit-btn:active { transform: scale(0.96); }
+
+/* 🌟 右侧按钮组的排版 */
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+
+/* 🌟 主题切换按钮样式 */
+.theme-toggle-btn {
+  background-color: var(--card-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.theme-toggle-btn:hover { background-color: var(--bg-color); }
+
+/* 💡 终极护眼魔法：夜间模式下，稍微把黄色的海报压暗一点，不然会刺眼 */
+:global(html.dark-mode) .hero {
+  filter: brightness(0.8) contrast(1.1);
+}
 </style>
