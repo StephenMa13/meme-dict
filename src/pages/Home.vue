@@ -232,10 +232,10 @@ const toggleTheme = () => {
 .hero-title { font-size: 22px; font-weight: 800; margin: 0 0 16px 0; color: #000; }
 
 .search-wrapper { position: relative; max-width: 600px; margin: 0 auto; width: 100%; }
-.search-box { display: flex; background: var(--card-bg); border-radius: 30px; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; border: 1px solid var(--border-color); }
+.search-box { display: flex; background: var(--card-bg,#ffffff); border-radius: 30px; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; border: 1px solid var(--border-color); }
 .search-input { flex: 1; border: none; padding: 10px 20px; font-size: 15px; border-radius: 30px; outline: none; background: transparent; color: var(--text-main); }
 
-.history-dropdown { position: absolute; top: 55px; left: 0; width: 100%; background: var(--card-bg); border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); z-index: 100; overflow: hidden; text-align: left; border: 1px solid var(--border-color); }
+.history-dropdown { position: absolute; top: 55px; left: 0; width: 100%; background: var(--card-bg,#ffffff); border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); z-index: 100; overflow: hidden; text-align: left; border: 1px solid var(--border-color); }
 .history-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background-color: var(--bg-color); font-size: 13px; color: var(--text-secondary); }
 .clear-btn { cursor: pointer; color: #ff4757; font-weight: bold; transition: opacity 0.2s; }
 .clear-btn:hover { opacity: 0.8; }
