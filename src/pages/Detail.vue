@@ -105,7 +105,7 @@ onMounted(() => {
           👍 点赞
         </button>
         <button class="action-btn not-interested-btn" @click="handleNotInterested(meme.id)">
-          🙈 减少推荐
+          🙈 不喜欢
         </button>
       </div>
     </div>
