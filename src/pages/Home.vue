@@ -111,6 +111,19 @@ const goToDetail = (id) => {
 // 获取当前是否是夜间模式，用来正确显示“白天/夜间”文字
 const isDark = ref(localStorage.getItem('theme') === 'dark')
 
+// 背景图切换
+const bgIndex = ref(parseInt(localStorage.getItem('heroBg') || '1', 10))
+const heroStyle = computed(() => {
+  const img = bgIndex.value === 1 ? '/hero-bg.png' : '/hero-bg2.png'
+  return {
+    background: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${img}') center/cover no-repeat`
+  }
+})
+const toggleHeroBg = () => {
+  bgIndex.value = bgIndex.value === 1 ? 2 : 1
+  localStorage.setItem('heroBg', bgIndex.value)
+}
+
 const toggleTheme = () => {
   isDark.value = !isDark.value
   if (isDark.value) {
@@ -160,6 +173,9 @@ const toggleTheme = () => {
       </div>
       
       <div class="nav-actions">
+        <button class="bg-toggle-btn" @click="toggleHeroBg">
+          🔄 背景
+        </button>
         <button class="theme-toggle-btn" @click="toggleTheme">
           {{ isDark ? '🌙 夜间' : '☀️ 白天' }}
         </button>
@@ -167,7 +183,7 @@ const toggleTheme = () => {
       </div>
     </nav>
 
-    <header class="hero">
+    <header class="hero" :style="heroStyle">
     </header>
 
     <main class="hot-list">
@@ -227,12 +243,14 @@ const toggleTheme = () => {
 .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; gap: 20px; }
 .logo { font-size: 20px; font-weight: bold; color: var(--text-main); }
 .search-wrapper-nav { flex: 1; max-width: 500px; margin-left: auto; }
+.bg-toggle-btn, .theme-toggle-btn { background-color: var(--card-bg); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 20px; font-size: 13px; cursor: pointer; }
+.bg-toggle-btn { margin-right: 8px; }
 .add-btn { background-color: #FFD700; border: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; cursor: pointer; color: #333; }
 
 /* 顶部醒目的黄色区域，夜间模式下我们会用滤镜稍微压暗它 */
 .hero { 
   padding: 20px 20px; 
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/hero-bg.png') center/cover no-repeat;
+  /* background set via :style binding */
   text-align: center; 
   border-bottom-left-radius: 20px; 
   border-bottom-right-radius: 20px; 
