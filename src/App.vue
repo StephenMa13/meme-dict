@@ -46,12 +46,14 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 65px;
-  background-color: var(--nav-bg); /* 已适配夜间模式变量 */
+  background-color: var(--card-bg); /* 已适配夜间模式变量 */
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-around;
+  padding:10px 0;
   align-items: center;
-  z-index: 1000;
+  z-index: 999;
+  border-top: 1px solid var(--border-color);
   padding-bottom: env(safe-area-inset-bottom);
   transition: background-color 0.3s ease;
 }
