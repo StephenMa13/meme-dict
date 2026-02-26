@@ -179,19 +179,20 @@ const toggleTheme = () => {
       
       <div class="card-grid">
         <div class="card" v-for="(meme, index) in filteredMemes" :key="meme.id" @click="goToDetail(meme.id)">
-          <div class="card-left">
+          <div class="card-top">
             <span class="rank" :class="'rank-' + (index + 1)" v-if="!activeSearch">{{ index + 1 }}</span>
             <div class="meme-info">
               <h3 class="meme-term">{{ meme.term }}</h3>
             </div>
           </div>
-          
-          <div class="card-right">
-            <button class="action-btn fav-btn" :class="{ 'active': favoriteIds.includes(meme.id) }" @click.stop="toggleFavorite(meme.id)">
-              {{ favoriteIds.includes(meme.id) ? '⭐ 已收藏' : '☆ 收藏' }}
-            </button>
-            <button class="action-btn like-btn" :class="{ 'liked-active': likedIds.includes(meme.id) }" @click.stop="toggleLike(meme.id)">👍 点赞
-            </button>
+
+          <div class="card-bottom">
+            <div class="card-actions">
+              <button class="action-btn fav-btn small-btn" :class="{ 'active': favoriteIds.includes(meme.id) }" @click.stop="toggleFavorite(meme.id)">
+                {{ favoriteIds.includes(meme.id) ? '⭐ 已收藏' : '☆ 收藏' }}
+              </button>
+              <button class="action-btn like-btn small-btn" :class="{ 'liked-active': likedIds.includes(meme.id) }" @click.stop="toggleLike(meme.id)">👍 点赞</button>
+            </div>
           </div>
         </div>
       </div>
@@ -248,16 +249,21 @@ const toggleTheme = () => {
 .refresh-random-btn { background-color: var(--bg-color); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; color: var(--text-main); cursor: pointer; transition: background-color 0.2s; }
 .refresh-random-btn:hover { filter: brightness(0.9); }
 
-.card-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-.card { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: center !important; background: var(--card-bg) !important; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.04); cursor: pointer; color: var(--text-main); }
+
+.card-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.card { background: var(--card-bg) !important; border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; box-shadow: 0 3px 6px rgba(0,0,0,0.04); cursor: pointer; color: var(--text-main); }
+.card-top { display: flex; align-items: center; gap: 10px; }
+.card-bottom { margin-top: 8px; display: flex; align-items: center; }
+.card-actions { display: flex; gap: 8px; }
 .card-left { display: flex !important; flex-direction: row !important; align-items: center !important; flex: 1; overflow: hidden; }
 .card-right { display: flex !important; flex-direction: row !important; align-items: center !important; gap: 10px !important; margin-left: 10px; }
-.rank { font-size: 18px; font-weight: 900; color: #bbb; width: 24px; margin-right: 12px; flex-shrink: 0; text-align: center; }
-.rank-1 { color: #FF4500; font-size: 22px; }
-.rank-2 { color: #FF8C00; font-size: 20px; }
-.rank-3 { color: #FFA500; font-size: 18px; }
+.rank { font-size: 15px; font-weight: 900; color: #bbb; width: 20px; margin-right: 8px; flex-shrink: 0; text-align: center; }
+.rank-1 { color: #FF4500; font-size: 17px; }
+.rank-2 { color: #FF8C00; font-size: 16px; }
+.rank-3 { color: #FFA500; font-size: 15px; }
 .meme-info { flex: 1; display: flex; align-items: center; }
-.meme-term { font-size: 16px; font-weight: bold; margin: 0 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-main); }
+.meme-term { font-size: 14px; font-weight: 700; margin: 0 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-main); }
+.small-btn { width: 76px; padding: 6px 8px; font-size: 12px; }
 
 .action-btn { border: none; padding: 6px 0; border-radius: 12px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; width: 85px; flex-shrink: 0; transition: all 0.2s; }
 .not-interested-btn { width: 95px !important; background-color: var(--bg-color); color: var(--text-secondary); border: 1px solid var(--border-color); }
