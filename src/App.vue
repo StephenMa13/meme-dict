@@ -54,16 +54,22 @@ onMounted(() => {
   /* ❌ 删掉了写死的 height: 65px，让内容和 padding 自动撑开高度 */
   
   background-color: var(--card-bg);
+  background-color: #ffffff; /* 💡 明确白色作为浅色模式备份 */
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-around;
   align-items: center;
-  z-index: 999;
+  z-index: 9999; /* 提高优先级，确保不被其他元素遮挡 */
   border-top: 1px solid var(--border-color);
   
   /* 💡 核心魔法：上 10px，左右 0，下 10px+安全距离 */
   padding: 10px 0 calc(10px + env(safe-area-inset-bottom)) 0;
   transition: background-color 0.3s ease;
+}
+
+/* 夜间模式下显式设置底栏背景 */
+:global(.dark-mode) .bottom-nav {
+  background-color: #1E1E1E;
 }
 
 .nav-item {
