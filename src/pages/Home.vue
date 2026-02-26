@@ -67,7 +67,7 @@ const loadData = () => {
   if (cachedIds && cachedIds.length > 0) {
     // 如果有记忆，就把这 5 个老伙计重新捞出来
     const cachedMemes = hotMemes.value.filter(m => cachedIds.includes(m.id))
-    // 再次过滤掉中途被点过“不喜欢”的
+    // 再次过滤掉中途被点过“没意思”的
     randomMemes.value = cachedMemes.filter(m => !notInterestedIds.value.includes(m.id))
   } else if (randomMemes.value.length === 0) {
     // 如果没有任何记忆，才进行第一次随机抽取
@@ -192,7 +192,6 @@ const toggleTheme = () => {
             </button>
             <button class="action-btn like-btn" :class="{ 'liked-active': likedIds.includes(meme.id) }" @click.stop="toggleLike(meme.id)">👍 点赞
             </button>
-            <button class="action-btn not-interested-btn" @click.stop="markNotInterested(meme.id)">🙈 不喜欢</button>
           </div>
         </div>
       </div>

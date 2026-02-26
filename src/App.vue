@@ -37,24 +37,32 @@ onMounted(() => {
 
 <style scoped>
 .main-content {
-  padding-bottom: 70px; 
+  /* 💡 给主内容区域留出足够的空间，同样加上安全距离，防止最后一张卡片被挡住 */
+  padding-bottom: calc(80px + env(safe-area-inset-bottom)); 
 }
 
 .bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
+  right: 0; /* 配合 margin 居中 */
+  margin: 0 auto; /* 在平板/PC上居中显示，不会拉伸到变形 */
   width: 100%;
-  height: 65px;
-  background-color: var(--card-bg); /* 已适配夜间模式变量 */
+  max-width: 600px; /* 💡 限制最大宽度，在 iPad 上看着也像一个精致的 App */
+  box-sizing: border-box; /* 保证 padding 不会把宽度撑爆 */
+  
+  /* ❌ 删掉了写死的 height: 65px，让内容和 padding 自动撑开高度 */
+  
+  background-color: var(--card-bg);
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-around;
-  padding:10px 0;
   align-items: center;
   z-index: 999;
   border-top: 1px solid var(--border-color);
-  padding-bottom: env(safe-area-inset-bottom);
+  
+  /* 💡 核心魔法：上 10px，左右 0，下 10px+安全距离 */
+  padding: 10px 0 calc(10px + env(safe-area-inset-bottom)) 0;
   transition: background-color 0.3s ease;
 }
 
@@ -63,18 +71,20 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: #888;
+  color: var(--text-main, #888); /* 建议也用变量，防止夜间模式看不清 */
   font-size: 12px;
   transition: all 0.3s ease;
+  flex: 1; /* 让每个按钮均匀分配点击区域，不会误触 */
+  -webkit-tap-highlight-color: transparent; /* 去除安卓点击时难看的灰色闪烁方块 */
 }
 
 .nav-item .icon {
   font-size: 24px;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 
 .router-link-active {
   color: #ff4757;
-  transform: scale(1.1);
+  transform: scale(1.15); /* 稍微放大一点点，动效更Q弹 */
 }
 </style>
