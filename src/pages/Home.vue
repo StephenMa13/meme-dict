@@ -51,7 +51,10 @@ const handleInput = () => {
 const refreshRandomMemes = () => {
   const availableMemes = hotMemes.value.filter(meme => !notInterestedIds.value.includes(meme.id))
   const shuffled = [...availableMemes].sort(() => 0.5 - Math.random())
-  randomMemes.value = shuffled.slice(0, 5)
+  let picked = shuffled.slice(0, 5)
+  // 按照词条字数从少到多排序
+  picked.sort((a,b)=>a.term.length - b.term.length)
+  randomMemes.value = picked
   
   // 🌟 新增：把抽出来的 5 个词条的 ID 存进会话缓存
   const ids = randomMemes.value.map(m => m.id)
@@ -68,7 +71,10 @@ const loadData = () => {
     // 如果有记忆，就把这 5 个老伙计重新捞出来
     const cachedMemes = hotMemes.value.filter(m => cachedIds.includes(m.id))
     // 再次过滤掉中途被点过“没意思”的
-    randomMemes.value = cachedMemes.filter(m => !notInterestedIds.value.includes(m.id))
+    let mems = cachedMemes.filter(m => !notInterestedIds.value.includes(m.id))
+    // 保持排序：按长度
+    mems.sort((a,b)=>a.term.length - b.term.length)
+    randomMemes.value = mems
   } else if (randomMemes.value.length === 0) {
     // 如果没有任何记忆，才进行第一次随机抽取
     refreshRandomMemes()
@@ -173,9 +179,6 @@ const toggleTheme = () => {
       </div>
       
       <div class="nav-actions">
-        <button class="bg-toggle-btn" @click="toggleHeroBg">
-          🔄 背景
-        </button>
         <button class="theme-toggle-btn" @click="toggleTheme">
           {{ isDark ? '🌙 夜间' : '☀️ 白天' }}
         </button>
@@ -189,9 +192,14 @@ const toggleTheme = () => {
     <main class="hot-list">
       <div class="section-header">
         <h2 class="section-title">{{ activeSearch ? `🔍 搜索结果` : '🎲 猜你想看' }}</h2>
-        <button v-if="!activeSearch" class="refresh-random-btn" @click="refreshRandomMemes">
-          换一换 🔄
-        </button>
+        <div class="section-controls">
+          <button v-if="!activeSearch" class="section-btn refresh-random-btn" @click="refreshRandomMemes">
+            换一换 🔄
+          </button>
+          <button class="section-btn bg-toggle-btn" @click="toggleHeroBg">
+            换背景 🔄
+          </button>
+        </div>
       </div>
       
       <div class="card-grid">
@@ -276,7 +284,9 @@ const toggleTheme = () => {
 .hot-list { max-width: 1200px; margin: 0 auto; padding: 10px 20px; }
 .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .section-title { font-size: 18px; font-weight: bold; margin: 0; color: var(--text-main); }
-.refresh-random-btn { background-color: var(--bg-color); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; color: var(--text-main); cursor: pointer; transition: background-color 0.2s; }
+.refresh-random-btn { /* shared via section-btn */ }
+.section-controls { display: flex; gap: 8px; align-items: center; }
+.section-btn { background-color: var(--bg-color); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; color: var(--text-main); cursor: pointer; transition: background-color 0.2s; display: inline-flex; align-items: center; gap: 4px; }
 .refresh-random-btn:hover { filter: brightness(0.9); }
 
 
@@ -305,10 +315,10 @@ const toggleTheme = () => {
 @media (min-width: 1024px) { .card-grid { grid-template-columns: repeat(3, 1fr); } }
 
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(3px); display: flex; justify-content: center; align-items: center; z-index: 2000; }
-.modal-content { background: var(--card-bg); width: 90%; max-width: 360px; padding: 24px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 12px; animation: modal-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.modal-content { background: #ffffff; /* 固定白色背景 */ width: 90%; max-width: 360px; padding: 24px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 12px; animation: modal-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid var(--border-color); }
 @keyframes modal-pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 .modal-content h3 { margin: 0 0 10px 0; color: var(--text-main); text-align: center; font-size: 20px; font-weight: 900; }
-.modal-input, .modal-textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--border-color); border-radius: 10px; font-size: 14px; background-color: var(--bg-color); color: var(--text-main); box-sizing: border-box; outline: none; font-family: inherit; transition: border-color 0.2s; }
+.modal-input, .modal-textarea { width: 100%; padding: 12px 14px; border: 1px solid #ccc; /* 增强可见度 */ border-radius: 10px; font-size: 14px; background-color: var(--bg-color); color: var(--text-main); box-sizing: border-box; outline: none; font-family: inherit; transition: border-color 0.2s; }
 .modal-input:focus, .modal-textarea:focus { border-color: #FFD700; background-color: var(--card-bg); }
 .modal-textarea { resize: vertical; min-height: 80px; }
 .modal-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; }
