@@ -126,20 +126,11 @@ const toggleTheme = () => {
 <template>
   <div class="app-container">
     <nav class="navbar">
-      <div class="logo">🔥 梗百科</div>
-      
-      <div class="nav-actions">
-        <button class="theme-toggle-btn" @click="toggleTheme">
-          {{ isDark ? '🌙 夜间' : '☀️ 白天' }}
-        </button>
-        <button class="add-btn" @click="showModal = true">➕ 贡献</button>
+      <div class="navbar-left">
+        <div class="logo">🔥 梗百科</div>
       </div>
-    </nav>
-
-    <header class="hero">
-      <h1 class="hero-title">全网热梗，一搜便知</h1>
       
-      <div class="search-wrapper">
+      <div class="search-wrapper-nav">
         <div class="search-box">
           <input 
             v-model="inputText" 
@@ -167,6 +158,16 @@ const toggleTheme = () => {
           </ul>
         </div>
       </div>
+      
+      <div class="nav-actions">
+        <button class="theme-toggle-btn" @click="toggleTheme">
+          {{ isDark ? '🌙 夜间' : '☀️ 白天' }}
+        </button>
+        <button class="add-btn" @click="showModal = true">➕ 贡献</button>
+      </div>
+    </nav>
+
+    <header class="hero">
     </header>
 
     <main class="hot-list">
@@ -223,15 +224,26 @@ const toggleTheme = () => {
 /* 💡 注意：我已经把里面写死的 #fff, #333, #f0f2f5 等全部替换成了 var() 全局变量 */
 
 .app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-color) !important; min-height: 100vh; padding-bottom: 80px; transition: background-color 0.3s; }
-.navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; }
-.logo { font-size: 20px; font-weight: 900; color: var(--text-main); }
+.navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; gap: 20px; }
+.logo { font-size: 20px; font-weight: bold; color: var(--text-main); }
+.search-wrapper-nav { flex: 1; max-width: 500px; margin-left: auto; }
 .add-btn { background-color: #FFD700; border: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; cursor: pointer; color: #333; }
 
 /* 顶部醒目的黄色区域，夜间模式下我们会用滤镜稍微压暗它 */
-.hero { padding: 20px 20px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); text-align: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; margin-bottom: 20px; transition: filter 0.3s; }
+.hero { 
+  padding: 20px 20px; 
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/hero-bg.png') center/cover no-repeat;
+  text-align: center; 
+  border-bottom-left-radius: 20px; 
+  border-bottom-right-radius: 20px; 
+  margin-bottom: 20px; 
+  transition: filter 0.3s;
+  min-height: 150px;
+}
 .hero-title { font-size: 22px; font-weight: 800; margin: 0 0 16px 0; color: #000; }
 
 .search-wrapper { position: relative; max-width: 600px; margin: 0 auto; width: 100%; }
+.search-wrapper-nav { position: relative; flex: 1; width: 100%; }
 .search-box { display: flex; background: var(--card-bg,#ffffff); border-radius: 30px; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; border: 1px solid var(--border-color); }
 .search-input { flex: 1; border: none; padding: 10px 20px; font-size: 15px; border-radius: 30px; outline: none; background: transparent; color: var(--text-main); }
 
