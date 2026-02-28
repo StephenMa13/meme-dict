@@ -140,13 +140,19 @@ const toggleTheme = () => {
     localStorage.setItem('theme', 'light')
   }
 }
+
+// 📏 文本截取函数：如果长度超过 77 个字符则添加省略号
+const truncate = (text) => {
+  if (!text) return ''
+  return text.length > 7 ? text.slice(0, 7) + '…' : text
+}
 </script>
 
 <template>
   <div class="app-container">
     <nav class="navbar">
       <div class="navbar-left">
-        <div class="logo">🔥 梗百科</div>
+        <div class="logo">🔥 梗查查</div>
       </div>
       
       <div class="search-wrapper-nav">
@@ -207,11 +213,9 @@ const toggleTheme = () => {
           <div class="card-top">
             <span class="rank" :class="'rank-' + (index + 1)" v-if="!activeSearch">{{ index + 1 }}</span>
             <div class="meme-info">
-              <h3 class="meme-term">{{ meme.term }}</h3>
+              <h3 class="meme-term">{{ truncate(meme.term) }}</h3>
             </div>
-          </div>
-
-          <div class="card-bottom">
+            <!-- 收藏和点赞按钮保持和词条在同一行 -->
             <div class="card-actions">
               <button class="action-btn fav-btn small-btn" :class="{ 'active': favoriteIds.includes(meme.id) }" @click.stop="toggleFavorite(meme.id)">
                 {{ favoriteIds.includes(meme.id) ? '⭐ 已收藏' : '☆ 收藏' }}
@@ -219,6 +223,8 @@ const toggleTheme = () => {
               <button class="action-btn like-btn small-btn" :class="{ 'liked-active': likedIds.includes(meme.id) }" @click.stop="toggleLike(meme.id)">👍 点赞</button>
             </div>
           </div>
+
+          <!-- card-bottom 已移除 -->
         </div>
       </div>
     </main>
@@ -292,8 +298,8 @@ const toggleTheme = () => {
 
 .card-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 .card { background: var(--card-bg) !important; border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; box-shadow: 0 3px 6px rgba(0,0,0,0.04); cursor: pointer; color: var(--text-main); }
-.card-top { display: flex; align-items: center; gap: 10px; }
-.card-bottom { margin-top: 8px; display: flex; align-items: center; }
+.card-top { display: flex; align-items: center; gap: 10px; justify-content: space-between; }
+/* card-bottom 不再使用 */
 .card-actions { display: flex; gap: 8px; }
 .card-left { display: flex !important; flex-direction: row !important; align-items: center !important; flex: 1; overflow: hidden; }
 .card-right { display: flex !important; flex-direction: row !important; align-items: center !important; gap: 10px !important; margin-left: 10px; }
