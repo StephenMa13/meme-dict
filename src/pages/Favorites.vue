@@ -47,21 +47,21 @@ const favoriteMemes = computed(() => {
 </script>
 
 <style scoped>
-/* 1. 强制加深整个页面的灰色背景，撑满屏幕高度，并且给底栏留出空间 */
+/* 1. 💡 核心修改：移除强制灰色，改为透明，让底层背景透出来 */
 .favorites-page { 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-  background-color: #f0f2f5 !important; 
+  background-color: transparent !important; /* 透明化，透出粉色/绿色/黑色 */
   min-height: 100vh;
   padding: 20px;
   padding-bottom: 80px; 
   box-sizing: border-box;
 }
 
-/* 标题样式 */
+/* 标题样式：适配夜间模式变量 */
 .page-title {
   margin-top: 0;
   margin-bottom: 20px;
-  color: #333;
+  color: var(--text-main); /* 改用变量 */
   font-size: 22px;
   font-weight: 800;
 }
@@ -69,7 +69,7 @@ const favoriteMemes = computed(() => {
 /* 空状态样式 */
 .empty-state {
   text-align: center;
-  color: #888;
+  color: var(--text-secondary); /* 改用变量 */
   margin-top: 80px;
 }
 .empty-icon {
@@ -78,7 +78,7 @@ const favoriteMemes = computed(() => {
 }
 
 /* ====================================================
-   🔥 2. 核心修复区：复刻首页的强制横向排版与白底卡片
+   🔥 2. 复刻首页的强制横向排版与白底卡片
    ==================================================== */
 .card-grid { 
   display: grid; 
@@ -91,12 +91,13 @@ const favoriteMemes = computed(() => {
   flex-direction: row !important;     
   justify-content: space-between !important; 
   align-items: center !important;     
-  background: #ffffff !important;     
-  border: 1px solid #e4e6eb;          
+  background: var(--card-bg) !important; /* 💡 改用变量，夜间会变深灰 */
+  border: 1px solid var(--border-color); /* 💡 改用变量 */
   border-radius: 12px; 
   padding: 16px 20px; 
   box-shadow: 0 4px 8px rgba(0,0,0,0.04); 
   cursor: pointer; 
+  color: var(--text-main); /* 💡 确保文字颜色正确 */
 }
 
 /* 强制左侧（标题）横向排版 */
@@ -121,7 +122,8 @@ const favoriteMemes = computed(() => {
 .meme-info { flex: 1; display: flex; align-items: center; }
 .meme-term { 
   font-size: 16px; font-weight: bold; margin: 0 !important; 
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+  color: var(--text-main); /* 💡 改用变量 */
 }
 
 /* 收藏按钮样式 */
@@ -130,9 +132,9 @@ const favoriteMemes = computed(() => {
   font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; 
 }
 
-/* 在收藏夹里的按钮，我给它配了点醒目的颜色（代表已经收藏） */
+/* 收藏夹里的按钮颜色适配 */
 .fav-btn { 
-  background-color: #fff0f0; 
+  background-color: rgba(255, 71, 87, 0.1); /* 淡淡的红底 */
   color: #ff4757; 
 } 
 

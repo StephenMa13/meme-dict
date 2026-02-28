@@ -1,11 +1,36 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
-// 💡 只保留这个：页面一加载，就去读取之前保存的主题，保证刷新不断联
+// 💡 响应式变量，记录当前选中的背景颜色
+const currentBg = ref('default')
+
+// 💡 切换背景颜色的方法
+const setBgColor = (color) => {
+  currentBg.value = color
+  localStorage.setItem('bgColor', color) // 保存到本地，刷新不丢失
+
+  // 先移除之前可能添加的背景类名
+  document.documentElement.classList.remove('bg-pink', 'bg-green')
+
+  // 根据选择添加对应类名
+  if (color === 'pink') {
+    document.documentElement.classList.add('bg-pink')
+  } else if (color === 'green') {
+    document.documentElement.classList.add('bg-green')
+  }
+}
+
 onMounted(() => {
+  // 1. 读取夜间模式状态
   const savedTheme = localStorage.getItem('theme')
   if (savedTheme === 'dark') {
     document.documentElement.classList.add('dark-mode')
+  }
+
+  // 2. 读取用户之前选择的背景色
+  const savedBg = localStorage.getItem('bgColor')
+  if (savedBg) {
+    setBgColor(savedBg)
   }
 })
 </script>
@@ -36,8 +61,74 @@ onMounted(() => {
 </template>
 
 <style scoped>
+/* ==================== 
+   🎨 新增：背景色全局样式 
+   ==================== */
+/* 使用 :global 穿透 scoped，直接作用于全局 body */
+:global(body) {
+  transition: background-color 0.4s ease; /* 让颜色切换有平滑的过渡动画 */
+}
+
+/* 淡粉色 */
+:global(.bg-pink body) {
+  background-color: #FFE4E1 !important; 
+}
+
+/* 绿豆沙色（经典护眼色） */
+:global(.bg-green body) {
+  background-color: #C7EDCC !important;
+}
+
+/* ⚠️ 核心防御：如果开启了夜间模式，强制覆盖自定义背景色，保护视力 */
+:global(.dark-mode body) {
+  background-color: #121212 !important; 
+}
+
+
+/* ==================== 
+   ⚙️ 新增：切换器 UI 
+   ==================== */
+.bg-switcher {
+  position: fixed;
+  top: 20px;
+  right: 15px; /* 放在右上角，不会挡住主要内容 */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 10000;
+}
+
+.color-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Q弹动画 */
+  padding: 0;
+}
+
+.color-btn:hover {
+  transform: scale(1.15);
+}
+
+/* 被选中时的外圈高亮效果 */
+.color-btn.active {
+  transform: scale(1.2);
+  border-color: #333; 
+}
+
+/* 按钮各自的颜色 */
+.color-btn.pink { background-color: #FFE4E1; }
+.color-btn.green { background-color: #C7EDCC; }
+.color-btn.default { background-color: #F5F5F5; }
+
+
+/* ==================== 
+   原有布局样式 (保持不变)
+   ==================== */
 .main-content {
-  /* 💡 给主内容区域留出足够的空间，同样加上安全距离，防止最后一张卡片被挡住 */
   padding-bottom: calc(80px + env(safe-area-inset-bottom)); 
 }
 
@@ -45,31 +136,25 @@ onMounted(() => {
   position: fixed;
   bottom: 0;
   left: 0;
-  right: 0; /* 配合 margin 居中 */
-  margin: 0 auto; /* 在平板/PC上居中显示，不会拉伸到变形 */
+  right: 0; 
+  margin: 0 auto; 
   width: 100%;
-  max-width: 600px; /* 💡 限制最大宽度，在 iPad 上看着也像一个精致的 App */
-  box-sizing: border-box; /* 保证 padding 不会把宽度撑爆 */
-  
-  /* ❌ 删掉了写死的 height: 65px，让内容和 padding 自动撑开高度 */
-  
-  background-color: var(--card-bg);
-  background-color: #ffffff; /* 💡 明确白色作为浅色模式备份 */
+  max-width: 600px; 
+  box-sizing: border-box; 
+  background-color: #ffffff; 
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-around;
   align-items: center;
-  z-index: 9999; /* 提高优先级，确保不被其他元素遮挡 */
-  border-top: 1px solid var(--border-color);
-  
-  /* 💡 核心魔法：上 10px，左右 0，下 10px+安全距离 */
+  z-index: 9999; 
+  border-top: 1px solid var(--border-color, #eee);
   padding: 10px 0 calc(10px + env(safe-area-inset-bottom)) 0;
   transition: background-color 0.3s ease;
 }
 
-/* 夜间模式下显式设置底栏背景 */
 :global(.dark-mode) .bottom-nav {
   background-color: #1E1E1E;
+  border-top-color: #333;
 }
 
 .nav-item {
@@ -77,11 +162,11 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: var(--text-main, #888); /* 建议也用变量，防止夜间模式看不清 */
+  color: #888;
   font-size: 12px;
   transition: all 0.3s ease;
-  flex: 1; /* 让每个按钮均匀分配点击区域，不会误触 */
-  -webkit-tap-highlight-color: transparent; /* 去除安卓点击时难看的灰色闪烁方块 */
+  flex: 1; 
+  -webkit-tap-highlight-color: transparent; 
 }
 
 .nav-item .icon {
@@ -91,6 +176,27 @@ onMounted(() => {
 
 .router-link-active {
   color: #ff4757;
-  transform: scale(1.15); /* 稍微放大一点点，动效更Q弹 */
+  transform: scale(1.15); 
+}
+</style>
+
+<style>
+:root {
+  --bg-color: #f5f6fa;
+  --card-bg: #ffffff;
+  --text-main: #333333;      /* 白天的主文字颜色（深灰黑） */
+  --nav-bg: #ffffff;
+  --border-color: #e4e6eb;
+  --text-secondary: #888888; /* 次要文字（灰色） */
+}
+
+/* 夜间模式生效时的颜色 */
+html.dark-mode {
+  --bg-color: #121212;
+  --card-bg: #1E1E1E;
+  --text-main: #FFFFFF !important;      /* 🌙 晚上的主文字颜色（纯白），加个 !important 强杀 */
+  --nav-bg: #1E1E1E;
+  --border-color: #2C2C2C;
+  --text-secondary: #AAAAAA; /* 晚上的次要文字（浅灰） */
 }
 </style>
