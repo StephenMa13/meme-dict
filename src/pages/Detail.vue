@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getMemeById } from '../db.js'
-import { favoriteIds, toggleFavorite, markNotInterested, likedIds, toggleLike } from '../store.js'
+import { favoriteIds, toggleFavorite,blacklistIds, toggleNotInterested, likedIds, toggleLike } from '../store.js'
 
 const route = useRoute()
 const router = useRouter()
@@ -12,11 +12,13 @@ const goBack = () => {
   router.back() 
 }
 
-const handleNotInterested = (id) => {
-  markNotInterested(id)
-  router.back() // 既然用户没兴趣，点完直接送他回上一页（回到首页后，这个梗也会因为全局状态更新而自动隐藏）
-}
+// 在 <script setup> 中定义一个响应式变量，标记是否已拉黑
 
+
+const handleNotInterested = (id) => {
+  if (likedIds.value.includes(id) || favoriteIds.value.includes(id)) return;
+  toggleNotInterested(id); 
+};
 const categoryConfig = {
   '萌系': { icon: '🐱', color: '#FFE4E1' },
   '科技': { icon: '🤖', color: '#E0F7FA' },
@@ -102,10 +104,15 @@ onMounted(() => {
           {{ favoriteIds.includes(meme.id) ? '⭐ 已收藏' : '☆ 收藏' }}
         </button>
         <button class="action-btn like-btn" :class="{ 'liked-active': likedIds.includes(meme.id) }" @click="toggleLike(meme.id)">
-          👍 点赞
+          {{ likedIds.includes(meme.id) ? '❤️ 已赞' : '👍 点赞' }}
         </button>
-        <button class="action-btn not-interested-btn" @click="handleNotInterested(meme.id)">
-          🙈 没意思
+        <button 
+          v-if="!likedIds.includes(meme.id) && !favoriteIds.includes(meme.id)"
+          class="action-btn not-interested-btn" 
+          :class="{ 'is-hidden': blacklistIds.includes(meme.id) }"
+          @click="handleNotInterested(meme.id)"
+        >
+          {{ blacklistIds.includes(meme.id) ? '🙈 已隐藏' : '🙈 没意思' }}
         </button>
       </div>
     </div>
@@ -113,40 +120,68 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* 保持原有样式，新增头像和标签样式 */
-.detail-container { max-width: 800px; margin: 40px auto; padding: 0 20px; font-family: sans-serif; }
-.back-btn { background: #fff; border: 1px solid #ddd; padding: 8px 16px; border-radius: 20px; cursor: pointer; margin-bottom: 20px; font-weight: bold; }
-.card { background: #fff; padding: 40px 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; }
-.title { font-size: 36px; margin: 0 0 15px 0; font-weight: 900; }
+/* 1. 基础容器：去除硬编码背景，改用变量 */
+.detail-container { max-width: 800px; margin: 40px auto; padding: 0 20px; font-family: sans-serif; color: var(--text-main); }
 
-/* ⭐️ 新增头像样式 */
+/* 返回按钮：适配黑夜模式 */
+.back-btn { 
+  background: var(--card-bg); 
+  border: 1px solid var(--border-color); 
+  padding: 8px 16px; 
+  border-radius: 20px; 
+  cursor: pointer; 
+  margin-bottom: 20px; 
+  font-weight: bold; 
+  color: var(--text-main);
+}
+
+/* 核心卡片：背景跟随变量 */
+.card { 
+  background: var(--card-bg); 
+  padding: 40px 30px; 
+  border-radius: 12px; 
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+  text-align: center; 
+  border: 1px solid var(--border-color);
+}
+
+.title { font-size: 36px; margin: 0 0 15px 0; font-weight: 900; color: var(--text-main); }
+
+/* 2. 头像与标签 */
 .avatar { 
   width: 100px; height: 100px; border-radius: 50%; 
   margin: 0 auto 20px; display: flex; justify-content: center; align-items: center; 
-  font-size: 50px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+  font-size: 50px; background: var(--bg-color); /* 头像底色也跟随主题 */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
 }
-.tags { 
-  margin-bottom: 30px; 
-  display: flex; 
-  justify-content: center; 
-  flex-wrap: wrap; /* 标签太多会自动换行 */
-  gap: 10px; /* 🌟 让多个标签之间保持 10px 的距离 */
+
+.tags { margin-bottom: 30px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+
+/* 标签：给个半透明背景，这样在粉色/绿色背景下都能看清 */
+.tag-badge { 
+  padding: 6px 12px; border-radius: 20px; font-size: 14px; 
+  font-weight: bold; color: var(--text-main); 
+  background: rgba(128, 128, 128, 0.1); 
+  border: 1px solid var(--border-color);
 }
-.tag-badge { padding: 6px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; color: #333; }
 
-.content { text-align: left; margin-top: 30px; border-top: 1px solid #eee; padding-top: 30px; }
-.content h3 { color: #000; font-size: 20px; border-left: 4px solid #FFD700; padding-left: 10px; }
-.content p { line-height: 1.8; color: #444; font-size: 16px; }
+/* 3. 内容区：适配文字颜色 */
+.content { text-align: left; margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 30px; }
+.content h3 { color: var(--text-main); font-size: 20px; border-left: 4px solid #FFD700; padding-left: 10px; }
+.content p { line-height: 1.8; color: var(--text-main); opacity: 0.9; font-size: 16px; }
 
+/* 4. 按钮组布局 */
 .detail-actions {
   display: flex;
-  justify-content: center; /* 详情页按钮居中排布 */
+  justify-content: center; 
   gap: 12px;
   margin: 30px 0;
+  flex-wrap: wrap; /* 手机端宽度不够会自动换行 */
 }
+
 .action-btn {
   border: none;
-  padding: 8px 0;      /* 上下 8px，左右靠 width */
+  padding: 10px 0; 
   border-radius: 12px;
   font-size: 13px;
   font-weight: bold;
@@ -155,22 +190,35 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  width: 90px;         /* 💡 详情页空间大，统一给 90px 更大气 */
+  width: 100px; /* 稍微加宽一点点，容纳“已收藏”等字样 */
   transition: all 0.2s;
 }
-.not-interested-btn {
-  width: 105px !important; 
-  background-color: #f1f2f5;
-  color: #666;
-}
-.action-btn:active { transform: scale(0.95); }
-.fav-btn { background-color: #f0f4f8; color: #4a90e2; }
-.fav-btn.active { background-color: #fff0f0; color: #ff4757; }
-.like-btn { background-color: #fff8e1; color: #ff8f00; }
 
-/* 💡 补全：点赞激活后的样式，让按钮按下去有视觉反馈 */
-.liked-active { 
-  background-color: #ffe0b2 !important; 
-  color: #e65100 !important; 
+.action-btn:active { transform: scale(0.95); }
+
+/* 5. 各按钮配色（使用 RGBA 确保在黑夜模式下也有质感） */
+.fav-btn { background-color: rgba(74, 144, 226, 0.1); color: #4a90e2; }
+.fav-btn.active { background-color: #fff0f0; color: #ff4757; }
+
+.like-btn { background-color: rgba(255, 143, 0, 0.1); color: #ff8f00; }
+.liked-active { background-color: #ffe0b2 !important; color: #e65100 !important; }
+
+/* 没意思按钮的初始样式 */
+.not-interested-btn {
+  background-color: rgba(128, 128, 128, 0.1);
+  color: #888;
+  transition: all 0.2s;
+}
+
+/* 💡 点击后变成“撤销隐藏”的样式 */
+.not-interested-btn.is-hidden {
+  background-color: #333 !important; /* 变成深色，警示意味更浓 */
+  color: #fff !important;
+  border: 1px solid #555;
+}
+
+/* 悬浮时的反馈 */
+.not-interested-btn:hover {
+  filter: brightness(0.9);
 }
 </style>

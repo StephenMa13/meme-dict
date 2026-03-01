@@ -35,9 +35,3 @@ export const addMeme = (newMeme) => {
   saveMemes(memes)
 }
 
-// 5. 删除梗
-export const deleteMeme = (id) => {
-  let memes = getMemes()
-  memes = memes.filter(m => m.id !== parseInt(id))
-  saveMemes(memes)
-}

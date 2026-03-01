@@ -1,26 +1,35 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { getMemes, addMeme as localAdd, deleteMeme as localDelete } from '../db.js'
-import { favoriteIds, toggleFavorite, notInterestedIds, markNotInterested, randomMemes, likedIds, toggleLike } from '../store.js'
+import { getMemes, addMeme as localAdd} from '../db.js'
+// 💡 修复：确保引入了正确的状态名
+import { favoriteIds, toggleFavorite, blacklistIds, randomMemes, likedIds, toggleLike } from '../store.js'
 
 const router = useRouter()
-const hotMemes = ref([])
+const hotMemes = ref([]) // 真正的所有梗的数据源
 
-// 🌟 核心修改：将输入框的值和实际搜索的值分开
-const inputText = ref('')     // 绑定给输入框（用户正在打字，但不立刻搜）
-const activeSearch = ref('')  // 真正用来过滤列表的词（按下回车后才更新）
-
-const showModal = ref(false)
-const newForm = ref({ term: '', summary: '', category: '默认' })
-
+// 🌟 搜索相关状态
+const inputText = ref('')     
+const activeSearch = ref('')  
 const searchHistory = ref(JSON.parse(localStorage.getItem('searchHistory') || '[]'))
 const showHistory = ref(false)
 
-// 🌟 修改：执行搜索时，更新 activeSearch 并保存历史
+// 🌟 弹窗与表单状态
+const showModal = ref(false)
+const newForm = ref({ term: '', summary: '', category: '默认' })
+
+// 🌟 主题相关状态
+const currentBg = ref('default')
+const isDark = ref(false)
+
+// ==========================================
+// 核心逻辑函数
+// ==========================================
+
+// 1. 执行搜索并保存历史
 const executeSearch = () => {
   const term = inputText.value.trim()
-  activeSearch.value = term // 只有执行了搜索，才把词交给下面去过滤列表！
+  activeSearch.value = term 
 
   if (term) {
     searchHistory.value = searchHistory.value.filter(item => item !== term)
@@ -29,6 +38,13 @@ const executeSearch = () => {
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory.value))
   }
   showHistory.value = false 
+}
+
+// 2. 搜索框防空处理
+const handleInput = () => {
+  if (inputText.value.trim() === '') {
+    activeSearch.value = ''
+  }
 }
 
 const selectHistory = (term) => {
@@ -41,108 +57,42 @@ const clearHistory = () => {
   localStorage.removeItem('searchHistory')
 }
 
-// 如果用户清空了输入框的内容，我们最好也把搜索状态重置
-const handleInput = () => {
-  if (inputText.value.trim() === '') {
-    activeSearch.value = ''
-  }
-}
-
+// 3. 🎲 刷新猜你想看列表
 const refreshRandomMemes = () => {
-  const availableMemes = hotMemes.value.filter(meme => !notInterestedIds.value.includes(meme.id))
+  // 💡 修复：统一使用 blacklistIds 进行过滤
+  const availableMemes = hotMemes.value.filter(meme => !blacklistIds.value.includes(meme.id))
   const shuffled = [...availableMemes].sort(() => 0.5 - Math.random())
   let picked = shuffled.slice(0, 5)
-  // 按照词条字数从少到多排序
-  picked.sort((a,b)=>a.term.length - b.term.length)
+  picked.sort((a,b) => a.term.length - b.term.length)
   randomMemes.value = picked
   
-  // 🌟 新增：把抽出来的 5 个词条的 ID 存进会话缓存
   const ids = randomMemes.value.map(m => m.id)
   sessionStorage.setItem('cachedRandomIds', JSON.stringify(ids))
 }
 
-/* ==================== 
-   🎨 新增：背景色切换逻辑 
-   ==================== */
-const currentBg = ref('default')
+// 4. 🌟 修复：完美的过滤计算属性
+const filteredMemes = computed(() => {
+  // 如果当前处于搜索状态，从所有梗(hotMemes)中根据搜索词过滤
+  if (activeSearch.value.trim() !== '') {
+    return hotMemes.value.filter(item => item.term.includes(activeSearch.value));
+  }
+  // 否则，展示猜你想看(randomMemes)，并且过滤掉黑名单
+  return randomMemes.value.filter(item => !blacklistIds.value.includes(item.id));
+});
 
+// 5. 主题与背景切换
 const setBgColor = (color) => {
   currentBg.value = color
   localStorage.setItem('bgColor', color)
 
-  // 清除现有的背景类名
   document.documentElement.classList.remove('bg-pink', 'bg-green')
   
-  // 添加新的背景类名
   if (color === 'pink') {
     document.documentElement.classList.add('bg-pink')
   } else if (color === 'green') {
     document.documentElement.classList.add('bg-green')
   }
 }
-
-const loadThemeAndData = () => {
-  // 1. 读取夜间模式状态
-  isDark.value = localStorage.getItem('theme') === 'dark'
-  if (isDark.value) {
-    document.documentElement.classList.add('dark-mode')
-  }
-
-  // 2. 读取用户自定义背景色
-  const savedBg = localStorage.getItem('bgColor')
-  if (savedBg) {
-    setBgColor(savedBg)
-  }
-
-  // 3. 加载梗数据
-  hotMemes.value = getMemes()
-  const cachedIds = JSON.parse(sessionStorage.getItem('cachedRandomIds') || 'null')
-  
-  if (cachedIds && cachedIds.length > 0) {
-    const cachedMemes = hotMemes.value.filter(m => cachedIds.includes(m.id))
-    let mems = cachedMemes.filter(m => !notInterestedIds.value.includes(m.id))
-    mems.sort((a,b)=>a.term.length - b.term.length)
-    randomMemes.value = mems
-  } else if (randomMemes.value.length === 0) {
-    refreshRandomMemes()
-  }
-}
-
-onMounted(() => loadThemeAndData())
-
-// 🌟 修改：用 activeSearch 来判断和过滤，而不是输入的实时内容
-const filteredMemes = computed(() => {
-  if (activeSearch.value.trim() === '') {
-    return randomMemes.value.filter(meme => !notInterestedIds.value.includes(meme.id))
-  }
-
-  const keyword = activeSearch.value.toLowerCase()
-  return hotMemes.value.filter(meme => 
-    !notInterestedIds.value.includes(meme.id) && 
-    (meme.term.includes(keyword) || (meme.pinyin && meme.pinyin.includes(keyword)))
-  )
-})
-
-const submitMeme = () => {
-  if (!newForm.value.term || !newForm.value.summary) return alert('不能为空哦！')
-  localAdd({ ...newForm.value }) 
-  showModal.value = false
-  newForm.value = { term: '', summary: '', category: '默认' }
-  loadThemeAndData() 
-}
-
-const deleteMeme = (id) => {
-  if (!confirm('确定要删除吗？')) return
-  localDelete(id)
-  loadThemeAndData()
-}
-
-const goToDetail = (id) => {
-  router.push(`/meme/${id}`)
-}
-
-// 获取当前是否是夜间模式
-const isDark = ref(false)
 
 const toggleTheme = () => {
   isDark.value = !isDark.value
@@ -155,7 +105,43 @@ const toggleTheme = () => {
   }
 }
 
-// 📏 文本截取函数：如果长度超过 77 个字符则添加省略号
+// 6. 初始化加载
+const loadThemeAndData = () => {
+  isDark.value = localStorage.getItem('theme') === 'dark'
+  if (isDark.value) document.documentElement.classList.add('dark-mode')
+
+  const savedBg = localStorage.getItem('bgColor')
+  if (savedBg) setBgColor(savedBg)
+
+  hotMemes.value = getMemes()
+  const cachedIds = JSON.parse(sessionStorage.getItem('cachedRandomIds') || 'null')
+  
+  if (cachedIds && cachedIds.length > 0) {
+    const cachedMemes = hotMemes.value.filter(m => cachedIds.includes(m.id))
+    // 💡 修复：统一使用 blacklistIds 进行过滤
+    let mems = cachedMemes.filter(m => !blacklistIds.value.includes(m.id))
+    mems.sort((a,b) => a.term.length - b.term.length)
+    randomMemes.value = mems
+  } else if (randomMemes.value.length === 0) {
+    refreshRandomMemes()
+  }
+}
+
+onMounted(() => loadThemeAndData())
+
+// 7. 交互动作
+const submitMeme = () => {
+  if (!newForm.value.term || !newForm.value.summary) return alert('不能为空哦！')
+  localAdd({ ...newForm.value }) 
+  showModal.value = false
+  newForm.value = { term: '', summary: '', category: '默认' }
+  loadThemeAndData() 
+}
+
+const goToDetail = (id) => {
+  router.push(`/meme/${id}`)
+}
+
 const truncate = (text) => {
   if (!text) return ''
   return text.length > 7 ? text.slice(0, 7) + '…' : text
@@ -235,7 +221,7 @@ const truncate = (text) => {
               <button class="action-btn fav-btn small-btn" :class="{ 'active': favoriteIds.includes(meme.id) }" @click.stop="toggleFavorite(meme.id)">
                 {{ favoriteIds.includes(meme.id) ? '⭐ 已收藏' : '☆ 收藏' }}
               </button>
-              <button class="action-btn like-btn small-btn" :class="{ 'liked-active': likedIds.includes(meme.id) }" @click.stop="toggleLike(meme.id)">👍 点赞</button>
+              <button class="action-btn like-btn small-btn" :class="{ 'liked-active': likedIds.includes(meme.id) }" @click.stop="toggleLike(meme.id)"> {{ likedIds.includes(meme.id) ? '❤️ 已赞' : '👍 点赞' }}</button>
             </div>
           </div>
         </div>
@@ -383,8 +369,15 @@ const truncate = (text) => {
 .cancel-btn, .submit-btn { flex: 1; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 15px; font-weight: bold; }
 .cancel-btn { background-color: var(--bg-color); color: var(--text-secondary); border: 1px solid var(--border-color); }
 .submit-btn { background-color: #FFD700; color: #333; }
-.cancel-btn:active, .submit-btn:active { transform: scale(0.96); }
-
+.cancel-btn { 
+  background-color: var(--bg-color); 
+  color: var(--text-main); /* 💡 修改这里：统一改成 --text-main，不然夜间模式容易看不清 */
+  border: 1px solid var(--border-color); 
+}
+.modal-content h3 {
+  margin: 0;
+  color: var(--text-main);
+}
 :global(html.dark-mode) .hero {
   filter: brightness(0.8) contrast(1.1);
 }

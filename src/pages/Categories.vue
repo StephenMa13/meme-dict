@@ -107,9 +107,8 @@ const getBubbleClass = (index) => {
 
 /* 🫧 气泡基础质感 */
 .bubble {
-  border-radius: 50%; /* 变成正圆 */
+  border-radius: 50%; 
   background: var(--card-bg);
-  /* 魔法：外阴影模拟浮力，内阴影模拟玻璃/气泡的高光反光 */
   box-shadow: 
     0 10px 20px rgba(0,0,0,0.08), 
     inset -4px -4px 10px rgba(0,0,0,0.02),
@@ -119,9 +118,8 @@ const getBubbleClass = (index) => {
   align-items: center;
   cursor: pointer;
   border: 1px solid var(--border-color);
-  /* 呼吸浮动动画 */
   animation: float 4s ease-in-out infinite;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: scale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
 }
 
 /* 为了让不同气泡浮动频率不同，利用 CSS 伪类加延迟 */
@@ -129,7 +127,9 @@ const getBubbleClass = (index) => {
 .bubble:nth-child(3n) { animation-delay: 2s; animation-duration: 4.5s; }
 
 .bubble:hover {
-  transform: scale(1.1) translateY(-10px);
+  /* 1. 使用独立的 scale 属性，不碰 transform！ */
+  scale: 1.1; 
+  /* 2. 注意：我帮你去掉了 translateY(-10px)，让呼吸动画继续自然掌管 Y 轴，视觉更顺滑 */
   box-shadow: 
     0 15px 25px rgba(0,0,0,0.15), 
     inset -4px -4px 10px rgba(0,0,0,0.02),

@@ -18,24 +18,22 @@ export function toggleFavorite(memeId) {
 
 export const randomMemes = ref([])
 
-// 👇 --- 新增的“不感兴趣”功能 ---
-const savedNotInterested = JSON.parse(localStorage.getItem('my_not_interested_memes')) || []
-export const notInterestedIds = ref(savedNotInterested)
+// 👇 --- 整合后的“黑名单”全局功能 ---
+// 统一使用 'meme_blacklist' 这个 Key，和咱们之前的逻辑保持一致
+export const blacklistIds = ref(JSON.parse(localStorage.getItem('meme_blacklist') || '[]'))
 
-watch(notInterestedIds, (newVal) => {
-  localStorage.setItem('my_not_interested_memes', JSON.stringify(newVal))
+// 只要黑名单有变化，自动存入本地！
+watch(blacklistIds, (newVal) => {
+  localStorage.setItem('meme_blacklist', JSON.stringify(newVal))
 }, { deep: true })
 
-export function markNotInterested(memeId) {
-  if (!notInterestedIds.value.includes(memeId)) {
-    notInterestedIds.value.push(memeId)
-  }
-}
-
-export function removeNotInterested(memeId) {
-  const index = notInterestedIds.value.indexOf(memeId)
-  if (index !== -1) {
-    notInterestedIds.value.splice(index, 1) // 删掉它，它就会重新在首页出现了！
+// 💡 改造成 Toggle（开关）函数，完美适配咱们之前设计的“撤销隐藏”功能
+export function toggleNotInterested(memeId) {
+  const index = blacklistIds.value.indexOf(memeId)
+  if (index === -1) {
+    blacklistIds.value.push(memeId) // 拉黑
+  } else {
+    blacklistIds.value.splice(index, 1) // 撤销拉黑
   }
 }
 

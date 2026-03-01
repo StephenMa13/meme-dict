@@ -53,10 +53,6 @@ onMounted(() => {
       <span class="icon">⭐</span>
       <span class="text">收藏夹</span>
     </router-link>
-    <router-link to="/trash" class="nav-item">
-      <span class="icon">🗑️</span>
-      <span class="text">回收站</span>
-    </router-link>
   </nav>
 </template>
 
