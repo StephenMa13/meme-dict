@@ -160,9 +160,9 @@ const truncate = (text) => {
         </div>
 
         <button class="theme-toggle-btn" @click="toggleTheme">
-          {{ isDark ? '🌙 夜间' : '☀️ 白天' }}
+          {{ isDark ? '🌙 ' : '☀️ ' }}
         </button>
-        <button class="add-btn" @click="showModal = true">➕ 贡献</button>
+        <button class="add-btn" @click="showModal = true">➕ </button>
       </div>
     </nav>
 
