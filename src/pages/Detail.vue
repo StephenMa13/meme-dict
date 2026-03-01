@@ -101,10 +101,10 @@ onMounted(() => {
 
       <div class="detail-actions" v-if="meme">
         <button class="action-btn fav-btn" :class="{ 'active': favoriteIds.includes(meme.id) }" @click="toggleFavorite(meme.id)">
-          {{ favoriteIds.includes(meme.id) ? '⭐ 已收藏' : '☆ 收藏' }}
+          {{ favoriteIds.includes(meme.id) ? '⭐ ' : '☆ ' }}
         </button>
         <button class="action-btn like-btn" :class="{ 'liked-active': likedIds.includes(meme.id) }" @click="toggleLike(meme.id)">
-          {{ likedIds.includes(meme.id) ? '❤️ 已赞' : '👍 点赞' }}
+          {{ likedIds.includes(meme.id) ? '❤️ ' : '🤍 ' }}
         </button>
         <button 
           v-if="!likedIds.includes(meme.id) && !favoriteIds.includes(meme.id)"
@@ -112,7 +112,7 @@ onMounted(() => {
           :class="{ 'is-hidden': blacklistIds.includes(meme.id) }"
           @click="handleNotInterested(meme.id)"
         >
-          {{ blacklistIds.includes(meme.id) ? '🙈 已隐藏' : '🙈 没意思' }}
+          {{ blacklistIds.includes(meme.id) ? '🙈 ' : '🙈 ' }}
         </button>
       </div>
     </div>
@@ -198,10 +198,8 @@ onMounted(() => {
 
 /* 5. 各按钮配色（使用 RGBA 确保在黑夜模式下也有质感） */
 .fav-btn { background-color: rgba(74, 144, 226, 0.1); color: #4a90e2; }
-.fav-btn.active { background-color: #fff0f0; color: #ff4757; }
 
 .like-btn { background-color: rgba(255, 143, 0, 0.1); color: #ff8f00; }
-.liked-active { background-color: #ffe0b2 !important; color: #e65100 !important; }
 
 /* 没意思按钮的初始样式 */
 .not-interested-btn {
