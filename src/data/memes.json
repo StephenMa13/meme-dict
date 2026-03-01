@@ -1979,5 +1979,3211 @@
     "summary": "女性用来吐槽男性不解风情、花心、说话不算数的词。",
     "category": ["情感", "吐槽", "社交"],
     "content": "通常伴随着“男人都是大猪蹄子”出现。这是一个带有娇嗔和埋怨色彩的词，比直接骂“渣男”更轻微，多用于情侣之间的日常打闹吐槽。"
+  },
+  {
+    "id": 201,
+    "term": "脆皮大学生",
+    "pinyin": "cpdxs",
+    "summary": "形容当代大学生身体素质极差，像脆皮一样易碎。",
+    "category": [
+      "校园",
+      "生活",
+      "吐槽"
+    ],
+    "content": "最初源于社交平台上大学生们分享的离奇受伤经历：有人打个喷嚏腰椎间盘突出了，有人伸个懒腰脖子扭了，甚至有人因为拉屎太用力导致晕厥。这一词汇以自嘲的方式反映了当代年轻人因作息不规律、缺乏运动导致的身体亚健康状态，是校园文化中一种带有黑色幽默的自我解嘲。<br><br><img src=\"https://dummyimage.com/600x300/f8d7da/721c24&text=Fragile+Students\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 202,
+    "term": "赛博判官",
+    "pinyin": "sbpg",
+    "summary": "在网络上热衷于对各类纠纷、奇闻轶事进行评判的网友。",
+    "category": [
+      "科技",
+      "社交",
+      "抽象"
+    ],
+    "content": "该词来源于网友们在刷到调解类视频、投稿吐槽或奇葩新闻时，总忍不住在评论区像审判官一样给出“判决”。他们不仅逻辑清晰、言辞犀利，还经常能一针见血地指出矛盾点，这种在数字世界里主持公道的行为被戏称为“赛博审判”。它体现了网络时代下，用户通过远程介入他人的生活纠纷来寻求正义感和参与感的心理。<br><br><img src=\"https://dummyimage.com/600x300/000000/ffffff&text=Cyber+Judge\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 203,
+    "term": "电子榨菜",
+    "pinyin": "dzzc",
+    "summary": "吃饭时必须观看的、像榨菜一样下饭的视频或剧集。",
+    "category": [
+      "生活",
+      "时尚",
+      "消费"
+    ],
+    "content": "原指《甄嬛传》、《武林外传》等百看不厌的经典剧集，现泛指短视频、解说视频或综艺。对于现代年轻人来说，没有这些视频“佐餐”，手里的饭就不香了。它不仅是一种内容载体，更是一种生活仪式感，通过高浓度的娱乐内容缓解孤独感，提升用餐幸福感，是碎片化时代下的一种新型精神消费。<br><br><img src=\"https://dummyimage.com/600x300/FFD700/333&text=Electronic+ZhaCai\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 204,
+    "term": "显眼包",
+    "pinyin": "xyb",
+    "summary": "指那些在人群中特别爱出风头、引人注目的人。",
+    "category": [
+      "社交",
+      "情感",
+      "方言"
+    ],
+    "content": "原本是一个略带贬义的北方方言词汇，指人丢人现眼，但在当下网络语境中演变为中性甚至褒义。它通常用来形容那些性格外向、行为搞笑、不按常理出牌的人，比如在演唱会上抢镜头或者在合照里摆出奇特姿势。大家常说“每个领域都有自己的显眼包”，以此表达对那些敢于释放天性、打破沉闷者的喜爱。<br><br><img src=\"https://dummyimage.com/600x300/e2e3e5/383d41&text=Attention+Grabber\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 205,
+    "term": "已读乱回",
+    "pinyin": "ylh",
+    "summary": "指在社交软件上看到消息后，为了敷衍或整活而乱回复内容。",
+    "category": [
+      "社交",
+      "职场",
+      "抽象"
+    ],
+    "content": "这是对抗现代社交压力的一种反向策略。面对一些不想正经回答的问题或莫名其妙的消息，网友们选择用前言不搭后语、牛头不对马嘴的方式进行回复。这种“精神状态堪忧”的回复方式，既是对无效沟通的无声抗议，也是一种解压的幽默艺术，在职场摸鱼和日常社交中极具人气。<br><br><img src=\"https://dummyimage.com/600x300/d1ecf1/0c5460&text=Read+and+Random+Reply\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 206,
+    "term": "纯爱战士",
+    "pinyin": "cazs",
+    "summary": "指坚定拥护纯粹爱情，无法接受任何背叛或牛头人剧情的人。",
+    "category": [
+      "二次元",
+      "情感",
+      "亚文化"
+    ],
+    "content": "最初流行于ACGN（动漫游戏）圈，用以对抗“NTR（苦主/牛头人）”剧情。纯爱战士追求的是男女主角之间单纯、双向奔赴的爱情。随着网络传播，该词也用于三次元，指代那些在快餐爱情时代依然相信真爱、对感情忠贞不二的人。当遇到感人的爱情故事时，网友常刷“纯爱战士应声倒地”或“纯爱战士大获全胜”。<br><br><img src=\"https://dummyimage.com/600x300/f8d7da/721c24&text=Pure+Love+Warrior\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 207,
+    "term": "哈基米",
+    "pinyin": "hjm",
+    "summary": "本意是日语“蜂蜜”，现网络上多指代可爱的小猫或宠物。",
+    "category": [
+      "萌系",
+      "二次元",
+      "默认"
+    ],
+    "content": "该词源自《赛马娘》中东海帝皇的一段关于“蜂蜜”的旋律歌词。由于背景音乐节奏洗脑且可爱，被大量短视频博主剪辑进宠物猫狗的视频中。尽管词意原本是蜂蜜，但在大众认知中已逐渐演变为“可爱小宠物”的代名词。这种语义偏移是二次元亚文化向大众传播过程中的典型现象。<br><br><img src=\"https://dummyimage.com/600x300/fff3cd/856404&text=Hajimi+Cat\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 208,
+    "term": "草台班子",
+    "pinyin": "ctbz",
+    "summary": "指看起来专业、高大上的组织，其实内部运行逻辑极其随意、简陋。",
+    "category": [
+      "职场",
+      "吐槽",
+      "生活"
+    ],
+    "content": "源自一段广为流传的职场感悟：“原本以为世界是一个精密运行的机器，长大后才发现世界其实就是一个巨大的草台班子。”这一论调引起了无数打工人的共鸣，大家发现所谓的名企、大项目背后往往充满了各种临时的补丁和不靠谱的人手。这个词通过消解对权威的敬畏感，帮助人们缓解职场焦虑和精神内耗。<br><br><img src=\"https://dummyimage.com/600x300/d6d8d9/1b1e21&text=Improvisational+Group\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 209,
+    "term": "硬控",
+    "pinyin": "yk",
+    "summary": "原指游戏中的强制控制，现指被某种内容深深吸引无法移开目光。",
+    "category": [
+      "游戏",
+      "生活",
+      "社交"
+    ],
+    "content": "在MOBA游戏中，“硬控”如眩晕、击飞会让角色无法动弹。在网络语境中，当你刷到一个非常有魔性、极度搞笑或者极其治愈的视频，导致你看了好几遍都停不下来时，就可以说：“这个视频硬控我30秒”。它生动形象地描述了短视频时代人们被优质或洗脑内容瞬间捕捉注意力的状态。<br><br><img src=\"https://dummyimage.com/600x300/cce5ff/004085&text=Hard+Control\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 210,
+    "term": "泰裤辣",
+    "pinyin": "tkl",
+    "summary": "“太酷了”的谐音，出自说唱歌手小鬼（王琳凯）。",
+    "category": [
+      "饭圈",
+      "谐音梗",
+      "抽象"
+    ],
+    "content": "源于歌手小鬼在演唱会上的一段长篇独白，由于他最后喊出的“太酷了”发音过于用力且带有独特的口音，听起来极像“泰裤辣”。这段视频因其略显尴尬的转折和强烈的个人特征被广大网友二次创作。现多用于反讽或表达一种无可奈何的赞叹，常与“世界上有五种辣”等话术搭配使用。<br><br><img src=\"https://dummyimage.com/600x300/000000/FF0000&text=Tai+Ku+La\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 211,
+    "term": "班味",
+    "pinyin": "bw",
+    "summary": "形容人因为长期上班而流露出的疲惫、压抑和世俗的气息。",
+    "category": [
+      "职场",
+      "生活",
+      "吐槽"
+    ],
+    "content": "“一旦上了班，气质就变了。”这指的不仅是外貌上的不修边幅，更是眼神中的光芒消失，取而代之的是一种被KPI和PPT消磨后的麻木。网友调侃“一旦沾上斑味，花多少钱去马尔代夫都洗不掉”，反映了现代职场人对工作侵蚀个人生活、改变个人性格的深层焦虑。<br><br><img src=\"https://dummyimage.com/600x300/6c757d/ffffff&text=Work+Scent\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 212,
+    "term": "多巴胺穿搭",
+    "pinyin": "dbacd",
+    "summary": "通过高饱和度、鲜艳色彩的服装搭配来传递快乐情绪。",
+    "category": [
+      "时尚",
+      "心理",
+      "消费"
+    ],
+    "content": "色彩心理学认为，亮丽的色彩能诱发大脑分泌多巴胺。这种穿搭风格在后疫情时代迅速走红，人们告别沉闷的黑白灰，拥抱彩虹般的配色。它不仅是一种视觉潮流，更是一场“情绪自救”，象征着年轻人试图通过改变外在视觉来对抗内心的抑郁或枯燥。<br><br><img src=\"https://dummyimage.com/600x300/FF69B4/ffffff&text=Dopamine+Dressing\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 213,
+    "term": "孔乙己文学",
+    "pinyin": "kyjwx",
+    "summary": "受过高等教育却找不到理想工作，自比为鲁迅笔下的孔乙己。",
+    "category": [
+      "校园",
+      "吐槽",
+      "情感"
+    ],
+    "content": "“学历不仅是敲门砖，也是我下不来的高台，更是孔乙己脱不下的长衫。”该词道出了当代大学生在面临严峻就业环境时的困境。他们寒窗苦读多年，不愿从事体力劳动，却又难以在写字楼找到立足之地，这种文人的清高与现实的骨感交织成了酸涩的“孔乙己文学”。<br><br><img src=\"https://dummyimage.com/600x300/8b4513/ffffff&text=Kong+Yi+Ji\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 214,
+    "term": "反向旅游",
+    "pinyin": "fxly",
+    "summary": "避开网红热门景点，去冷门、人少的小城市度假。",
+    "category": [
+      "生活",
+      "时尚",
+      "社交"
+    ],
+    "content": "不再去排队三小时吃网红火锅，而是选择黑龙江鹤岗、山东曹县或是一些名不见经传的小县城。反向旅游追求的是“松弛感”和“性价比”，主打一个不出众、不打卡、只睡觉。这反映了年轻人对过度商业化旅游的排斥，以及对真实生活体验的回归。<br><br><img src=\"https://dummyimage.com/600x300/20c997/ffffff&text=Reverse+Tourism\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 215,
+    "term": "特种兵式旅游",
+    "pinyin": "tzbsly",
+    "summary": "以极高强度、极短时间游览极多景点的旅游方式。",
+    "category": [
+      "校园",
+      "生活",
+      "时尚"
+    ],
+    "content": "常见于大学生群体，他们利用周末或节假日，周五晚上出发，周一早上回校上课。通过压缩睡眠时间、选择廉价交通，在48小时内横跨多个城市。这种“挑战极限”的旅游并非为了深度休息，而是在预算有限的情况下，对青春活力的一次集中爆发式宣泄。<br><br><img src=\"https://dummyimage.com/600x300/495057/ffffff&text=Special+Forces+Travel\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 216,
+    "term": "命运的齿轮开始转动",
+    "pinyin": "mydclkszd",
+    "summary": "指人生中某个看似微小的瞬间，实则改变了未来的走向。",
+    "category": [
+      "情感",
+      "生活",
+      "抽象"
+    ],
+    "content": "最初流行于短视频平台，博主们通过剪辑名人（如杨超越、董宇辉）成名背后的旧照片，对比当下的辉煌。这一短语充满了宿命论的浪漫色彩，提醒人们每一个当下的选择可能都潜藏着巨大的能量。后来也常被网友用于自嘲，比如“我这一顿火锅吃下去，命运的体重秤开始转动”。<br><br><img src=\"https://dummyimage.com/600x300/343a40/ffffff&text=Gears+of+Fate\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 217,
+    "term": "挖呀挖呀挖",
+    "pinyin": "wyyyw",
+    "summary": "源自一首幼儿手指谣，因其洗脑的旋律和清新的演绎走红。",
+    "category": [
+      "萌系",
+      "社交",
+      "默认"
+    ],
+    "content": "“在小小的花园里面挖呀挖呀挖，种小小的种子开小小的花”。这段极其简单、充满童趣的教学视频在全网引发了“全民挖呀挖”的热潮。从打工人、消防员到建筑工人，各行各业的人都借此创作了自己的版本。它反映了人们在复杂的成人世界里，对单纯、童真状态的一种集体渴望。<br><br><img src=\"https://dummyimage.com/600x300/ffc107/333333&text=Wa+Ya+Wa\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 218,
+    "term": "纯爱战神",
+    "pinyin": "cazs",
+    "summary": "（同纯爱战士）指对虚假、功利的感情嗤之以鼻的坚定信仰者。",
+    "category": [
+      "二次元",
+      "情感",
+      "亚文化"
+    ],
+    "content": "与“牛头人”形成对峙，这类受众在文学作品或现实中只接受“一心一意”的爱情模板。任何掺杂背叛、欺骗或肉体出轨的情节都会引发他们的强烈抗议。在泛娱乐时代，它成了人们守护理想爱情的一种精神符号，尽管现实骨感，但精神世界里必须有一片纯净之地。<br><br><img src=\"https://dummyimage.com/600x300/dc3545/ffffff&text=Pure+Love+God\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 219,
+    "term": "精神状态领先世界10年",
+    "pinyin": "jsztlx",
+    "summary": "形容一个人行为极其荒诞、疯狂，表现出一种看透世界的疯狂感。",
+    "category": [
+      "抽象",
+      "吐槽",
+      "生活"
+    ],
+    "content": "当压力达到阈值，有些人选择“发疯”。比如在路边对树喊话、在PPT里塞入奇怪的表情包。网友用“精神状态领先”来赞美这种不顾他人眼光的自我放逐。这是一种消极但有效的心理防御，既然世界已经很疯狂了，那我就比世界更疯狂，从而获得一种诡异的心理平衡。<br><br><img src=\"https://dummyimage.com/600x300/fd7e14/ffffff&text=Mentally+Advanced\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 220,
+    "term": "佛系",
+    "pinyin": "fx",
+    "summary": "形容对万事万物不强求，随遇而安的生活态度。",
+    "category": [
+      "生活",
+      "情感",
+      "默认"
+    ],
+    "content": "最初源于“佛系男子”，后来演变为佛系青年、佛系家长。核心在于“不争不抢、不求输赢”。这种态度在职场上表现为“领导骂我我点头，KPI不到我不愁”；在社交中表现为“可有可无，随缘点赞”。它是对高压竞争环境的一种温和抵御，但也常被批评为缺乏进取心。<br><br><img src=\"https://dummyimage.com/600x300/e9ecef/495057&text=Buddhist+Style\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 221,
+    "term": "内卷",
+    "pinyin": "nj",
+    "summary": "同行间通过非理性的过度竞争来获取资源，导致整体利益受损。",
+    "category": [
+      "职场",
+      "校园",
+      "吐槽"
+    ],
+    "content": "从人类学名词演变为国民热词，描述了“大家都很努力，但大家都活得更累”的状态。在公司，一个人主动加班，其他人被迫跟进；在学校，一个学生报三个补习班，其他家长只能跟风。内卷是一种低水平的重复，是生存空间被挤压后的必然产物，成了当代社会焦虑的核心关键词。<br><br><img src=\"https://dummyimage.com/600x300/007bff/ffffff&text=Involution\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 222,
+    "term": "躺平",
+    "pinyin": "tp",
+    "summary": "放弃竞争，以最低限度的需求生活，不再追求社会定义的成功。",
+    "category": [
+      "生活",
+      "亚文化",
+      "吐槽"
+    ],
+    "content": "与“内卷”相对，躺平是年轻人的一种非暴力不合作运动。既然卷不动，那我就不卷了。维持最低生活标准，不买房、不买车、不结婚。它曾引发广泛的社会讨论，被视为一种消极避世，但也让社会开始反思当下的评价体系是否过于单一。<br><br><img src=\"https://dummyimage.com/600x300/adb5bd/ffffff&text=Lying+Flat\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 223,
+    "term": "伞兵",
+    "pinyin": "sb",
+    "summary": "因为谐音，被网友用作某句脏话的优雅代替词。",
+    "category": [
+      "谐音梗",
+      "社交",
+      "抽象"
+    ],
+    "content": "在网络监管日益严格的环境下，为了避免直接辱骂被封号，网友利用“伞兵”的首字母缩写进行替代。这种用法曾引起真实伞兵部队的回应，官方呼吁不要污名化英雄词汇。随后，该用法在主流语境中有所收敛，体现了网络黑话在对抗审核与社会公德之间的拉锯。<br><br><img src=\"https://dummyimage.com/600x300/28a745/ffffff&text=Paratrooper\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 224,
+    "term": "我真服了你个老六",
+    "pinyin": "wzflygl6",
+    "summary": "形容某人玩阴的、不按常理出牌或行为极度猥琐。",
+    "category": [
+      "游戏",
+      "吐槽",
+      "方言"
+    ],
+    "content": "源于第一人称射击游戏（如CS:GO），原指在团队竞技中躲在阴暗角落偷袭、不参与正面战场的第六个人。后来扩展到现实生活，形容那些不干正事、关键时刻掉链子或在背后捅刀子的奇葩路人。这个词带有一种浓厚的无奈感和幽默感。<br><br><img src=\"https://dummyimage.com/600x300/343a40/ffffff&text=Old+Six\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 225,
+    "term": "你没事吧",
+    "pinyin": "nmsb",
+    "summary": "原本是关心的询问，现多用于阴阳怪气地质疑对方脑回路异常。",
+    "category": [
+      "社交",
+      "吐槽",
+      "情感"
+    ],
+    "content": "该句式在网络上走红主要得益于某零食品牌魔性的广告语。当一个人做出令人费解或尴尬的行为时，一句“你没事吧？”能瞬间起到终结对话并嘲讽对方的效果。它属于典型的“阴阳怪气”语录，是社交博弈中防守反击的利器。<br><br><img src=\"https://dummyimage.com/600x300/ffc107/333333&text=Are+You+OK\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 226,
+    "term": "拿捏",
+    "pinyin": "nn",
+    "summary": "指精准地把握、控制或处理某件事，也指掌握了某人的弱点。",
+    "category": [
+      "社交",
+      "职场",
+      "时尚"
+    ],
+    "content": "常配合“拿捏住”使用，不仅形容能力强，还带有一种轻松自如的气质。在拍照穿搭中，也指整体风格把握得恰到好处。这个词自带一种胜券在握的自信感，是当代年轻人社交语言中的高频褒义词。<br><br><img src=\"https://dummyimage.com/600x300/17a2b8/ffffff&text=Controlled\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 227,
+    "term": "YYDS",
+    "pinyin": "yyds",
+    "summary": "“永远的神”首字母缩写，用于表达极致的赞美。",
+    "category": [
+      "饭圈",
+      "竞技",
+      "默认"
+    ],
+    "content": "最早在电竞圈流行，后被饭圈和大众文化广泛吸收。无论是形容心仪的爱豆、好吃的食物还是好用的化妆品，万物皆可YYDS。虽然缩写泛滥曾引发“文字失语症”的讨论，但不可否认它已成为网络时代最快速表达强烈情绪的符号。<br><br><img src=\"https://dummyimage.com/600x300/ffc107/333333&text=The+Goat\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 228,
+    "term": "夺笋啊",
+    "pinyin": "dsa",
+    "summary": "“多损啊”的谐音，调侃他人言行刻薄、损人。",
+    "category": [
+      "方言",
+      "谐音梗",
+      "生活"
+    ],
+    "content": "由网络主播带火，将地道的北方方言通过卖萌、变调的方式输出。通常配合“山上的笋都被你夺完了”使用。它以幽默的方式化解了直接批评的攻击性，使吐槽变得像是在开玩笑，是社交平台评论区的高频互动梗。<br><br><img src=\"https://dummyimage.com/600x300/28a745/ffffff&text=Too+Sarcastic\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 229,
+    "term": "沉浸式",
+    "pinyin": "cjs",
+    "summary": "指全神贯注地做某事，现多指一种特定的短视频录制风格。",
+    "category": [
+      "科技",
+      "生活",
+      "消费"
+    ],
+    "content": "最初是科技领域的虚拟现实技术，后来演变为短视频风格（如“沉浸式开箱”、“沉浸式化妆”）。其特点是全程无解说，只有放大的物品碰撞声、撕拉声（ASMR成分）。这种形式让观众仿佛身临其境，提供了一种治愈感的感官体验，极大满足了强迫症患者的审美。<br><br><img src=\"https://dummyimage.com/600x300/6610f2/ffffff&text=Immersive\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 230,
+    "term": "破防了",
+    "pinyin": "pfl",
+    "summary": "指心理防线被戳破，通常是因为极度感动、极度悲伤或被戳中痛处。",
+    "category": [
+      "游戏",
+      "情感",
+      "社交"
+    ],
+    "content": "原指游戏中防御被打破。现实语境中，它能涵盖多种复杂情绪：看到感人电影时流泪是破防，被暗恋的人拒绝是破防，甚至是被老板指出错误时的难堪也是破防。这个词高度概括了当代人脆弱而敏感的心理状态，是共情能力的一种网络化表达。<br><br><img src=\"https://dummyimage.com/600x300/e83e8c/ffffff&text=Broken+Down\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 231,
+    "term": "社恐/社牛",
+    "pinyin": "sk sn",
+    "summary": "分别指社交恐惧症和社交牛逼症，形容两种极端的社交状态。",
+    "category": [
+      "社交",
+      "生活",
+      "时尚"
+    ],
+    "content": "“社恐”通过回避社交来获得安全感，而“社牛”则能在任何陌生环境下自如交流甚至做出惊人举动。这两个词成为了年轻人给自己贴标签、找圈层的主要方式。后来还演变出了“社死”（社交性死亡），指在公众场合做出了极其尴尬的事，无地自容。<br><br><img src=\"https://dummyimage.com/600x300/17a2b8/ffffff&text=Social+Personality\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 232,
+    "term": "氛围感",
+    "pinyin": "fwg",
+    "summary": "形容一种整体散发出来的迷人感觉，而不单纯看五官或细节。",
+    "category": [
+      "时尚",
+      "二次元",
+      "消费"
+    ],
+    "content": "在颜值经济时代，人们发现“美”可以不仅来自五官，还可以来自光影、滤镜、发型和穿搭营造出的意境。这种模糊的、朦胧的美感被称为“氛围感”。它降低了普通人对完美的追求，转向追求一种整体的舒适感和风格感，极受拍照博主追捧。<br><br><img src=\"https://dummyimage.com/600x300/fd7e14/ffffff&text=Vibe\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 233,
+    "term": "绝绝子",
+    "pinyin": "jjz",
+    "summary": "叠词用法，表达极致的好或极致的差，常伴有饭圈语气。",
+    "category": [
+      "饭圈",
+      "萌系",
+      "吐槽"
+    ],
+    "content": "这种带有点夸张色彩的词汇曾在一段时间内统治了各大平台。它通常用于加强语气，如“这个奶茶真是绝绝子！”。由于其词缀“子”的使用频率过高，曾引发公众对“网络语言低幼化”的激烈批评，如今已成为一种带有特定年代感的流行符号。<br><br><img src=\"https://dummyimage.com/600x300/ffc107/333333&text=Amazing+Zi\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 234,
+    "term": "特供",
+    "pinyin": "tg",
+    "summary": "指专门为某一特定群体（如中国观众）量身定制的内容。",
+    "category": [
+      "消费",
+      "吐槽",
+      "亚文化"
+    ],
+    "content": "常出现在影视行业，如“中国特供版3D”，或在时尚圈指“特供设计”。后来也引申为带有讽刺意味的词，形容某些东西虽然顶着国际头衔，其实内部质感低劣，专门收割特定区域的“韭菜”。<br><br><img src=\"https://dummyimage.com/600x300/dc3545/ffffff&text=Special+Edition\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 235,
+    "term": "普信男/女",
+    "pinyin": "pxn",
+    "summary": "“那么普通，却又那么自信”的缩写。",
+    "category": [
+      "情感",
+      "吐槽",
+      "社交"
+    ],
+    "content": "源于脱口秀演员杨笠的一段表演，用以调侃那些自身条件平平却对异性极为挑剔、且自我感觉极其良好的男性。该词引发了巨大的性别议题讨论，后也衍生出“普信女”。它精准捕捉到了两性沟通中的一种认知错位，成为网络上极具争议的热词。<br><br><img src=\"https://dummyimage.com/600x300/6c757d/ffffff&text=Confidently+Average\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 236,
+    "term": "爷青回/爷青结",
+    "pinyin": "yqh yqj",
+    "summary": "“爷的青春回来了/结束了”的缩写。",
+    "category": [
+      "二次元",
+      "生活",
+      "竞技"
+    ],
+    "content": "当看到童年的动画片重制、老牌歌手合体或喜欢的运动员退役时，网友会满屏刷此弹幕。这是一种情感的强烈投射，不仅是对内容的评价，更是对逝去时光的一种集体祭奠或重温。它是情怀消费在弹幕文化中的核心表现。<br><br><img src=\"https://dummyimage.com/600x300/007bff/ffffff&text=Youth+Back\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 237,
+    "term": "小丑竟是我自己",
+    "pinyin": "xzjswzj",
+    "summary": "指自己原本想嘲笑别人，最后发现最尴尬、最可笑的是自己。",
+    "category": [
+      "生活",
+      "情感",
+      "抽象"
+    ],
+    "content": "通常用于自嘲。比如以为对方暗恋自己，结果发现对方只是推销保险的。配上经典的“马戏团小丑”表情包，这种自嘲方式能有效化解尴尬。它反映了在社交关系中，人们对自己过度期待、自作多情的一种幽默反馈。<br><br><img src=\"https://dummyimage.com/600x300/343a40/ffffff&text=Clown+is+Me\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 238,
+    "term": "凡尔赛文学",
+    "pinyin": "fswx",
+    "summary": "通过先抑后扬、自问自答的方式，低调地炫耀自己的优越感。",
+    "category": [
+      "时尚",
+      "吐槽",
+      "社交"
+    ],
+    "content": "“真烦，老公送的这辆劳斯莱斯颜色太丑了，这可怎么开出门啊。”这种看似在抱怨、实则在显摆的套路被网友戏称为“凡尔赛”。这种文体精准地解构了社交媒体上日益增长的虚荣心理，通过幽默的拆穿，让那些隐晦的炫耀无所遁形。<br><br><img src=\"https://dummyimage.com/600x300/6610f2/ffffff&text=Versailles+Literature\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 239,
+    "term": "真香",
+    "pinyin": "zx",
+    "summary": "形容一个人起初坚定拒绝某事，最后却非常喜欢。",
+    "category": [
+      "默认",
+      "生活",
+      "吐槽"
+    ],
+    "content": "源于《变形计》主人公王境泽。他在节目中发誓“饿死也不吃这里一点东西”，下一秒却捧着碗说“真香”。这个词已经成为人类无法逃脱的定律，适用于任何被打脸的场景。它不仅是一个梗，更是一种对人性多变和适应能力的调侃。<br><br><img src=\"https://dummyimage.com/600x300/fd7e14/ffffff&text=Zhen+Xiang\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 240,
+    "term": "柠檬精/我酸了",
+    "pinyin": "nmj",
+    "summary": "形容对别人的好运或优越条件感到羡慕嫉妒，内心酸溜溜的。",
+    "category": [
+      "情感",
+      "生活",
+      "社交"
+    ],
+    "content": "原本嫉妒是个负面词，但通过“柠檬”这一意象，这种情绪被可爱化和软化了。当别人晒出恩爱、中奖或高薪时，回复一句“我酸了”或“柠檬树下你和我”，既表达了羡慕，又通过自嘲避免了由于嫉妒可能产生的负面关系影响。<br><br><img src=\"https://dummyimage.com/600x300/ffc107/333333&text=Lemon+Sprit\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 241,
+    "term": "格局打开",
+    "pinyin": "gjdk",
+    "summary": "指看待事物的眼光要放长远，不局限于眼前的蝇头小利。",
+    "category": [
+      "职场",
+      "抽象",
+      "社交"
+    ],
+    "content": "原本是励志鸡汤语录，现多用于调侃和整活。比如当室友只吃五毛钱馒头时，劝他“把格局打开，买个一块钱的”。这个词常用于一种反差感，将微小甚至离谱的行为提升到“人生大局观”的高度，从而产生爆笑效果。<br><br><img src=\"https://dummyimage.com/600x300/20c997/ffffff&text=Open+Up\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 242,
+    "term": "家人们谁懂啊",
+    "pinyin": "jrmsdx",
+    "summary": "一种极具感染力的开头白，通常用于分享奇葩经历或吐槽。",
+    "category": [
+      "社交",
+      "时尚",
+      "吐槽"
+    ],
+    "content": "这类短语通过称呼陌生人为“家人”，迅速拉近距离并寻求共鸣。尤其配合某种特定的滤镜和语气词，成为了短视频博主最常用的万能开场。它象征着互联网环境下，人们通过构建虚拟亲属关系来获取支持和情感输出。但过度使用也引发了网友的审美疲劳。<br><br><img src=\"https://dummyimage.com/600x300/e83e8c/ffffff&text=Who+Knows\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 243,
+    "term": "依托答辩",
+    "pinyin": "ytdb",
+    "summary": "“一坨大便”的谐音。形容内容质量极其差劲，令人恶心。",
+    "category": [
+      "抽象",
+      "吐槽",
+      "默认"
+    ],
+    "content": "这是一种极具攻击性的网络用语，最早源于电竞圈对某些粗制滥造视频的评价。为了通过平台内容审核，网友将其转化为谐音词。它反映了互联网用户对“快餐化、低质化”内容的强烈反弹。常用于吐槽烂片、烂游戏或漏洞百出的言论。<br><br><img src=\"https://dummyimage.com/600x300/8b4513/ffffff&text=Trash+Content\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 244,
+    "term": "City不City",
+    "pinyin": "city",
+    "summary": "指某地、某行为是否洋气、时髦、城市化。",
+    "category": [
+      "生活",
+      "时尚",
+      "社交"
+    ],
+    "content": "源自一位外国博主在中国旅游时的魔性口音，“City不City啊？”配合他夸张的语气和对中国城市发展的赞叹。该词迅速演变为一种询问方式，用来评价某个东西是否高端、是否具备现代都市气息。这是一种跨文化交流中意外产生的语言融合梗。<br><br><img src=\"https://dummyimage.com/600x300/007bff/ffffff&text=Is+it+City\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 245,
+    "term": "你个老6",
+    "pinyin": "ngl6",
+    "summary": "指行为狡诈、不走正路的人。",
+    "category": [
+      "游戏",
+      "默认",
+      "抽象"
+    ],
+    "content": "在日常生活语境中，如果你趁朋友不注意偷吃了一块肉，或者在玩游戏时藏在转角处，朋友都会骂你一句“你个老六”。它带有一种半真半假的嗔怪，比直接骂人更有趣，是一种基于游戏逻辑的社交降级表达。<br><br><img src=\"https://dummyimage.com/600x300/343a40/ffffff&text=Lao+Liu\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 246,
+    "term": "硬控我X秒",
+    "pinyin": "yk",
+    "summary": "形容被某个视频或某句话瞬间吸引，大脑空白，完全停下动作。",
+    "category": [
+      "游戏",
+      "社交",
+      "生活"
+    ],
+    "content": "当你在刷手机时，突然出现一个魔性的舞蹈或是极其离谱的行为，你整个人愣住看完，这就被称为“硬控”。它是注意力和算法博弈的生动比喻。在短视频竞争白热化的今天，谁能“硬控”用户的时间，谁就拥有了流量。常配合具体的秒数使用，以增加画面的紧迫感。<br><br><img src=\"https://dummyimage.com/600x300/cce5ff/004085&text=Stunned\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 247,
+    "term": "小趴菜",
+    "pinyin": "xpc",
+    "summary": "指那些酒量差、实力弱、干啥啥不行的人。",
+    "category": [
+      "方言",
+      "萌系",
+      "生活"
+    ],
+    "content": "源自云贵川地区的方言。原本指煮熟的蔬菜，现在形容一个人像煮熟的菜一样软塌塌的，没有战斗力。尤其在酒桌文化中，喝两口就倒的人被戏称为“小趴菜”。由于词语发音带有可爱的软糯感，也常用于情侣间或好友间的调情和调侃。<br><br><img src=\"https://dummyimage.com/600x300/28a745/ffffff&text=Weak+Vegetable\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 248,
+    "term": "雪糕刺客",
+    "pinyin": "xgck",
+    "summary": "指那些隐藏在普通冰柜里，结账时却贵得惊人的昂贵雪糕。",
+    "category": [
+      "消费",
+      "生活",
+      "吐槽"
+    ],
+    "content": "它们外表平平无奇，没有明码标价，当你在结账时被报出十几元甚至几十元的价格时，由于面子问题不好意思放回去。这种“被偷袭”的消费体验让“刺客”一词走红。随后也出现了“水果刺客”、“话梅刺客”等，反映了消费者对溢价严重、标识不明的高端消费的反感。<br><br><img src=\"https://dummyimage.com/600x300/f8f9fa/333333&text=IceCream+Assassin\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 249,
+    "term": "退退退",
+    "pinyin": "ttt",
+    "summary": "一种魔性的驱逐手势和口号，用于对抗不顺心的事或人。",
+    "category": [
+      "生活",
+      "抽象",
+      "社交"
+    ],
+    "content": "源于一段大妈与人争吵的视频。面对指责，大妈一边跺脚一边挥手，大喊“退！退！退！”。这种极其玄学且富有节奏感的防御姿势迅速走红，成了当代年轻人面对霉运、PUA、焦虑时的精神防御机制。它带有一种“只要我不听，麻烦就追不上我”的荒诞乐观主义。<br><br><img src=\"https://dummyimage.com/600x300/ffc107/333333&text=Back+Off\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 250,
+    "term": "栓Q",
+    "pinyin": "sq",
+    "summary": "“Thank you”的谐音，带有嘲讽或无语的语气。",
+    "category": [
+      "谐音梗",
+      "社交",
+      "吐槽"
+    ],
+    "content": "由广西一位农民英语教学博主走红。由于发音独特，将“Thank you”读成“栓Q”。但在后续传播中，其语义发生了巨大变化：现多用于表达“我真谢谢你（全家）”这种无语、甚至有点崩溃的心情。常与“我真的会谢”搭配使用，构成当代互联网敷衍学的重要组成部分。<br><br><img src=\"https://dummyimage.com/600x300/6c757d/ffffff&text=Shuan+Q\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 251,
+    "term": "电子失语症",
+    "pinyin": "dzsyz",
+    "summary": "指在互联网高度发达的当下，人们离开缩写和梗就无法完整表达想法的现象。",
+    "category": [
+      "科技",
+      "社交",
+      "生活"
+    ],
+    "content": "表现为在现实社交中词汇匮乏，遇到美景只会说“yyds”，遇到不平只会发“无语子”。这种长期依赖碎片化、图形化社交语言导致的表达能力退化，被称为电子失语症。它反映了在信息过载时代，深度思考与逻辑表达正在逐渐被情绪化的符号所取代。<br><br><img src=\"https://dummyimage.com/600x300/343a40/ffffff&text=Digital+Aphasia\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 252,
+    "term": "鼠鼠我呀",
+    "pinyin": "sswy",
+    "summary": "一种自称，多用于自嘲为社会底层的“老鼠”，语气卑微又心酸。",
+    "category": [
+      "亚文化",
+      "情感",
+      "吐槽"
+    ],
+    "content": "源自B站及贴吧中底层青年的自嘲，常与“小丑”意象重合。通过将自己比作阴暗爬行、无人问津的耗子，网友们在分享生活困顿或感情受挫时，用一种戏谑的方式消解沉重的现实压力。这种“鼠人文学”是当代年轻人对阶层固化和生活压力的一种消极抵抗。<br><br><img src=\"https://dummyimage.com/600x300/6c757d/ffffff&text=Rat+Self-Mockery\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 253,
+    "term": "妈生感",
+    "pinyin": "msg",
+    "summary": "形容整形、化妆或穿搭极其自然，仿佛天生的一样。",
+    "category": [
+      "时尚",
+      "消费",
+      "默认"
+    ],
+    "content": "在医美和美妆圈，比起刻意的人工美，“妈生感”成了最高评价。比如“妈生好皮”、“妈生高鼻梁”，强调的是一种无痕迹的修饰。这反映了现代审美从早期的“欧式大双”向自然、协调的东方审美回归，也体现了消费者对“美得自然”的极致追求。<br><br><img src=\"https://dummyimage.com/600x300/f8d7da/721c24&text=Natural+Born+Look\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 254,
+    "term": "我姓石",
+    "pinyin": "wxsh",
+    "summary": "源自一段洗脑的喊麦视频，因节奏极其紧凑和独特的舞蹈走红。",
+    "category": [
+      "抽象",
+      "亚文化",
+      "默认"
+    ],
+    "content": "原本是博主创作的百家姓喊麦视频，因为“我姓石，疯狂的石，挺起胸膛不自卑”这段歌词配合滑稽的肢体动作，在国内外社交平台引发大规模模仿热潮。这种毫无逻辑但极具节奏感的“土味”内容，正是当下网络模因（Meme）快速传播的典型代表。<br><br><img src=\"https://dummyimage.com/600x300/000000/ffffff&text=Wo+Xing+Shi\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 255,
+    "term": "纯欲风",
+    "pinyin": "cyf",
+    "summary": "一种结合了清纯感与性感诱惑的穿搭和妆容风格。",
+    "category": [
+      "时尚",
+      "亚文化",
+      "消费"
+    ],
+    "content": "该风格主打“看似无辜却极具吸引力”。标志性的妆容是眼眶微红、大面积腮红，服装多为浅色调但剪裁修身。它因精准抓住了大众审美中对冲突感的喜好而长盛不衰，同时也伴随着关于女性自我审美与男权凝视的社会学讨论。<br><br><img src=\"https://dummyimage.com/600x300/FFE4E1/333333&text=Pure+Lust+Style\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 256,
+    "term": "赛博木鱼",
+    "pinyin": "sbmy",
+    "summary": "指通过手机APP点击虚拟木鱼，以此寻求心理安慰或积攒“功德”。",
+    "category": [
+      "科技",
+      "生活",
+      "抽象"
+    ],
+    "content": "“扣1加功德，点一下烦恼消。”当代年轻人在经历职场压榨或生活不顺时，选择这种低成本的电子禅修。这种将传统宗教仪式与现代极简主义设计结合的产品，精准捕捉了快节奏生活中人们对片刻宁静与精神寄托的渴望。<br><br><img src=\"https://dummyimage.com/600x300/212529/ced4da&text=Cyber+Muyu\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 257,
+    "term": "MOSS",
+    "pinyin": "moss",
+    "summary": "电影《流浪地球》中的AI助手，现指代冷酷理性、绝对服从规则。 ",
+    "category": [
+      "科技",
+      "二次元",
+      "抽象"
+    ],
+    "content": "由于其台词“让人类永远保持理智，确实是一种奢求”极其经典，MOSS成为了互联网上的一个文化符号。网友常在面对非理性的网络争吵时评论“MOSS表示不解”，以此表达一种高维度的审视感。它也激发了关于人工智能伦理与人类命运的广泛讨论。<br><br><img src=\"https://dummyimage.com/600x300/000000/00FF00&text=MOSS+AI\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 258,
+    "term": "脆皮年轻人",
+    "pinyin": "cpnqn",
+    "summary": "形容年纪轻轻但身体脆弱，动辄生病、受伤的人群。",
+    "category": [
+      "生活",
+      "校园",
+      "吐槽"
+    ],
+    "content": "该词已从校园扩展到职场。指的是那些表面看起来光鲜亮丽，背地里却浑身是病（颈椎病、肠胃炎、失眠）的年轻人。这种健康透支不仅源于高压的工作环境，也源于深夜报复性熬夜的心理。它是“脆皮”与“硬撑”并存的时代缩影。<br><br><img src=\"https://dummyimage.com/600x300/f8d7da/721c24&text=Fragile+Youth\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 259,
+    "term": "特种兵式打工",
+    "pinyin": "tzbsdg",
+    "summary": "形容打工人以极高的效率和体力，完成跨城通勤或超强度加班。",
+    "category": [
+      "职场",
+      "生活",
+      "吐槽"
+    ],
+    "content": "源于“特种兵式旅游”。表现为周一凌晨跨省坐高铁，早上9点准时出现在工位。这种极限生存挑战背后，是高额房价、异地家庭与生存压力下的无奈选择。他们像特种兵一样精准掌控每一分钟，却唯独无法掌控生活的从容感。<br><br><img src=\"https://dummyimage.com/600x300/495057/ffffff&text=Special+Forces+Work\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 260,
+    "term": "阿瑟请坐",
+    "pinyin": "asqz",
+    "summary": "讽刺某事、某家庭氛围具有一种夸张、做作的“仪式感”。",
+    "category": [
+      "情感",
+      "饭圈",
+      "吐槽"
+    ],
+    "content": "出自导演陈凯歌家庭聚会的一段视频，视频中他以一种极其文艺、深沉且略显违和的方式命令儿子陈飞宇（Arthur）入座。由于这段对话过于僵硬且富有戏剧性，被网友用来形容那些故作高深、充满尴尬仪式感的场合。现已成为解构“精英人设”的利器。<br><br><img src=\"https://dummyimage.com/600x300/343a40/ffffff&text=Arthur+Sit+Down\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 261,
+    "term": "显眼包",
+    "pinyin": "xyb",
+    "summary": "指在人群中格外爱表现、具有搞笑天赋或出格行为的人。",
+    "category": [
+      "社交",
+      "生活",
+      "萌系"
+    ],
+    "content": "显眼包的核心属性是“不尴尬”。不管是大英博物馆里的雕像，还是演唱会上的粉丝，只要能引人注目并带点憨态，就是合格的显眼包。它从一个批评词转变为赞美词，体现了现代社会对个性化、真实感以及“幽默感”的高度包容。<br><br><img src=\"https://dummyimage.com/600x300/ffc107/333333&text=Show+Off\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 262,
+    "term": "赛博朋克2077",
+    "pinyin": "sbpk2077",
+    "summary": "指科技高度发达但生活水平极端落后的社会景象，常用于对比现实。",
+    "category": [
+      "游戏",
+      "科技",
+      "默认"
+    ],
+    "content": "最初是游戏名，现用于形容现实中那些充满科幻感的荒谬场景。例如：在霓虹灯闪烁的摩天大楼下，有人在用最原始的方式捡废品。这种“高技术、低生活”的反差，成了网友对当下社会资源分配不均和技术异化的一种艺术化批判。<br><br><img src=\"https://dummyimage.com/600x300/000000/F0E68C&text=Cyberpunk+2077\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 263,
+    "term": "电子宠物",
+    "pinyin": "dzcw",
+    "summary": "指在互联网上长期关注某位行为怪异、生活离奇的博主。",
+    "category": [
+      "亚文化",
+      "社交",
+      "吐槽"
+    ],
+    "content": "网友通过围观、打赏、评论这些博主来获取某种优越感或猎奇心理。博主的每一动态都被当作“喂食”或“观察”。这种带有审视色彩的关系往往建立在不平等的地位上，当博主出现人设崩塌时，这种“云养”关系也会迅速解体，引发激烈的网络暴力。<br><br><img src=\"https://dummyimage.com/600x300/d1ecf1/0c5460&text=Digital+Pet\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 264,
+    "term": "白人饭",
+    "pinyin": "brf",
+    "summary": "形容极简、冷食、几乎没有烹饪过程的西式午餐（如两片菜叶夹火腿）。",
+    "category": [
+      "生活",
+      "吐槽",
+      "时尚"
+    ],
+    "content": "原本是打工人对欧美同事极简午餐的吐槽，后来演变为一种“生活减法”。它反映了打工人由于中午时间紧张，被迫放弃中餐的繁琐，转而追求这种“维持生命体征”即可的进食方式。这种自嘲式调侃也折射出职场人对快节奏生活的无奈适应。<br><br><img src=\"https://dummyimage.com/600x300/f8f9fa/333333&text=White+People+Meal\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 265,
+    "term": "孔乙己的长衫",
+    "pinyin": "kyjdcs",
+    "summary": "指受过高等教育的人不愿放低姿态从事体力劳动的自嘲。",
+    "category": [
+      "校园",
+      "职场",
+      "情感"
+    ],
+    "content": "这不仅仅是一个就业话题，更是一个关于身份认同的时代命题。那件“长衫”是学历，是家人的期待，也是社会给予的沉重包袱。当脱掉长衫变得困难重重，这种自嘲就成了文人式的悲歌，揭示了当下教育产出与岗位需求之间的断层。<br><br><img src=\"https://dummyimage.com/600x300/8b4513/ffffff&text=Long+Gown\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 266,
+    "term": "尊嘟假嘟",
+    "pinyin": "zdjd",
+    "summary": "“真的假的”的谐音，带有极强的卖萌属性。",
+    "category": [
+      "萌系",
+      "谐音梗",
+      "社交"
+    ],
+    "content": "由于其发音听起来像是婴儿学步或小猫说话，在小红书、微博等平台极受欢迎。它成功地将原本带有怀疑色彩的语气弱化为一种社交互动的“润滑剂”。当对话中一方说出“尊嘟假嘟”，原本生硬的氛围会瞬间变得轻快可爱。<br><br><img src=\"https://dummyimage.com/600x300/FFB6C1/ffffff&text=ZunDuJiaDu\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 267,
+    "term": "哈基米",
+    "pinyin": "hjm",
+    "summary": "因BGM洗脑而走红，现泛指一切可爱的小型动物。",
+    "category": [
+      "萌系",
+      "二次元",
+      "默认"
+    ],
+    "content": "尽管存在语义误用（原指蜂蜜），但“哈基米”在互联网中文语境下已完全固化为宠物的代称。这种“美丽的误会”体现了网络亚文化在传播中具有强大的二次塑造能力，大众审美通过简单的音节传递了对萌物的统一认可。<br><br><img src=\"https://dummyimage.com/600x300/fff3cd/856404&text=Hajimi\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 268,
+    "term": "已读乱回",
+    "pinyin": "ylh",
+    "summary": "一种社交策略，指在看到消息后故意给出极其荒诞、不符逻辑的回复。",
+    "category": [
+      "社交",
+      "职场",
+      "抽象"
+    ],
+    "content": "它是当代年轻人对抗“情绪价值绑架”的一种手段。当对方问“在吗？”，回复“秦始皇打钱给我了”。这种拒绝正面沟通的行为，实际上是在社交中划定边界，表达“我现在没有精力配合你正经说话”的潜台词，是一种精神解压。<br><br><img src=\"https://dummyimage.com/600x300/d1ecf1/0c5460&text=Random+Reply\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 269,
+    "term": "发疯文学",
+    "pinyin": "ffwx",
+    "summary": "通过一段语无伦次、情绪极其激烈的文字，以此达到目的或宣泄情绪。",
+    "category": [
+      "社交",
+      "吐槽",
+      "抽象"
+    ],
+    "content": "例如：“我不回消息是因为我心碎了，我心碎了是因为你没打钱……”发疯文学通过逻辑崩坏的内容让接收者感到震撼，从而在催发货、催退款或对抗无理要求时表现出一种“精神状态极不稳定”的威慑力。这是一种以进为退的沟通艺术。<br><br><img src=\"https://dummyimage.com/600x300/dc3545/ffffff&text=Crazy+Literature\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 270,
+    "term": "你没事吧",
+    "pinyin": "nmsb",
+    "summary": "溜溜梅广告衍生梗，用于质疑他人的行为逻辑是否正常。",
+    "category": [
+      "社交",
+      "吐槽",
+      "谐音梗"
+    ],
+    "content": "在现代社交中，这四个字已经带有了某种“降维打击”的力量。它不直接指责，而是通过假装关怀的方式，传递出“你的行为简直不可理喻”的嘲讽。在面对网络杠精或奇葩同事时，一句话即可终止对方的表演。<br><br><img src=\"https://dummyimage.com/600x300/ffc107/333333&text=You+OK?\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 271,
+    "term": "你是哪块小饼干",
+    "pinyin": "nsnkgxb",
+    "summary": "优雅的骂人方式，谐音“你是哪根葱/你算老几”。",
+    "category": [
+      "萌系",
+      "谐音梗",
+      "社交"
+    ],
+    "content": "为了逃避社交平台的关键词过滤，网友将粗鄙的质问转化为一种可爱的比喻。这种“软化暴力”的表达方式，既能准确传达不屑的情绪，又能维持发言者的体面和可爱人设。它是当代互联网社交礼仪中“绵里藏针”的典范。<br><br><img src=\"https://dummyimage.com/600x300/F5DEB3/333333&text=Little+Cookie\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 272,
+    "term": "格局打开",
+    "pinyin": "gjdk",
+    "summary": "本意是扩大心胸，现多用于对小事进行过度升华的整活场景。",
+    "category": [
+      "职场",
+      "抽象",
+      "社交"
+    ],
+    "content": "当有人在为丢了五块钱纠结时，劝他“格局打开，那是你给地球交的保护费”。这种解构严肃概念的方式，让原本焦虑的话题变得荒诞搞笑。它象征着一种超脱的、甚至带有点虚无主义的现代处世哲学。<br><br><img src=\"https://dummyimage.com/600x300/17a2b8/ffffff&text=Think+Big\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 273,
+    "term": "依托答辩",
+    "pinyin": "ytdb",
+    "summary": "形容某些毫无营养、甚至带有恶趣味的互联网垃圾内容。",
+    "category": [
+      "抽象",
+      "吐槽",
+      "默认"
+    ],
+    "content": "这个词的流行反映了用户对短视频算法推送中“审丑文化”的反噬。当用户受够了千篇一律的低质内容，这种直白甚至粗俗的批评就成了清道夫。它是大众对内容质量的一种原始呼唤，尽管词义不雅，却具有强大的群众基础。<br><br><img src=\"https://dummyimage.com/600x300/8b4513/ffffff&text=Stinky+Trash\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 274,
+    "term": "盖亚",
+    "pinyin": "gy",
+    "summary": "本是奥特曼台词，现用于在愤怒或受惊时发出的咆哮。",
+    "category": [
+      "二次元",
+      "抽象",
+      "生活"
+    ],
+    "content": "源于短视频博主在东西摔坏或操作失误时爆发的一声大喊。由于“盖亚”这一词汇自带一种宏大的二次元史诗感，与现实中鸡毛蒜皮的小事故形成巨大反差，极具喜剧效果。现多用于表达一种“彻底破防”后的无奈宣泄。<br><br><img src=\"https://dummyimage.com/600x300/FF0000/ffffff&text=Gaia!!!\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 275,
+    "term": "小趴菜",
+    "pinyin": "xpc",
+    "summary": "侧重形容一个人性格温和、甚至有点“受气包”的感觉。",
+    "category": [
+      "方言",
+      "萌系",
+      "社交"
+    ],
+    "content": "这个词的流行离不开“云贵川”方言视频的传播。它虽然指的是能力不行，但因为带有“菜”这个字，多了一层自嘲的可爱。在朋友圈发一张自己喝醉的照片配文“小趴菜一个”，既能说明状态，又能博得好友的善意调侃。<br><br><img src=\"https://dummyimage.com/600x300/28a745/ffffff&text=Weak+And+Cute\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 276,
+    "term": "退退退",
+    "pinyin": "ttt",
+    "summary": "一种万能的辟邪、驱赶负面能量的咒语。",
+    "category": [
+      "生活",
+      "抽象",
+      "吐槽"
+    ],
+    "content": "它的魅力在于那套极具节奏感的动作。网友不仅在现实中模仿，还在面对诸如“加班”、“催婚”、“水逆”等无形压力时，在评论区刷屏。它是一种极具互动性的消极反抗，将严肃的问题解构成一种滑稽的行为艺术。<br><br><img src=\"https://dummyimage.com/600x300/ffc107/333333&text=Tui+Tui+Tui\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 277,
+    "term": "栓Q",
+    "pinyin": "sq",
+    "summary": "常作为一段话的结尾，表达“彻底无语”的终结感。",
+    "category": [
+      "谐音梗",
+      "社交",
+      "生活"
+    ],
+    "content": "在互联网语境中，“栓Q”的浓度已经远超原文含义。当一个人遇到排队加塞或外卖撒了一地时，吐出一句“我真的栓Q”，这种带着绝望的谢意比愤怒更有力量。它是网络情绪表达中的一种“冷暴力”。<br><br><img src=\"https://dummyimage.com/600x300/6c757d/ffffff&text=Shuan+Q+End\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 278,
+    "term": "我真的会谢",
+    "pinyin": "wzdhxi",
+    "summary": "一种敷衍、甚至有点不耐烦的表达感谢（实则不满）的说法。",
+    "category": [
+      "社交",
+      "时尚",
+      "吐槽"
+    ],
+    "content": "该词常与“绝绝子”搭配出现，属于典型的“饭圈语态”。它传达出一种高冷、疏离的情绪，意为“你干的好事让我无话可说，但我只能尴尬地客套一下”。这种隐晦的负面情绪表达是当代社交网络的主要特色之一。<br><br><img src=\"https://dummyimage.com/600x300/e83e8c/ffffff&text=Will+Thank\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 279,
+    "term": "特供",
+    "pinyin": "tg",
+    "summary": "指针对特定低端审美或特定封闭市场生产的特有产品。",
+    "category": [
+      "消费",
+      "吐槽",
+      "亚文化"
+    ],
+    "content": "现在该词更多带有一种“割韭菜”的讽刺意义。当一部电影在国内院线加入大量植入广告和多余剧情时，网友会嘲笑其为“中国特供”。它体现了消费者主权意识的觉醒，对那些搞“双重标准”或“糊弄了事”的行为给出的差评。<br><br><img src=\"https://dummyimage.com/600x300/dc3545/ffffff&text=Special+Supply\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 280,
+    "term": "普信男/女",
+    "pinyin": "pxn",
+    "summary": "两性对立话语体系中的标签式词汇。",
+    "category": [
+      "情感",
+      "社交",
+      "吐槽"
+    ],
+    "content": "尽管最初是喜剧梗，但在传播过程中逐渐演变为带有性别攻击色彩的标签。它反映了在婚恋市场日益焦虑的背景下，不同性别群体之间评价体系的严重错位。任何试图表现自信的行为，只要不被对方认可，都可能被冠以“普信”之名。<br><br><img src=\"https://dummyimage.com/600x300/6c757d/ffffff&text=Confident+Average\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 281,
+    "term": "这就是街舞",
+    "pinyin": "zjjsjw",
+    "summary": "常用于形容某个尴尬或离奇的肢体碰撞、或者出乎意料的剧情转折。",
+    "category": [
+      "时尚",
+      "抽象",
+      "社交"
+    ],
+    "content": "源自同名综艺，但在网络梗中，当两个人在路上撞在一起并跳起一段奇怪的化解舞时，或者某段视频里的翻车动作极具艺术感时，网友会评论“这就是街舞”。这是一种将尴尬瞬间艺术化的解构方式。<br><br><img src=\"https://dummyimage.com/600x300/007bff/ffffff&text=This+is+Dance\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 282,
+    "term": "泰裤辣",
+    "pinyin": "tkl",
+    "summary": "由于原视频过于尴尬，该词已演变为“尴尬”的代名词。",
+    "category": [
+      "饭圈",
+      "抽象",
+      "吐槽"
+    ],
+    "content": "现在人们在评论一个非常尴尬、让人脚趾扣地的场景时，会直接留言“泰裤辣”。它从一个表达赞美的谐音，变成了一个自带音效的“社死”现场符号。这正是短视频时代“黑红也是红”逻辑下的语言产物。<br><br><img src=\"https://dummyimage.com/600x300/000000/FF0000&text=Tai+Ku+La\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 283,
+    "term": "一整个爱住",
+    "pinyin": "yzgaz",
+    "summary": "非常喜欢、完全被吸引的夸张表达方式。",
+    "category": [
+      "时尚",
+      "萌系",
+      "消费"
+    ],
+    "content": "属于“小红书文学”的一员。其特点是使用“一整个”、“大动作”、“咱就是说”等词缀来增强语气的时尚感。这种表达方式构建了一种圈层语言，虽然在圈外人看来略显做作，但在圈内却能极快地传递出情绪共鸣。<br><br><img src=\"https://dummyimage.com/600x300/FF69B4/ffffff&text=Totally+Luv+It\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 284,
+    "term": "夺笋啊",
+    "pinyin": "dsa",
+    "summary": "由于方言发音有趣，常配合“大熊猫的口粮都要被抢光了”。",
+    "category": [
+      "方言",
+      "谐音梗",
+      "默认"
+    ],
+    "content": "这种梗的魅力在于它的扩展性。当有人毒舌吐槽时，网友会接龙：“笋都被你夺光了”、“山上的笋都搬到你家了”。它将原本尖锐的争吵转化为一种充满画面感的调侃，是互联网“和谐社交”的一种温和体现。<br><br><img src=\"https://dummyimage.com/600x300/28a745/ffffff&text=Too+Poisonous\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 285,
+    "term": "沉浸式",
+    "pinyin": "cjs",
+    "summary": "现引申为“全神贯注进入某种状态”，甚至用于讽刺。",
+    "category": [
+      "生活",
+      "科技",
+      "默认"
+    ],
+    "content": "除了正规的视频风格，现在也常出现“沉浸式挨骂”、“沉浸式摸鱼”等用法。它强调一种主观意识的封闭性和投入度。在这个注意力被严重分散的时代，这种能够“完全沉浸”的状态反而成为了一种奢侈品。<br><br><img src=\"https://dummyimage.com/600x300/6610f2/ffffff&text=Immersion\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 286,
+    "term": "破防了",
+    "pinyin": "pfl",
+    "summary": "涵盖了从泪点被触动到三观被震碎的各种心理冲击。",
+    "category": [
+      "情感",
+      "社交",
+      "游戏"
+    ],
+    "content": "在B站每年的年度弹幕评选中，“破防了”总是名列前茅。这说明在高度隔离的数字生活中，人们依然渴求着能够触及灵魂的真实连接。无论是由于温暖的善意还是残酷的现实，那层保护色被剥落的一瞬，就是“破防”。<br><br><img src=\"https://dummyimage.com/600x300/e83e8c/ffffff&text=Emotional+Break\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 287,
+    "term": "氛围感",
+    "pinyin": "fwg",
+    "summary": "在内容创作中，指代那种“虚虚实实、欲言又止”的意境。",
+    "category": [
+      "时尚",
+      "生活",
+      "消费"
+    ],
+    "content": "氛围感的核心在于“留白”。它不需要你长得完美，只需要你的照片里有风、有光、有落叶。这种审美的流行降低了普通人分享生活的门槛，同时也催生了大量的滤镜依赖和视觉欺骗。它是数字美学对真实生活的一种美化过滤。<br><br><img src=\"https://dummyimage.com/600x300/fd7e14/ffffff&text=Atmosphere\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 288,
+    "term": "绝绝子",
+    "pinyin": "jjz",
+    "summary": "已由流行语演变为一种被刻画、被调侃的特定人设符号。",
+    "category": [
+      "吐槽",
+      "饭圈",
+      "时尚"
+    ],
+    "content": "由于其过度泛滥，现在人们使用这个词时往往带有一种反讽的意味。如果你说“咱就是说，这个排骨真是绝绝子”，对方可能会觉得你在模仿某种刻板的网红语气。它证明了一个网络词汇从诞生到滥用再到被解构的完整生命周期。<br><br><img src=\"https://dummyimage.com/600x300/ffc107/333333&text=Amazing+Overload\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 289,
+    "term": "爷青回/爷青结",
+    "pinyin": "yqh",
+    "summary": "主要作为弹幕文化中一种整齐划一的情感出口。",
+    "category": [
+      "二次元",
+      "情感",
+      "默认"
+    ],
+    "content": "当周杰伦出新歌、当灌篮高手电影版上映，满屏的“爷青回”证明了青春记忆在消费市场中的统治地位。这不仅是一种怀旧，更是一种对“回不去的时光”的集体确认。它是一种社交仪式，让不同年龄层的人在这一刻达成情感契合。<br><br><img src=\"https://dummyimage.com/600x300/007bff/ffffff&text=Youth+Returns\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 290,
+    "term": "小丑竟是我自己",
+    "pinyin": "xzjswzj",
+    "summary": "一种带有保护性质的自嘲，先行承认失败以避免尴尬。",
+    "category": [
+      "情感",
+      "生活",
+      "抽象"
+    ],
+    "content": "这种心态常见于恋爱中的“舔狗”自嘲或工作中的过度热心。当人们意识到自己的付出在对方眼里一文不值时，通过化上虚构的小丑妆，将悲剧转化为喜剧。这种心理防御机制让现代人在受挫后能更快速地进行情绪重组。<br><br><img src=\"https://dummyimage.com/600x300/343a40/ffffff&text=Clown+Self\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 291,
+    "term": "凡尔赛文学",
+    "pinyin": "fswx",
+    "summary": "现代版“财不外露”的反向表现，通过诉苦来炫耀。",
+    "category": [
+      "时尚",
+      "社交",
+      "吐槽"
+    ],
+    "content": "凡尔赛的精髓在于“不经意”。比如在车标前拍自己的新手表，配文却是“堵车真烦”。随着这种套路被全民识破，它已从一种炫耀方式转变为一种被全网公开处刑的尴尬行为。它让互联网炫耀进入了更高级、更隐晦的博弈阶段。<br><br><img src=\"https://dummyimage.com/600x300/6610f2/ffffff&text=Versailles\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 292,
+    "term": "真香",
+    "pinyin": "zx",
+    "summary": "人类永恒的定律，形容真理在打脸之后降临。",
+    "category": [
+      "生活",
+      "默认",
+      "吐槽"
+    ],
+    "content": "它之所以能长久不衰，是因为它触及了人性的弱点：固执与妥协。从“我不买苹果手机”到“真香”，从“我绝不相亲”到“真香”，这个过程体现了认知的重塑。在网络语境中，它已成为一种坦率面对自我打脸的洒脱心态。<br><br><img src=\"https://dummyimage.com/600x300/fd7e14/ffffff&text=Zhen+Xiang+Meme\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 293,
+    "term": "柠檬精",
+    "pinyin": "nmj",
+    "summary": "形容一种良性的、不带恶意的嫉妒心理。",
+    "category": [
+      "情感",
+      "生活",
+      "社交"
+    ],
+    "content": "当大家自称“柠檬精”时，其实是在向对方传递一种赞美。它消解了嫉妒带来的侵略性，将其转化为一种“我也想要这种好运”的正面愿望。在社交平台上，这是一种非常高情商的互动方式，既夸奖了别人又定位了自己。<br><br><img src=\"https://dummyimage.com/600x300/ffc107/333333&text=Lemon+Life\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 294,
+    "term": "电子木鱼",
+    "pinyin": "dzmy",
+    "summary": "当代年轻人的“物理超度”与“心理按摩”。",
+    "category": [
+      "科技",
+      "生活",
+      "抽象"
+    ],
+    "content": "通过屏幕点击，每一下都伴随着震动和“功德+1”的提示。这种游戏化的解压方式反映了年轻人面对生活无助感时，通过这种无意义的重复性动作，试图找回对生活的掌控感和内心的平静。它是快餐文化下的精神良药。<br><br><img src=\"https://dummyimage.com/600x300/212529/ced4da&text=E-Muyu\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 295,
+    "term": "家人们谁懂啊",
+    "pinyin": "jrmsdx",
+    "summary": "一种强行拉入共情圈层的语言套路。",
+    "category": [
+      "社交",
+      "吐槽",
+      "时尚"
+    ],
+    "content": "尽管被诟病为“小红书模板”，但它确实能瞬间建立一种“非正式社交空间”。在这句话之后，无论分享的是真苦难还是假抱怨，都预设了一个“听众必须站在我这边”的前提。它是社交媒体语境下情感表达的某种霸权式开头。<br><br><img src=\"https://dummyimage.com/600x300/e83e8c/ffffff&text=Fam+Get+Me\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 296,
+    "term": "雪糕刺客",
+    "pinyin": "xgck",
+    "summary": "指代那些背离群众物价、依靠信息差“偷袭”钱包的商品。",
+    "category": [
+      "消费",
+      "生活",
+      "吐槽"
+    ],
+    "content": "这个词的火爆直接导致了相关品牌的价格回归和明码标价政策的收紧。它证明了网络舆论在消费权益保护方面的巨大作用。不仅是雪糕，它让所有虚高溢价的产品都感到了一丝不安，是消费者对“物有所值”最直白的诉求。<br><br><img src=\"https://dummyimage.com/600x300/f8f9fa/333333&text=Ice+Assassin\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 297,
+    "term": "City不City",
+    "pinyin": "city",
+    "summary": "现泛指一切洋气的、现代化的、让人感到高级的事物。",
+    "category": [
+      "时尚",
+      "生活",
+      "社交"
+    ],
+    "content": "当你在山顶喝咖啡，你可以说“太City了”；当你看到高楼大厦，也可以说“好City啊”。这种中英混杂的用法带有一种国际化的幽默感，消解了语言的严肃性，成为了短视频中一种标志性的感叹词。<br><br><img src=\"https://dummyimage.com/600x300/007bff/ffffff&text=So+City\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 298,
+    "term": "硬控我X秒",
+    "pinyin": "yk",
+    "summary": "描述一种无法移开目光的“大脑宕机”状态。",
+    "category": [
+      "游戏",
+      "生活",
+      "社交"
+    ],
+    "content": "在刷到一些高颜值、高技术或者极致离谱的视频时，你感觉时间流速变慢，这就被硬控了。这种表述精准地量化了内容的吸引力，也反映了短视频作为“时间杀手”对现代人注意力的无声掠夺。你是被什么硬控了？<br><br><img src=\"https://dummyimage.com/600x300/cce5ff/004085&text=Hard+Control+Sec\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 299,
+    "term": "你是懂XXX的",
+    "pinyin": "nsdxxx",
+    "summary": "一种先抑后扬的嘲讽或调侃语气，意指“你真是个行家（贬义）”。",
+    "category": [
+      "社交",
+      "吐槽",
+      "抽象"
+    ],
+    "content": "例如：“你是懂摸鱼的”、“你是懂穿搭（其实很丑）的”。这种表达方式通过赋予对方一个虚假的专业头衔，来消解其行为的合理性。它是网络反讽文学的高频句式，带有一种心照不宣的刻薄与幽默。<br><br><img src=\"https://dummyimage.com/600x300/343a40/ffffff&text=You+Understand\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 300,
+    "term": "三观跟着五官走",
+    "pinyin": "swgzwwz",
+    "summary": "指因为对方长得好看，而选择性忽视其人品或逻辑上的缺陷。",
+    "category": [
+      "颜值",
+      "情感",
+      "亚文化"
+    ],
+    "content": "常出现在影视剧评论区，当反派角色长得极其英俊或美丽时，观众会开玩笑说“只要长得好，反派我也爱”。这是一种对“唯颜值论”的戏谑自嘲，反映了视觉感官在碎片化信息时代对深度价值观判断的某种冲击。<br><br><img src=\"https://dummyimage.com/600x300/f8d7da/721c24&text=Looks+Vs+Logic\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 301,
+    "term": "离职奶茶",
+    "pinyin": "lznc",
+    "summary": "指员工在离职当天请同事喝的奶茶，象征着一种解脱或体面的告别。",
+    "category": [
+      "职场",
+      "生活",
+      "社交"
+    ],
+    "content": "在当下的职场社交中，离职不再仅仅是悄悄拿走工卡，而演变成了一种“离职仪式感”。离职奶茶往往贴着“江湖再见”或“先撤一步”的标签。对于离职者来说，这杯奶茶是逃离苦海的庆功酒；对于留下的同事来说，则是一份带着羡慕的慰藉。它反映了职场人对“散伙”这件事愈发洒脱和公开的态度。<br><br><img src=\"https://dummyimage.com/600x300/FFE4C4/333&text=Resignation+Milk+Tea\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 302,
+    "term": "精神股东",
+    "pinyin": "jsgd",
+    "summary": "指那些虽然没有股份，但对某个品牌或IP极其真情实感的粉丝。",
+    "category": [
+      "消费",
+      "饭圈",
+      "亚文化"
+    ],
+    "content": "他们会像运营官一样操心品牌的财报、代言人选择甚至包装设计。如果品牌出了负面，他们比老板还着急；如果品牌大卖，他们会产生一种“我眼光真好”的虚幻成就感。这种情感连接是品牌忠诚度的极致表现，也常被调侃为“拿白菜钱操白粉心”。<br><br><img src=\"https://dummyimage.com/600x300/FFD700/333&text=Spiritual+Shareholder\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 303,
+    "term": "赛博受难",
+    "pinyin": "sbsn",
+    "summary": "形容由于技术故障或算法折磨，导致人在数字世界里感到崩溃。",
+    "category": [
+      "科技",
+      "吐槽",
+      "生活"
+    ],
+    "content": "比如在截止日期前电脑突然蓝屏，或者打车软件在暴雨天显示“前面还有99人”。这种在数字化生存中遭遇的无力感，被网友戏称为“赛博受难”。它揭示了现代人对技术的深度依赖，一旦数字基建瘫痪，个体的精神防御也会随之瓦解。<br><br><img src=\"https://dummyimage.com/600x300/000000/00FF00&text=Cyber+Suffering\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 304,
+    "term": "精致穷",
+    "pinyin": "jzq",
+    "summary": "指赚得不多，但为了维持体面的生活方式而花光所有积蓄的状态。",
+    "category": [
+      "消费",
+      "时尚",
+      "生活"
+    ],
+    "content": "这是一种典型的“超前消费”与“审美补偿”。年轻人可能住在简陋的合租房里，却愿意花两个月工资买一个名牌包，或者每天必须喝40元的精品咖啡。这种生活方式往往是为了在朋友圈维持一种“成功人士”的幻象，是消费主义陷阱与自我补偿心理共同作用的结果。<br><br><img src=\"https://dummyimage.com/600x300/E6E6FA/333&text=Exquisite+Poverty\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 305,
+    "term": "文字讨好症",
+    "pinyin": "wzthz",
+    "summary": "在社交软件沟通时，过分使用语气词和表情符号以示友好。",
+    "category": [
+      "社交",
+      "职场",
+      "心理"
+    ],
+    "content": "比如把“好的”改成“好哒～”，把“收到”改成“收到收到！！（玫瑰花）”。这种行为源于对文字冰冷感带来的误解的恐惧。人们试图通过增加冗余的符号来表现自己的无害与礼貌，反映了高压社交环境下，个体对于“由于沟通不畅而引发冲突”的集体焦虑。<br><br><img src=\"https://dummyimage.com/600x300/D1F2EB/333&text=Text+Pleasing\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 306,
+    "term": "牛马",
+    "pinyin": "nm",
+    "summary": "指代那些像做牛做马一样辛苦劳作，却报酬微薄的底层打工人。",
+    "category": [
+      "职场",
+      "吐槽",
+      "亚文化"
+    ],
+    "content": "源于一句自嘲：“我有两只手，一只是用来搬砖的，另一只是用来给老板数钱的。”牛马一词比“社畜”更带有中国本土的悲凉色彩。它象征着体力与精力的双重压榨，是职场人在面对无法改变的现状时，一种极为辛辣且彻底的自毁式幽默。<br><br><img src=\"https://dummyimage.com/600x300/495057/ffffff&text=Oxen+and+Horses\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 307,
+    "term": "电子羽绒服",
+    "pinyin": "dzyrf",
+    "summary": "指那些能够给人带来极大心理温暖和治愈感的影视剧或短视频。",
+    "category": [
+      "生活",
+      "情感",
+      "时尚"
+    ],
+    "content": "不同于“电子榨菜”的下饭功能，“电子羽绒服”强调的是情绪的包裹感。比如在失落时反复观看《请回答1988》或是一些治愈系的小动物视频。它像一件隐形的衣服，在寒冷的社交现实中为人们阻挡焦虑，提供一个短期的心理避难所。<br><br><img src=\"https://dummyimage.com/600x300/FFB6C1/ffffff&text=Electronic+Down+Jacket\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 308,
+    "term": "断舍离",
+    "pinyin": "dsl",
+    "summary": "通过清空多余物品来整理内心，追求极简的生活状态。",
+    "category": [
+      "生活",
+      "时尚",
+      "默认"
+    ],
+    "content": "最初是一种整理术，现已上升为一种人生哲学。在物欲横流的时代，人们发现拥有的越多，负担越重。通过扔掉一年没穿的衣服、卸载不用的App、清理无效社交，人们试图找回对生活的掌控权。它是对过度消费主义的一次有力反拨。<br><br><img src=\"https://dummyimage.com/600x300/F4F4F4/333&text=Minimalism\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 309,
+    "term": "小作文",
+    "pinyin": "xzw",
+    "summary": "指在社交媒体上发表的长篇大论，通常用于维权、爆料或抒发深沉情感。",
+    "category": [
+      "社交",
+      "饭圈",
+      "吐槽"
+    ],
+    "content": "在“三秒定律”的快节奏时代，能让人写出并读完“小作文”，通常意味着发生了重大的情感纠纷或社会热点。小作文往往极具煽动性和叙事技巧，既是普通人寻求舆论支持的武器，也常被质疑为“带节奏”的工具。它是网络法庭审判中最重要的证词形式。<br><br><img src=\"https://dummyimage.com/600x300/FFFFFF/000&text=Long+Post\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 310,
+    "term": "赛博老家",
+    "pinyin": "sblj",
+    "summary": "指那些让网友感到极其熟悉、亲切并产生归属感的虚拟社区或平台。",
+    "category": [
+      "科技",
+      "情感",
+      "亚文化"
+    ],
+    "content": "由于现实中的老家可能因为拆迁或疏离而变得陌生，许多人在B站、某个贴吧或是特定的游戏服务器里寻找归属感。在那里，人们说着相同的黑话，拥有共同的记忆。这种数字化的归属感，弥补了物理空间上邻里关系的消失。<br><br><img src=\"https://dummyimage.com/600x300/A3E4D7/333&text=Cyber+Hometown\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 311,
+    "term": "这很难评",
+    "pinyin": "zhnp",
+    "summary": "一种委婉但明确的差评，用于表达对某事难以言说的无语或不适。",
+    "category": [
+      "社交",
+      "吐槽",
+      "抽象"
+    ],
+    "content": "源自艺人那英对一段表演的评价。在社交语境下，它比直接骂“难看”或“差劲”更具杀伤力，因为它暗示了该事物已经超出了正常人的逻辑范畴。当面对一张奇丑无比的艺术画作或一段离谱的言论，一句“这很难评”能瞬间达成一种心照不宣的沉默。<br><br><img src=\"https://dummyimage.com/600x300/FDFEFE/000&text=Hard+to+Evaluate\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 312,
+    "term": "搭子文化",
+    "pinyin": "dzwh",
+    "summary": "指为了某个特定目的（如吃饭、旅游）而组合的临时社交关系。",
+    "category": [
+      "社交",
+      "生活",
+      "时尚"
+    ],
+    "content": "“饭搭子”、“旅游搭子”、“健身搭子”，其核心是“垂直社交”。它不需要深度交流，不需要情绪价值，只需要在特定时间内志趣相投。这种关系主打一个“轻便”：随时组队，随时解散，互不干涉私生活。这反映了现代人对高频度、低压社交的渴望。<br><br><img src=\"https://dummyimage.com/600x300/D2B4DE/333&text=Partner+Culture\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 313,
+    "term": "孔雀开屏",
+    "pinyin": "kqkp",
+    "summary": "讽刺某人在异性面前过度展现自己，甚至显得有些滑稽。",
+    "category": [
+      "情感",
+      "吐槽",
+      "生活"
+    ],
+    "content": "通常形容一个人为了吸引异性的注意，不分场合地展示财力、智力或体力。这种行为往往因为目的性太强而显得矫揉造作。在相亲或团建现场，如果有男性过度夸夸其谈，旁观者往往会吐槽：“收收你的孔雀毛吧。”它是对传统雄性竞争手段的一种现代嘲讽。<br><br><img src=\"https://dummyimage.com/600x300/E59866/333&text=Peacocking\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 314,
+    "term": "梦幻联动",
+    "pinyin": "mhld",
+    "summary": "指两个看似毫无交集的品牌、名人或作品突然合作，产生惊喜效果。",
+    "category": [
+      "二次元",
+      "消费",
+      "时尚"
+    ],
+    "content": "比如《名侦探柯南》联名某平价奶茶，或者两个不同维度的顶流艺人同框。这种联动打破了次元壁，能瞬间引发粉丝的狂欢。在营销层面，梦幻联动是利用粉丝交叉覆盖来实现流量最大化的经典手段，同时也赋予了内容更多的趣味性。<br><br><img src=\"https://dummyimage.com/600x300/3498DB/ffffff&text=Dream+Collaboration\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 315,
+    "term": "松弛感",
+    "pinyin": "scg",
+    "summary": "指一种从容不迫、不费力就能应对生活的精神状态。",
+    "category": [
+      "情感",
+      "时尚",
+      "生活"
+    ],
+    "content": "在这个全民焦虑的时代，“松弛感”成了一种极高的奢侈品。它反对用力过猛，反对紧绷。表现为即便赶不上飞机也能坦然在机场吃顿好的。这种心态被推崇为最高级的魅力，因为它意味着个体拥有强大的内心和对生活失控的包容力。<br><br><img src=\"https://dummyimage.com/600x300/AED6F1/333&text=Effortless+Vibe\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 316,
+    "term": "电子失恋",
+    "pinyin": "dzsl",
+    "summary": "指看完一部非常感人的剧集或电影后，产生的空虚、失落感。",
+    "category": [
+      "情感",
+      "二次元",
+      "生活"
+    ],
+    "content": "当剧中的角色迎来了结局，观众仿佛也失去了生命中一群真实的朋友。这种情绪往往会持续好几天，甚至让人无法投入新的剧集。它说明了优秀的文艺作品能够跨越屏幕，与现实中的人类建立起真实的、甚至比现实社交更纯粹的情感联结。<br><br><img src=\"https://dummyimage.com/600x300/F5B7B1/333&text=E-Heartbreak\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 317,
+    "term": "学术垃圾",
+    "pinyin": "xslj",
+    "summary": "指为了应付毕业或考核而拼凑出来、毫无实际研究价值的论文。",
+    "category": [
+      "校园",
+      "吐槽",
+      "职场"
+    ],
+    "content": "许多大学生在写毕业论文时，常自嘲是在“制造学术垃圾”。这不仅是对自己学术能力的自谦，也是对当下教育体制中某些形式主义考核的抗议。当论文只是文字的搬运和格式的堆砌，写作者往往会陷入一种极大的自我否定和虚无感之中。<br><br><img src=\"https://dummyimage.com/600x300/BDC3C7/333&text=Academic+Trash\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 318,
+    "term": "精神内耗",
+    "pinyin": "jsnh",
+    "summary": "指人在内心进行的自我斗争，导致精力在无意义的思虑中大量流失。",
+    "category": [
+      "情感",
+      "生活",
+      "职场"
+    ],
+    "content": "“想得太多，做得太少”是精神内耗的典型特征。在深夜反复咀嚼白天说错的一句话，或者在做决策前预设一百种失败的可能。这种内心的磨损远比体力劳动更让人疲惫。该词的流行提醒了现代人要学会“钝感力”，减少这种无声的自我消耗。<br><br><img src=\"https://dummyimage.com/600x300/8E44AD/ffffff&text=Mental+Friction\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 319,
+    "term": "显学",
+    "pinyin": "xx",
+    "summary": "原本指显赫的学问，现指在网络上被大家争相模仿、讨论的主流现象。",
+    "category": [
+      "吐槽",
+      "社交",
+      "亚文化"
+    ],
+    "content": "例如“汪小菲大S显学”、“凡尔赛显学”。当一个事件的热度高到连其中的细节（如床垫品牌、文字风格）都被逐条解析时，它就成了显学。这是一种泛娱乐化、解构式的全民参与，将琐碎的八卦上升到了“学问”的研究高度。<br><br><img src=\"https://dummyimage.com/600x300/2C3E50/ffffff&text=Pop+Study\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 320,
+    "term": "反向消费",
+    "pinyin": "fxxf",
+    "summary": "指年轻人不再迷信大牌，转而追求极致性价比、理性务实的消费方式。",
+    "category": [
+      "消费",
+      "生活",
+      "时尚"
+    ],
+    "content": "“不是大牌买不起，而是拼多多更有性价比。”去折扣店买临期食品、去县城买百元羽绒服、去大食堂吃盒饭。反向消费是年轻人对品牌溢价的一种“清醒反击”，标志着大众消费心理从“面子驱动”转向了“生存与舒适驱动”。<br><br><img src=\"https://dummyimage.com/600x300/27AE60/ffffff&text=Rational+Consumption\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 321,
+    "term": "抽象",
+    "pinyin": "cx",
+    "summary": "形容某种行为、场面或言论完全超出逻辑常识，荒诞且怪异。",
+    "category": [
+      "抽象",
+      "亚文化",
+      "吐槽"
+    ],
+    "content": "源自早期网络直播圈，现泛指一切不可理喻、离奇古怪的事物。如果一个视频里的人在对着电线杆求婚，网友会评论：“这太抽象了。”它不仅仅是荒诞，往往还带有一种解构主义的幽默，是抗拒传统审美和逻辑的一种表达方式。<br><br><img src=\"https://dummyimage.com/600x300/F1C40F/333&text=Abstract+Meme\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 322,
+    "term": "互联网嘴替",
+    "pinyin": "hlwzt",
+    "summary": "指那些能够精准、犀利地表达出网友内心真实想法的人。",
+    "category": [
+      "社交",
+      "吐槽",
+      "情感"
+    ],
+    "content": "当大家对某个社会现象感到愤怒但又苦于文字功底不够时，某个博主的一番话如果正好击中要害，他就是“互联网嘴替”。这种身份认同带来了极大的爽感。嘴替们的出现，实际上是在帮助大众进行情感宣泄和价值输出。<br><br><img src=\"https://dummyimage.com/600x300/E74C3C/ffffff&text=Internet+Voice\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 323,
+    "term": "赛博西游",
+    "pinyin": "sbxy",
+    "summary": "指一群人通过网络直播或短视频，进行的充满奇幻、离谱色彩的远程活动。",
+    "category": [
+      "科技",
+      "抽象",
+      "亚文化"
+    ],
+    "content": "常指在某些游戏中，玩家们通过特定的动作或剧本，在虚拟世界里重演西游记的情节，或者是形容某次漏洞百出却又极其精彩的跨城面基。它代表了人们利用数字化手段，对传统叙事进行的一次现代荒诞重构。<br><br><img src=\"https://dummyimage.com/600x300/5DADE2/333&text=Cyber+Journey\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 324,
+    "term": "我真的会谢",
+    "pinyin": "wzdhxi",
+    "summary": "一种讽刺性的感谢，表达对某事极度无语、甚至想翻白眼的心情。",
+    "category": [
+      "社交",
+      "时尚",
+      "吐槽"
+    ],
+    "content": "属于“反语”的一种。当外卖送到了隔壁、下班前突然要开会，或者暗恋的人发来一张他和别人的合照。此时的一句“我真的会谢”，虽然有个谢字，但内心其实已经崩溃。它是网络时代消解愤怒的一种冷处理方式。<br><br><img src=\"https://dummyimage.com/600x300/D7BDE2/333&text=I+Real+Will+Thank\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 325,
+    "term": "科技与狠活",
+    "pinyin": "kjyhh",
+    "summary": "讽刺食品加工中大量使用添加剂、化学合成手段的行为。",
+    "category": [
+      "生活",
+      "吐槽",
+      "科技"
+    ],
+    "content": "由短视频博主辛吉飞带火。他展示了如何用一堆粉末合成各种常见的美味佳肴。这个词引发了公众对食品安全的极大关注，也让人们意识到工业食品背后的暴利与隐患。现在该词也泛指一切通过走捷径、弄虚作假达到的“惊人效果”。<br><br><img src=\"https://dummyimage.com/600x300/7D6608/ffffff&text=Food+Chemistry\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 326,
+    "term": "有效XX/无效XX",
+    "pinyin": "yxxx",
+    "summary": "用于区分某种行为是否达到了实际目的或提升了个人价值。",
+    "category": [
+      "生活",
+      "职场",
+      "时尚"
+    ],
+    "content": "如“有效穿搭”指的是真正显瘦、显气质，而“无效穿搭”则是费劲半天却很丑。这种二元分法体现了当下年轻人对“回报率”的极致追求。在资源和时间受限的情况下，人们反感一切形式主义的徒劳，追求精准的成果。<br><br><img src=\"https://dummyimage.com/600x300/F5CBA7/333&text=Effective+Vs+Ineffective\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 327,
+    "term": "你个小卡拉米",
+    "pinyin": "ngxklm",
+    "summary": "形容对方是一个无足轻重、实力微弱的小角色。",
+    "category": [
+      "方言",
+      "生活",
+      "吐槽"
+    ],
+    "content": "源自北方方言，经由短视频博主的魔性解说走红。它带有一种轻蔑但又带点俏皮的语气。在职场或人际博弈中，如果你觉得对方在虚张声势，或者对方只是一个无关痛痒的马前卒，就可以称其为“卡拉米”。这是一种降低对方威胁感的心理暗示。<br><br><img src=\"https://dummyimage.com/600x300/ABEBC6/333&text=Little+Nobody\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 328,
+    "term": "佛系少女",
+    "pinyin": "fxsn",
+    "summary": "形容那些性格恬淡、不争不抢、无欲无求的年轻女性。",
+    "category": [
+      "萌系",
+      "情感",
+      "生活"
+    ],
+    "content": "不同于“女汉子”或“软妹”，佛系少女最明显的特质是“随便”。吃什么？随便。去哪玩？都行。谈恋爱？随缘。这种低欲望的状态既是对残酷社会竞争的避让，也是一种追求自我精神宁静的选择。她们是快节奏世界里的慢速行驶者。<br><br><img src=\"https://dummyimage.com/600x300/F9E79F/333&text=Zen+Girl\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 329,
+    "term": "赛博算命",
+    "pinyin": "sbsm",
+    "summary": "指在互联网上通过AI分析面相、塔罗占卜或性格测试来预测未来。",
+    "category": [
+      "科技",
+      "生活",
+      "抽象"
+    ],
+    "content": "当年轻人面临不确定的就业环境和感情迷茫时，玄学成了最后的避风港。通过输入生日生成性格报告，或者点击一张塔罗牌来决定明天是否出门。赛博算命本质上是一种低成本的心理咨询，通过算法给出的模棱两可的答案来缓解眼前的焦虑。<br><br><img src=\"https://dummyimage.com/600x300/1B4F72/ffffff&text=Cyber+Fortune\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 330,
+    "term": "拿捏了",
+    "pinyin": "nnl",
+    "summary": "形容对某件事或某个人掌控自如，处理得恰到好处。",
+    "category": [
+      "职场",
+      "社交",
+      "生活"
+    ],
+    "content": "常配合“气质这块我拿捏了”使用。这不仅是一种能力的肯定，更是一种姿态的自信。在互联网视觉表达中，它通常伴随着一张极具张力的自拍或一段完美的展示视频。它反映了人们渴望掌控生活碎片的心理需求。<br><br><img src=\"https://dummyimage.com/600x300/EB984E/ffffff&text=Got+It+Under+Control\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 331,
+    "term": "电子垃圾",
+    "pinyin": "dzlj",
+    "summary": "原本指废旧电子产品，现指互联网上那些毫无质量、浪费时间的低劣内容。",
+    "category": [
+      "吐槽",
+      "科技",
+      "默认"
+    ],
+    "content": "当社交平台充斥着AI自动生成的、逻辑不通的洗稿文章，或者完全没有笑点的短视频，这些内容就被称为“电子垃圾”。它们不仅消耗了带宽，更无声地夺取了用户的注意力。这个词表达了用户对信息过载和低质信息泛滥的厌恶。<br><br><img src=\"https://dummyimage.com/600x300/99A3A4/ffffff&text=Digital+Trash\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 332,
+    "term": "反向社交",
+    "pinyin": "fxsj",
+    "summary": "通过刻意表现出无趣、冷漠或低情商，以此避免不必要的社交应酬。",
+    "category": [
+      "社交",
+      "心理",
+      "生活"
+    ],
+    "content": "比如在聚会时一直盯着手机，或者在群聊中从不主动发言。反向社交并不是真的社交障碍，而是一种社交资源的保护策略。年轻人试图通过设置这种“高冷”障碍，把有限的精力留给自己真正关心的亲密关系。它是社交压力下的一种自我防御。<br><br><img src=\"https://dummyimage.com/600x300/515A5A/ffffff&text=Inverse+Socializing\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 333,
+    "term": "显眼包",
+    "pinyin": "xyb",
+    "summary": "指在人群中格外爱出风头、搞怪、极具存在感的人。",
+    "category": [
+      "萌系",
+      "社交",
+      "生活"
+    ],
+    "content": "显眼包往往带有一种“虽然尴尬但很可爱”的特质。他们可能是演唱会上穿奇装异服的粉丝，也可能是家庭聚会中上台表演空手翻的孩子。这个词从贬义词“显眼（出洋相）”演变而来，反映了当代社会对“释放个性”和“幽默感”的更高接纳度。<br><br><img src=\"https://dummyimage.com/600x300/F7DC6F/333&text=Show+Stealer\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 334,
+    "term": "纸片人",
+    "pinyin": "zpr",
+    "summary": "指二次元动漫或游戏中的虚拟角色。",
+    "category": [
+      "二次元",
+      "情感",
+      "亚文化"
+    ],
+    "content": "“纸片人老婆/老公”是二次元圈的高频词汇。比起现实中复杂的人际关系，纸片人永远完美、永远忠诚、永远停留在最美好的时刻。这种情感寄托虽然建立在虚构之上，但对于很多孤独的现代人来说，纸片人提供的情绪价值却是真实且强大的。<br><br><img src=\"https://dummyimage.com/600x300/AED6F1/333&text=2D+Character\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 335,
+    "term": "赛博朋克农家乐",
+    "pinyin": "sbpknjl",
+    "summary": "形容那些将先进科技与极其土味的乡土文化混搭在一起的视觉风格。",
+    "category": [
+      "时尚",
+      "亚文化",
+      "抽象"
+    ],
+    "content": "比如一个穿着大红大紫碎花袄的人在操作全息投影。这种风格通过强烈的文化冲突，产生了一种诡异而迷人的视觉张力。它不仅是审美上的整活，更是对中国城乡二元文化差异的一种幽默化、后现代式的艺术呈现。<br><br><img src=\"https://dummyimage.com/600x300/FF00FF/ffffff&text=Cyber+Tawdry\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 336,
+    "term": "妈耶",
+    "pinyin": "my",
+    "summary": "一种强烈的语气词，表达惊讶、感叹或难以置信。",
+    "category": [
+      "生活",
+      "方言",
+      "默认"
+    ],
+    "content": "源自四川、重庆等地的方言口头禅。因为发音短促且带有一种天然的呆萌感，迅速成为了全国网友通用的表达方式。无论是看到惊艳的美景，还是遇到离奇的倒霉事，一句“妈耶”能瞬间传达出最真实的情绪波动，具有极强的口语亲和力。<br><br><img src=\"https://dummyimage.com/600x300/F5B041/ffffff&text=Oh+My+Gosh\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 337,
+    "term": "电子保姆",
+    "pinyin": "dzbm",
+    "summary": "指那些通过播放视频、游戏来帮家长长时间安抚、陪伴孩子的电子设备。",
+    "category": [
+      "生活",
+      "科技",
+      "校园"
+    ],
+    "content": "虽然被诟病为“失职的陪伴”，但在高压生活下，Pad、电视和短视频成了许多家长无奈的替代品。该词也常指那些在成年人失眠时，起到催眠或陪伴作用的白噪音视频。它既是科技带来的便利，也引发了关于数字时代情感缺失的思考。<br><br><img src=\"https://dummyimage.com/600x300/34495E/ffffff&text=Electronic+Nanny\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 338,
+    "term": "你是懂XXX的",
+    "pinyin": "nsdxxx",
+    "summary": "一种带有反讽或真心佩服的语气词，用于点评他人的非凡举动。",
+    "category": [
+      "社交",
+      "吐槽",
+      "默认"
+    ],
+    "content": "如果一个人用极其抽象的方法解决了一个问题，评论区会刷屏“你是懂装修的”、“你是懂省钱的”。这种表达方式先将对方抬高到“行家”地位，再通过事实的荒诞感产生反差幽默。它是互联网“阴阳怪气”美学的最高峰。<br><br><img src=\"https://dummyimage.com/600x300/D0D3D4/333&text=You+Really+Know\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 339,
+    "term": "三观跟着五官走",
+    "pinyin": "swgzwwz",
+    "summary": "指因为对方长得好看，就无条件原谅或支持其过错甚至恶行的心态。",
+    "category": [
+      "颜值",
+      "情感",
+      "吐槽"
+    ],
+    "content": "常出现在影视剧评论中，当反派角色帅到离谱时，弹幕就会刷屏。这是一种极度诚实的“颜值即正义”的自嘲。它揭示了人类视觉感官在道德判断前的压倒性优势，同时也讽刺了当代审美对内核深度的某种消解。<br><br><img src=\"https://dummyimage.com/600x300/F8D7DA/333&text=Looks+Vs+Morals\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 340,
+    "term": "电子冥想",
+    "pinyin": "dzmx",
+    "summary": "指通过观看某些极度枯燥但解压的视频，进入一种放空状态的行为。",
+    "category": [
+      "生活",
+      "科技",
+      "抽象"
+    ],
+    "content": "比如看修马蹄、洗陈年老地毯、或者是在游戏里模拟开卡车。这种视频不需要任何思考，仅仅通过重复的动作和纯净的声音（ASMR），帮助人们实现精神上的短暂出家。在这个信息过载的时代，电子冥想是现代人的“赛博速效救心丸”。<br><br><img src=\"https://dummyimage.com/600x300/A2D9CE/333&text=Digital+Meditation\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 341,
+    "term": "小作文文学",
+    "pinyin": "xzwwx",
+    "summary": "形容那些在特定事件后，通过极具情感爆发力且逻辑严密的文字进行反击的方式。",
+    "category": [
+      "社交",
+      "吐槽",
+      "职场"
+    ],
+    "content": "这不仅仅是字数多，更强调的是一种“叙事策略”。从前期的情感铺垫到中期的事实罗列，再到最后的价值观升华，小作文文学已经成了网络时代博取公众同情和公关反击的标准模板。它也是个人对抗体制或强者时最常用的杀手锏。<br><br><img src=\"https://dummyimage.com/600x300/F4F6F7/333&text=Essay+Weapon\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 342,
+    "term": "整活儿",
+    "pinyin": "zhh",
+    "summary": "指通过一些新奇、搞怪或高难度的举动，以此吸引他人关注的行为。",
+    "category": [
+      "生活",
+      "抽象",
+      "默认"
+    ],
+    "content": "最初源自东北方言，现指一切带有娱乐性质、甚至有些离谱的创作。无论是自创的魔性舞蹈，还是奇葩的产品评测，只要能让人眼前一亮，就是成功的“整活儿”。它体现了网络时代下，人们对平庸生活的顽强反抗和对流量的极度渴望。<br><br><img src=\"https://dummyimage.com/600x300/FADBD8/333&text=Doing+Tricks\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 343,
+    "term": "互联网废话",
+    "pinyin": "hlwfh",
+    "summary": "指那些听起来很有道理，但实际上完全没有任何实质内容的言论。",
+    "category": [
+      "社交",
+      "吐槽",
+      "职场"
+    ],
+    "content": "“听君一席话，如听一席话”、“如果你不胖的话，你还挺瘦的”。这些废话文学通过逻辑循环产生了一种荒诞的喜感。它本质上是对当下大量冗余信息和毫无意义的专家建议的一种戏谑模仿，也是社交平台沟通中的一种“冷暴力”整活。<br><br><img src=\"https://dummyimage.com/600x300/D5DBDB/333&text=Nonsense+Literature\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 344,
+    "term": "沉浸式整活",
+    "pinyin": "cjszh",
+    "summary": "将ASMR与搞怪行为结合，用一种一本正经的态度做极其离谱的事。",
+    "category": [
+      "抽象",
+      "生活",
+      "科技"
+    ],
+    "content": "比如蒙着眼“沉浸式”吃一顿极其复杂的火锅，全程不说话只收录咀嚼声和火锅沸腾声。这种强烈的对比感极具冲击力。它通过剥离语言，让观众将所有感官集中在那些无意义且滑稽的细节上，产生了一种既治愈又荒谬的观感体验。<br><br><img src=\"https://dummyimage.com/600x300/D4E6F1/333&text=Immersive+Funny\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 345,
+    "term": "赛博友谊",
+    "pinyin": "sbyy",
+    "summary": "指仅通过互联网维持，现实中可能从未谋面但情感深厚的友谊。",
+    "category": [
+      "社交",
+      "科技",
+      "情感"
+    ],
+    "content": "在朋友圈点赞三年、在游戏里并肩五年，这种友谊不涉及现实利益和琐碎冲突，往往比现实中的邻里关系更纯粹。它可以随时开启对话，也可以随时回归沉默。赛博友谊是现代人在高度孤独的都市生活中，为自己构建的一座情感孤岛。<br><br><img src=\"https://dummyimage.com/600x300/A9DFBF/333&text=Cyber+Friendship\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 346,
+    "term": "电子耗材",
+    "pinyin": "dzhc",
+    "summary": "比喻那些在公司里被过度压榨、零件老化快且随时可被替换的员工。",
+    "category": [
+      "职场",
+      "吐槽",
+      "科技"
+    ],
+    "content": "不同于“牛马”，“耗材”更强调了这种关系的“不可修复性”。一旦身体垮掉（主板烧毁）或思维僵化（系统过时），公司就会像扔掉废弃碳粉盒一样将其处理掉。这个词深刻揭示了当下职场中日益非人化的管理倾向，令人不寒而栗。<br><br><img src=\"https://dummyimage.com/600x300/212F3D/ffffff&text=Digital+Consumables\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 347,
+    "term": "我的互联网嘴替",
+    "pinyin": "wdhlwzt",
+    "summary": "表达对某人言论的高度赞同，感觉对方把自己的心里话都说活了。",
+    "category": [
+      "社交",
+      "情感",
+      "吐槽"
+    ],
+    "content": "每当遇到不公或槽点，由于表达能力受限，很多人选择沉默。但当一个拥有高声量的人说出了那些隐藏在冰面下的真相，这种“有人替我说话”的集体快感就爆发了。它是弱势群体通过认同强者言论，获取心理补偿的一种社交机制。<br><br><img src=\"https://dummyimage.com/600x300/F1948A/333&text=My+Internet+Voice\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 348,
+    "term": "颜值天花板",
+    "pinyin": "yzthb",
+    "summary": "形容一个人的长相已经达到了同类型中的极致，难以被超越。",
+    "category": [
+      "时尚",
+      "颜值",
+      "默认"
+    ],
+    "content": "“天花板”一词在网络上被广泛用于各种领域的极致评价，但最常用于颜值。当一张脸集齐了所有流行审美标准且极具辨识度时，粉丝就会赋予其此称号。虽然审美是主观的，但“天花板”的流行反映了人们对极致视觉美感的共同渴望和量化评价习惯。<br><br><img src=\"https://dummyimage.com/600x300/FAD7A0/333&text=Visual+Peak\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 349,
+    "term": "纯爱战士倒地",
+    "pinyin": "cazsd d",
+    "summary": "指那些坚信纯真爱情的人，在看到残酷、现实或被背叛的情节后感到的崩溃。",
+    "category": [
+      "二次元",
+      "情感",
+      "亚文化"
+    ],
+    "content": "当一部原本温馨的恋爱番突然转为悲剧或出轨情节，弹幕就会刷屏。它代表了人们对理想爱情美好幻境的守护失败。虽然带有一种戏谑，但底层逻辑是人们对真挚情感的集体向往以及对快餐式、背叛式关系的一种抗拒。<br><br><img src=\"https://dummyimage.com/600x300/A93226/ffffff&text=Pure+Love+Down\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 350,
+    "term": "社恐式社交",
+    "pinyin": "skssj",
+    "summary": "指即便内心非常恐惧社交，但为了生存或基本礼仪，强撑着去应酬的状态。",
+    "category": [
+      "社交",
+      "生活",
+      "职场"
+    ],
+    "content": "表现为戴着耳机假装听音乐以避免打招呼，或者在聚会上像个透明人一样一直喝水。这种社交方式极具“电量消耗感”。一旦离开社交现场，他们会经历一种“社交复原期”，需要独自待很久来回血。它精准描绘了现代都市人普遍的社交心理亚健康状态。<br><br><img src=\"https://dummyimage.com/600x300/D5D8DC/333&text=Social+Anxiety+Interaction\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 351,
+    "term": "淡人",
+    "pinyin": "dr",
+    "summary": "形容性格极度情绪稳定，对世间万物都持有一种“淡淡的”无所谓态度。",
+    "category": [
+      "性格",
+      "社交",
+      "生活"
+    ],
+    "content": "与“浓人”相对。淡人的口头禅通常是“行吧”、“都行”、“没关系”。他们像是一杯温开水，无论遇到多大的喜事或烦恼，情绪波动极小。这种“淡”被视为一种高级的防御机制，在内卷严重的社会中，通过降低期待和情感投入来保持内心的秩序。<br><br><img src=\"https://dummyimage.com/600x300/F2F4F4/7F8C8D&text=Pale+Person\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 352,
+    "term": "浓人",
+    "pinyin": "nr",
+    "summary": "形容情感极其丰富、生命力旺盛，社交时充满能量和表达欲的人。",
+    "category": [
+      "性格",
+      "社交",
+      "生活"
+    ],
+    "content": "浓人是淡人的反面，他们对生活充满热情，哪怕是一顿好吃的饭、一个漂亮的夕阳，都能让他们发出高分贝的赞叹。在社交场合中，浓人通常是气氛组的灵魂。虽然有时会被认为“用力过猛”，但其旺盛的生命力和感染力，往往能带动周围人一起破冰。<br><br><img src=\"https://dummyimage.com/600x300/E74C3C/ffffff&text=Intense+Person\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 353,
+    "term": "全职儿女",
+    "pinyin": "qzernv",
+    "summary": "指年轻人由于就业压力等原因，留在家里照顾父母并领取“工资”的状态。",
+    "category": [
+      "生活",
+      "职场",
+      "社会"
+    ],
+    "content": "这是一种介于“啃老”和“就业”之间的灰色地带。全职儿女通常需要承担做饭、打扫、陪伴老人等家务劳动，父母则提供生活费。它反映了当下青年就业市场与家庭资源再分配之间的复杂博弈，既是一种温情的代际互助，也带着一丝无可奈何的妥协。<br><br><img src=\"https://dummyimage.com/600x300/AED6F1/34495E&text=Full-time+Children\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 354,
+    "term": "赛博判官",
+    "pinyin": "sbpg",
+    "summary": "指在网络争议事件中，热衷于依据逻辑和道德底线进行裁决的网友。",
+    "category": [
+      "社交",
+      "吐槽",
+      "默认"
+    ],
+    "content": "当一段行车纠纷或情感爆料视频上传后，评论区会出现大量冷静分析、划分责任百分比的“赛博判官”。他们通常不偏不倚，追求绝对的理性和公正。这种现象体现了互联网群体对正义秩序的渴望，但也容易因为信息片面而导致误判。<br><br><img src=\"https://dummyimage.com/600x300/34495E/ffffff&text=Cyber+Judge\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 355,
+    "term": "性价比之神",
+    "pinyin": "xbjzsh",
+    "summary": "对某件价格极低、质量尚可、能解决核心需求的产品的高度赞美。",
+    "category": [
+      "消费",
+      "生活",
+      "默认"
+    ],
+    "content": "比如4块钱的蜜雪冰城、9块9的瑞幸、或者是10元三双的纯棉袜子。在这个消费降级的周期里，网友们不再为品牌故事付费，而是追随“性价比之神”。这种对低成本高获得感的极致追求，标志着大众消费心理从虚荣走向了极度务实。<br><br><img src=\"https://dummyimage.com/600x300/F1C40F/333333&text=Value+God\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 356,
+    "term": "班味儿",
+    "pinyin": "bwr",
+    "summary": "形容人因为长期上班而产生的一种疲惫、憔悴、目光呆滞的精神状态。",
+    "category": [
+      "职场",
+      "生活",
+      "吐槽"
+    ],
+    "content": "“一旦上了班，气质就变了。”班味儿包括但不限于：油腻的头发、深重的黑眼圈、以及对任何事都提不起劲的冷淡。网友们感慨，再精致的妆容也盖不住班味儿。这种形容是对现代科层制生活对人灵性磨灭的一种形象化调侃。<br><br><img src=\"https://dummyimage.com/600x300/95A5A6/ffffff&text=Office+Vibe\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 357,
+    "term": "脆皮大学生",
+    "pinyin": "cpdxs",
+    "summary": "形容当代大学生身体素质极差，极易受伤生病，脆弱如“脆皮”。",
+    "category": [
+      "校园",
+      "生活",
+      "吐槽"
+    ],
+    "content": "换衣服扭了腰、伸懒腰拉了胯、看剧笑到脱臼——这些离谱的受伤方式在短视频平台上刷屏。这既反映了年轻人长期久坐、缺乏锻炼的现状，也带有一种“苦中作乐”的自嘲。他们在自称脆皮的同时，也在反思快节奏生活对健康的透支。<br><br><img src=\"https://dummyimage.com/600x300/FADBD8/E74C3C&text=Fragile+Student\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 358,
+    "term": "人夫感",
+    "pinyin": "rfg",
+    "summary": "形容男性长相或气质中带有一种居家、体贴、温婉且擅长家务的魅力。",
+    "category": [
+      "颜值",
+      "情感",
+      "时尚"
+    ],
+    "content": "这是审美多元化的产物。不同于传统的霸总或小鲜肉，拥有人夫感的男性往往让人联想到“会煮饭”、“会带孩子”、“情绪稳定”。这种审美偏好的流行，反映了当代女性在亲密关系中对“功能性陪伴”和“生活化体贴”的渴望。<br><br><img src=\"https://dummyimage.com/600x300/D5DBDB/2C3E50&text=Husband+Vibe\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 359,
+    "term": "抽象艺术",
+    "pinyin": "cxys",
+    "summary": "在网络语境下，指那些毫无逻辑、怪诞离奇、令人费解的行为或画面。",
+    "category": [
+      "抽象",
+      "亚文化",
+      "默认"
+    ],
+    "content": "原本是艺术流派，但在互联网上，如果一个博主在厕所吃泡面，或者在凌晨对着垃圾桶演讲，都会被评论为“太抽象了”。它是一种解构严肃性的手段，通过制造荒诞来引发社交狂欢。这种审美往往在“审丑”和“解压”之间反复横跳。<br><br><img src=\"https://dummyimage.com/600x300/000000/F1C40F&text=Abstract+Art\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 360,
+    "term": "我姓石",
+    "pinyin": "wxsh",
+    "summary": "一段极具节奏感的土味喊麦视频，因其洗脑的旋律在国内外爆火。",
+    "category": [
+      "音乐",
+      "亚文化",
+      "时尚"
+    ],
+    "content": "“我姓石，疯狂的石……”这段内容原本是百家姓喊麦，但因博主独特的动作和发音，在TikTok等平台引发大规模模仿，甚至演变成一种国际模因。这种现象说明了在互联网时代，“土味”内容只要具备极强的节奏和可模性，就能跨越文化屏障。<br><br><img src=\"https://dummyimage.com/600x300/3498DB/ffffff&text=Wo+Xing+Shi\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 361,
+    "term": "特种兵式旅游",
+    "pinyin": "tzbsly",
+    "summary": "指年轻人通过极高频率的打卡和极短的休息时间，在周末完成超长行程的旅游。",
+    "category": [
+      "生活",
+      "校园",
+      "时尚"
+    ],
+    "content": "24小时转战3个城市、睡火车站、凌晨爬泰山。这种旅游方式追求的是“到此一游”的最大化性价比。它不仅是对体力的挑战，更是年轻人面对有限的时间和金钱，试图扩宽生命体验的一种积极抵抗。虽然疲累，但那份掌控感令人上瘾。<br><br><img src=\"https://dummyimage.com/600x300/1E8449/ffffff&text=Special+Forces+Travel\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 362,
+    "term": "显眼包",
+    "pinyin": "xyb",
+    "summary": "指那些在集体中通过搞笑、出格或极其抢眼的表现来获得关注的人。",
+    "category": [
+      "社交",
+      "生活",
+      "默认"
+    ],
+    "content": "显眼包可以是人类，也可以是文物（如大英博物馆里的雕像）。它带有一种“虽尴尬但快乐”的治愈感。比起刻意的炫耀，显眼包更像是一种天然的搞笑天赋。它是社恐时代的调味剂，让原本沉闷的场合瞬间充满生气。<br><br><img src=\"https://dummyimage.com/600x300/F39C12/ffffff&text=Showy+One\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 363,
+    "term": "多巴胺穿搭",
+    "pinyin": "dbacd",
+    "summary": "通过高饱和度、鲜艳色彩的服装搭配，来传递快乐情绪的时尚风格。",
+    "category": [
+      "时尚",
+      "生活",
+      "消费"
+    ],
+    "content": "色彩心理学在时尚界的网络化表达。明黄、果绿、电粉色的大胆组合，旨在通过视觉冲击来分泌多巴胺，缓解现实生活中的压抑。它打破了传统穿搭中“不过三色”的禁忌，鼓励个性化的情绪宣泄。不仅是穿衣，更是一种“快乐至上”的态度。<br><br><img src=\"https://dummyimage.com/600x300/FF5733/ffffff&text=Dopamine+Dressing\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 364,
+    "term": "纯欲风",
+    "pinyin": "cyf",
+    "summary": "一种结合了清纯少女感与成熟性感诱惑的混合审美风格。",
+    "category": [
+      "时尚",
+      "颜值",
+      "亚文化"
+    ],
+    "content": "在视觉上通常表现为：无辜的眼神、大面积的腮红配合修身或带有诱惑性的衣物。这种风格在短视频平台极具流量。它反映了网络审美中对“冲突美”的偏好，同时也伴随着关于女性自我客体化与男性凝视的激烈社会学讨论。<br><br><img src=\"https://dummyimage.com/600x300/FADBD8/333333&text=Pure+Lust\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 365,
+    "term": "电子宠物",
+    "pinyin": "dzcw",
+    "summary": "指网友通过长期围观某位生活极具戏剧性或荒谬感的博主，从而获得优越感或消遣。",
+    "category": [
+      "亚文化",
+      "吐槽",
+      "默认"
+    ],
+    "content": "这些博主往往并不知道自己被当作“宠物”看待，他们的每一次失利、愤怒或奇葩发言都会成为粉丝的谈资。这是一种带有冷漠审视色彩的社交关系。它揭示了互联网作为“楚门的世界”的残酷性，参与者在投喂（刷礼物）和观看中消磨时光。<br><br><img src=\"https://dummyimage.com/600x300/34495E/BDC3C7&text=Digital+Pet+2.0\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 366,
+    "term": "命运的齿轮开始转动",
+    "pinyin": "mydclkszd",
+    "summary": "指在一个看似平凡的瞬间，发生了彻底改变一个人人生轨迹的大事。",
+    "category": [
+      "情感",
+      "生活",
+      "默认"
+    ],
+    "content": "通常用于回顾名人的成名前瞬间，或普通人感慨人生转折。比如“那一年他随手投了一份简历，从此命运的齿轮开始转动”。这是一种充满宿命论色彩的叙事方式，满足了人们对“奇迹”和“因果”的艺术化想象。<br><br><img src=\"https://dummyimage.com/600x300/2C3E50/ffffff&text=Gears+of+Fate\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 367,
+    "term": "听劝",
+    "pinyin": "tq",
+    "summary": "指网友在社交平台上发布照片寻求穿搭、长相改善建议，并真实执行的过程。",
+    "category": [
+      "生活",
+      "颜值",
+      "时尚"
+    ],
+    "content": "在某书平台上非常火爆。发布者手举“听劝”字牌，评论区给出犀利的改造建议，发布者之后晒出蜕变结果。这种高效、真实的互动打破了社交平台的虚假吹捧，体现了年轻人对“有效自我提升”的渴望和对大众审美的信任。<br><br><img src=\"https://dummyimage.com/600x300/AED6F1/1F618D&text=Listen+to+Advice\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 368,
+    "term": "泰裤辣",
+    "pinyin": "tkl",
+    "summary": "“太酷了”的谐音，因艺人王琳凯（小鬼）在演唱会上的尴尬发言走红。",
+    "category": [
+      "抽象",
+      "吐槽",
+      "默认"
+    ],
+    "content": "原话因为情绪过于饱满但词汇过于匮乏，产生了一种巨大的尴尬感。现在该词多用于调侃那些故作深沉实则空洞、或者让人感到脚趾抠地的场面。它是“社死”文化与“谐音梗”的完美结合，具有极强的讽刺意味。<br><br><img src=\"https://dummyimage.com/600x300/000000/FF0000&text=Tai+Ku+La\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 369,
+    "term": "哈基米",
+    "pinyin": "hjm",
+    "summary": "泛指一切可爱、软萌的小型动物或人物，常作为视频BGM的谐音词出现。",
+    "category": [
+      "萌系",
+      "生活",
+      "默认"
+    ],
+    "content": "源自日语“ハチミツ（蜂蜜）”的谐音，因一段洗脑的小猫视频走红。虽然本义与猫无关，但在中文互联网下它已经固化为“萌宠”的代名词。这种语义偏离是网络迷因传播的典型特征，只要听起来顺耳且画面匹配，原意就不再重要。<br><br><img src=\"https://dummyimage.com/600x300/FAD7A0/873600&text=Hajimi\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 370,
+    "term": "电子榨菜",
+    "pinyin": "dzzc",
+    "summary": "指在吃饭时观看的、能够增加食欲且非常下饭的各类视频内容。",
+    "category": [
+      "生活",
+      "默认",
+      "时尚"
+    ],
+    "content": "电子榨菜通常不需要高强度的脑力劳动，如经典老剧（《甄嬛传》、《武林外传》）、解说视频或简单的Vlog。对于孤独进食的打工人来说，它提供了精神上的陪伴和“吃饭的节奏感”，成为了当代人用餐的标配。如果没有好视频，饭都不香了。<br><br><img src=\"https://dummyimage.com/600x300/F7DC6F/333&text=E-Pickles\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 371,
+    "term": "白人饭",
+    "pinyin": "brf",
+    "summary": "调侃欧美国家常见的极简午餐，如两片生菜夹火腿。现指代敷衍但健康的饮食。",
+    "category": [
+      "生活",
+      "吐槽",
+      "默认"
+    ],
+    "content": "其特点是：冷食、无烹饪、无调味、维持生命体征即可。打工人对此产生共鸣，是因为在极度繁忙的工作中，这种“白人饭”成了省时省力且不会引起午后困倦的生存策略。它也反映了年轻人对复杂烹饪的一种结构性放弃。<br><br><img src=\"https://dummyimage.com/600x300/FBFCFC/333&text=White+People+Meal\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 372,
+    "term": "孔乙己的长衫",
+    "pinyin": "kyjdcs",
+    "summary": "比喻受过高等教育的人不愿从事体力劳动，以此形容学历带来的职业包袱。",
+    "category": [
+      "校园",
+      "职场",
+      "社会"
+    ],
+    "content": "“学历不仅是敲门砖，也是我下不来的高台，更是孔乙己脱不掉的长衫。”这句自嘲反映了当今社会学历贬值与就业压力并存的现实。年轻人感慨，受过的教育让他们无法坦然从事低端行业，却又无法在精英阶层立足，陷入了身份认同的困境。<br><br><img src=\"https://dummyimage.com/600x300/8B4513/ffffff&text=Long+Gown\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 373,
+    "term": "已读乱回",
+    "pinyin": "ylh",
+    "summary": "指在收到消息后，不按常理出牌，故意给出荒谬、风马牛不相及的回复。",
+    "category": [
+      "社交",
+      "抽象",
+      "吐槽"
+    ],
+    "content": "这是一种对抗社交压力的新策略。当面对不想回答的问题、或者无意义的骚扰时，通过“发疯”式的乱回（如问“在吗？”回“刚登基，很忙”）来掌握对话的主动权。这种行为虽然不礼貌，但能极大地缓解回复者的精神内耗，让对方陷入沉默。<br><br><img src=\"https://dummyimage.com/600x300/D2B4DE/4A235A&text=Chaos+Reply\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 374,
+    "term": "发疯文学",
+    "pinyin": "ffwx",
+    "summary": "指通过一段逻辑崩坏、情绪极其饱满且略显神经质的文字，来达到沟通目的。",
+    "category": [
+      "社交",
+      "抽象",
+      "吐槽"
+    ],
+    "content": "比如“我为什么要上班？我前世是一只海鸥，我应该在海边捡垃圾！”这种文字通过情绪的狂轰乱炸，让接收者感受到巨大的压力，从而在催快递、催退款等场景下获得奇效。它是弱势个体在机械化社交中，用情绪作为武器的一种爆发。<br><br><img src=\"https://dummyimage.com/600x300/C0392B/ffffff&text=Crazy+Literature\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 375,
+    "term": "雪糕刺客",
+    "pinyin": "xgck",
+    "summary": "指那些藏在超市冰柜里，外表平平无奇但结账时价格惊人的雪糕。",
+    "category": [
+      "消费",
+      "生活",
+      "吐槽"
+    ],
+    "content": "以“钟薛高”为代表，价格动辄几十元。消费者因为不好意思放回去而被迫买单，犹如被“刺了一刀”。这个梗引发了对溢价消费的反弹，也促使有关部门出台了“明码标价”的新规。它标志着大众对网红高价产品“割韭菜”行为的集体清醒。<br><br><img src=\"https://dummyimage.com/600x300/FDFEFE/333&text=Ice+Cream+Assassin\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 376,
+    "term": "尊嘟假嘟",
+    "pinyin": "zdjd",
+    "summary": "“真的假的”的谐音。因模仿可爱的婴儿肥语调而在全网流行。",
+    "category": [
+      "萌系",
+      "社交",
+      "时尚"
+    ],
+    "content": "通过将卷舌音变为平舌音，产生了一种天然的软糯感。它常被用于表达惊讶或怀疑，但因为语气可爱，能够瞬间软化社交中的生硬感。它是“可爱文化”在汉语发音上的一次创意解构，特别受年轻女性和宠物博主的欢迎。<br><br><img src=\"https://dummyimage.com/600x300/FADBD8/E91E63&text=Zun+Du+Jia+Du\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 377,
+    "term": "赛博木鱼",
+    "pinyin": "sbmy",
+    "summary": "一款模拟敲木鱼的App。点击屏幕显示“功德+1”，用于解压和自嘲。",
+    "category": [
+      "科技",
+      "生活",
+      "抽象"
+    ],
+    "content": "“敲电子木鱼，见机甲佛祖。”当年轻人在职场被老板气、在网络上和人吵架后，通过敲木鱼来平复心情并“积攒功德”。这种行为是将传统宗教仪式与互联网娱乐结合的产物，本质上是一种数字化的心理安慰剂，反映了极大的精神压力下的解压需求。<br><br><img src=\"https://dummyimage.com/600x300/212121/ffffff&text=Cyber+Muyu\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 378,
+    "term": "我真的破防了",
+    "pinyin": "wzdpfl",
+    "summary": "原指游戏里防御被打破。现指心理防线瞬间崩塌，常因感动、气愤或尴尬。",
+    "category": [
+      "情感",
+      "游戏",
+      "默认"
+    ],
+    "content": "比如看到一个感人的老兵视频，或者发现暗恋的人其实有对象。这种情绪的剧烈波动，让人们感到自己建立的“高冷”或“坚强”外壳被瞬间击穿。它是互联网语境下，人们坦然承认自己情感脆弱的一个重要出口。<br><br><img src=\"https://dummyimage.com/600x300/5D6D7E/ffffff&text=Broken+Defense\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 379,
+    "term": "这就是街舞",
+    "pinyin": "zjjsjw",
+    "summary": "常用于形容某个极其尴尬的身体接触、或者滑稽的摔跤动作。",
+    "category": [
+      "抽象",
+      "吐槽",
+      "默认"
+    ],
+    "content": "源自综艺节目名，但在梗中，它多指由于意外产生的、看起来像是在跳街舞的夸张动作。比如两个人在路上为了躲避对方，动作神同步。这是一种将尴尬转化为幽默的手段，赋予了突发事故一种艺术上的荒诞美。<br><br><img src=\"https://dummyimage.com/600x300/3498DB/ffffff&text=This+is+Dance\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 380,
+    "term": "City不City",
+    "pinyin": "city",
+    "summary": "指某个地方、某件事是否有“城市感”、是否洋气、是否现代。",
+    "category": [
+      "生活",
+      "时尚",
+      "默认"
+    ],
+    "content": "由外国博主在中国旅游时的口头禅走红。当他在摩天大楼下喝咖啡时，会问“这里City不City？”。现在该词泛指一切让人感到高级、洋气或充满都市活力的生活方式。它是对城市化进程和跨文化认同的一种幽默解构。<br><br><img src=\"https://dummyimage.com/600x300/17202A/ffffff&text=So+City!\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 381,
+    "term": "互联网遗容",
+    "pinyin": "hlwyr",
+    "summary": "指人在社交媒体上留下的、即便在本人离世或弃号后依然存在的数字痕迹。",
+    "category": [
+      "社交",
+      "科技",
+      "生活"
+    ],
+    "content": "当一个人停止更新动态，他的主页、评论和旧照就成了互联网遗容。这引发了关于数字遗产和网络永生的讨论。人们开始意识到，自己在线上的一言一行，实际上都在不断构建一个可能永不磨灭的虚拟人格，既温馨又令人敬畏。<br><br><img src=\"https://dummyimage.com/600x300/000000/7F8C8D&text=Digital+Legacy\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 382,
+    "term": "精神内耗",
+    "pinyin": "jsnh",
+    "summary": "指人因为过度的自我怀疑、纠结和过度思虑，导致的心理能量无端损耗。",
+    "category": [
+      "情感",
+      "生活",
+      "默认"
+    ],
+    "content": "“想得太多，做得太少。”该词因《回村三天，二舅治好了我的精神内耗》视频引发全网讨论。现代人在高压竞争和完美主义的双重压迫下，常常陷入毫无意义的自我博弈。这个词的流行，反映了当代人对心理健康和自我和解的迫切需求。<br><br><img src=\"https://dummyimage.com/600x300/8E44AD/ffffff&text=Mental+Friction\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 383,
+    "term": "你是懂XXX的",
+    "pinyin": "nsdxxx",
+    "summary": "一种先抑后扬的反讽语气。意指“你真是个行家（讽刺对方离谱）”。",
+    "category": [
+      "社交",
+      "吐槽",
+      "默认"
+    ],
+    "content": "比如当有人为了省钱用开水泡馒头，评论区会说“你是懂精致生活的”。这种幽默通过赋予对方一个高端的标签，来反衬行为的寒酸或离奇。它是网络语境下实现“降维打击”而又不失礼貌的高频句式。<br><br><img src=\"https://dummyimage.com/600x300/BDC3C7/333333&text=You+Really+Know+It\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 384,
+    "term": "人机",
+    "pinyin": "rj",
+    "summary": "原指游戏中的电脑AI。现形容现实中反应呆滞、说话机械、不带感情的人。",
+    "category": [
+      "科技",
+      "吐槽",
+      "抽象"
+    ],
+    "content": "“这人长得怎么跟个人机似的？”或者是面对无聊的回复时说“你是人机吗？”。这个梗反映了在AI高度普及的时代，人们开始用算法逻辑来审视人类行为。它既是对“呆板”的嘲笑，也带有一种“对方可能真的不是真人”的赛博惊悚感。<br><br><img src=\"https://dummyimage.com/600x300/D5D8DC/17202A&text=NPC+Vibe\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 385,
+    "term": "电子羽绒服",
+    "pinyin": "dzyrf",
+    "summary": "指那些极具温暖感、治愈性，能让人在心情低谷时反复观看的内容。",
+    "category": [
+      "情感",
+      "生活",
+      "二次元"
+    ],
+    "content": "不同于“榨菜”的随看随扔，羽绒服具有抗寒和包裹感。比如《武林外传》或某些深夜美食博主。每当现实世界寒冷刺骨时，人们躲进这些内容里，寻求一种稳定的、长期的情感庇护。它在人们的收藏夹里永不过期。<br><br><img src=\"https://dummyimage.com/600x300/F5B7B1/ffffff&text=Digital+Warmer\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 386,
+    "term": "精致穷",
+    "pinyin": "jzq",
+    "summary": "指赚得不多，但为了维持一种高端、体面的生活方式而花光所有钱。",
+    "category": [
+      "消费",
+      "生活",
+      "时尚"
+    ],
+    "content": "“月入五千，活得像月入五万。”买几千元的联名球鞋，却只能每天吃泡面。这不仅是消费主义的毒药，更是年轻人对生活尊严的一种极端的、脆弱的追求。它揭示了“朋友圈生活”与“真实生活”之间的巨大断层。<br><br><img src=\"https://dummyimage.com/600x300/FADBD8/333333&text=Fancy+Poverty\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 387,
+    "term": "小作文文学",
+    "pinyin": "xzwwx",
+    "summary": "指在社交媒体上公开发布的长篇博文，用于维权、爆料或情感反击。",
+    "category": [
+      "社交",
+      "职场",
+      "默认"
+    ],
+    "content": "现在已经演变成一种固定的文体：通常包含受害者视角、大量细节描述、价值升华和对公众同情的调动。它既是普通人寻求舆论正义的唯一武器，也常因“谁弱谁有理”的煽动性而引发反转风险。它是赛博公堂上的起诉书。<br><br><img src=\"https://dummyimage.com/600x300/FFFFFF/000000&text=Long+Post+War\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 388,
+    "term": "断舍离",
+    "pinyin": "dsl",
+    "summary": "一种极简主义生活方式，指断绝不需要的东西，舍弃多余的废物。",
+    "category": [
+      "生活",
+      "心理",
+      "默认"
+    ],
+    "content": "源自日本整理术。但在网络语境下，它引申为对“人际关系”和“负面情绪”的断舍离。通过删除不联系的好友、不再关注让自己焦虑的博主，人们试图在数字时代找回清爽。它是一种心理上的减负，旨在重新夺回注意力的自主权。<br><br><img src=\"https://dummyimage.com/600x300/BDC3C7/2C3E50&text=Declutter+Life\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 389,
+    "term": "整活儿",
+    "pinyin": "zhh",
+    "summary": "指通过一些新奇、搞笑甚至有些离谱的行为，来博取眼球或调剂氛围。",
+    "category": [
+      "社交",
+      "抽象",
+      "默认"
+    ],
+    "content": "源自方言，现为全网通用语。不论是官方账号卖萌，还是网红进行奇葩挑战，都被称为“整活儿”。它反映了在流量枯竭的时代，创作者必须通过不断的“异常动作”来维持曝光。但也容易陷入为了整活而整活的低质内容泥潭。<br><br><img src=\"https://dummyimage.com/600x300/D4E6F1/1B4F72&text=Performance\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 390,
+    "term": "避雷",
+    "pinyin": "bl",
+    "summary": "指分享自己在消费或人际关系中踩过的坑，提醒他人不要重蹈覆辙。",
+    "category": [
+      "消费",
+      "生活",
+      "社交"
+    ],
+    "content": "“某某餐厅避雷”、“某某网红产品避雷”。在这个信息高度透明的时代，“避雷”笔记往往比正面评价更有参考价值。它是用户自发形成的“信用惩戒”机制，迫使商家重视质量，也体现了消费者之间的一种朴素的互助正义。<br><br><img src=\"https://dummyimage.com/600x300/E74C3C/ffffff&text=Warning+Post\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 391,
+    "term": "硬控我X秒",
+    "pinyin": "yk",
+    "summary": "借用游戏里的控制技能术语，形容某个画面或内容让自己瞬间无法移开目光。",
+    "category": [
+      "社交",
+      "游戏",
+      "抽象"
+    ],
+    "content": "当你在刷视频时，看到一个极度丝滑的动作、或者一个逆天的颜值瞬间，你感觉自己大脑宕机了，这就是被“硬控”。它精准地量化了内容对人类注意力的掠夺强度。被硬控的时间越长，说明该内容的视觉冲击力越高。<br><br><img src=\"https://dummyimage.com/600x300/2E86C1/ffffff&text=Hard+CC\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 392,
+    "term": "纯爱战士",
+    "pinyin": "cazs",
+    "summary": "指坚信纯真、专一的爱情，对背叛、牛头人情节（NTR）极度厌恶的人群。",
+    "category": [
+      "二次元",
+      "情感",
+      "亚文化"
+    ],
+    "content": "“纯爱战士应战！”当一部作品中出现坚定不移的感情线时，粉丝会以此自豪。与之相对的是“牛头人”。纯爱战士的流行反映了在当今快餐式社交和信任危机下，人们对理想化、古典式爱情的一种防御性回归。<br><br><img src=\"https://dummyimage.com/600x300/F1948A/ffffff&text=Pure+Love+Warrior\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 393,
+    "term": "赛博西游",
+    "pinyin": "sbxy",
+    "summary": "形容一种跨越漫长距离、历经无数技术或现实阻碍，最终达成的网络会面或合作。",
+    "category": [
+      "科技",
+      "抽象",
+      "亚文化"
+    ],
+    "content": "比如两个从未见面的网友通过复杂的设备联机完成一项壮举，或者是为了买一个限定手办跨省转战数次。由于过程充满了坎坷和九九八十一难式的荒诞感，被戏称为赛博西游。它体现了网络社交中那种浪漫又孤独的仪式感。<br><br><img src=\"https://dummyimage.com/600x300/F39C12/17202A&text=Cyber+Journey\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 394,
+    "term": "拿捏了",
+    "pinyin": "nnl",
+    "summary": "形容对某件事、某种风格或某种局面掌控得非常到位、游刃有余。",
+    "category": [
+      "职场",
+      "生活",
+      "默认"
+    ],
+    "content": "常配合捏住手指的手势使用。比如“今天这个穿搭被我拿捏了”。它不仅代表一种能力的体现，更是一种姿态的自信。在互联网语境中，拿捏意味着找到了某种复杂事物的核心密码，从而实现了完美的呈现或解决。<br><br><img src=\"https://dummyimage.com/600x300/D4AC0D/ffffff&text=Get+It\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 395,
+    "term": "电子冥想",
+    "pinyin": "dzmx",
+    "summary": "指通过观看一些极度枯燥、机械但又极度解压的视频来放空大脑。",
+    "category": [
+      "生活",
+      "科技",
+      "默认"
+    ],
+    "content": "看修驴蹄子、看洗陈年老地毯、看高压水枪冲刷地面。这些视频不带任何信息量，却能通过纯粹的、重复的秩序美感，让现代人过载的大脑实现一种“被动关机”。它是对信息碎片化的一种极端对抗：用极致的简单杀掉极致的复杂。<br><br><img src=\"https://dummyimage.com/600x300/76D7C4/ffffff&text=Digital+Zen\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 396,
+    "term": "我的互联网嘴替",
+    "pinyin": "wdhlwzt",
+    "summary": "用于表达对某人言论的高度认同，感觉对方说出了自己想说但说不出来的话。",
+    "category": [
+      "社交",
+      "吐槽",
+      "默认"
+    ],
+    "content": "当大家面对奇葩甲方或不公现象敢怒不敢言时，一个拥有高能量输出的博主公开发声，其言辞犀利、逻辑严密，网友会评论“他就是我的嘴替”。这种身份认同带来了极大的心理爽感，是网络群体心理的一次集体共振。<br><br><img src=\"https://dummyimage.com/600x300/E74C3C/ffffff&text=Internet+Voice\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 397,
+    "term": "颜值天花板",
+    "pinyin": "yzthb",
+    "summary": "形容一个人的美貌已经达到了同类型、同领域的巅峰，难以被超越。",
+    "category": [
+      "时尚",
+      "颜值",
+      "默认"
+    ],
+    "content": "虽然审美是主观的，但在饭圈和时尚圈，这个词代表了公认的视觉顶峰。随着词汇通胀，虽然“天花板”越来越多，但它依然体现了大众对极致美感的一种渴望。一旦被冠以此名，通常意味着其长相极具辨识度和统摄力。<br><br><img src=\"https://dummyimage.com/600x300/F5CBA7/AF601A&text=Visual+Peak\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 398,
+    "term": "三观跟着五官走",
+    "pinyin": "swgzwwz",
+    "summary": "自嘲或评价他人由于对方长得太好看，而选择性忽视其人品或逻辑缺陷。",
+    "category": [
+      "颜值",
+      "情感",
+      "吐槽"
+    ],
+    "content": "常出现在影视剧弹幕中。反派角色如果长得帅，观众会说“他一定有苦衷”。这揭示了人类视觉系统的优先权。这种说法既是一种诚实的“看脸”宣告，也带有一种对肤浅审美导致价值观偏移的无奈调侃。<br><br><img src=\"https://dummyimage.com/600x300/FADBD8/C0392B&text=Face+Over+Facts\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 399,
+    "term": "社恐式社交",
+    "pinyin": "skssj",
+    "summary": "指即便害怕社交，但为了生存不得不强撑着完成的、充满尴尬的社交行为。",
+    "category": [
+      "社交",
+      "生活",
+      "心理"
+    ],
+    "content": "比如：在电梯里一直假装看手机以避开邻居、或者在聚会时像个隐形人一样一直喝水。它反映了现代人社交能量的枯竭。这种社交不仅没有带来快乐，反而像是一种电池放电。该词的流行，让很多年轻人找到了“原来我不孤单”的群体归属感。<br><br><img src=\"https://dummyimage.com/600x300/D5D8DC/566573&text=Anxious+Social\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 400,
+    "term": "互联网垃圾",
+    "pinyin": "hlwlj",
+    "summary": "泛指网络上那些毫无营养、甚至带有误导性和恶意煽动的低劣信息内容。",
+    "category": [
+      "科技",
+      "吐槽",
+      "默认"
+    ],
+    "content": "从标题党、洗稿文到无底线的恶俗视频。这些内容像垃圾一样填充了算法的每一个缝隙。用户对“电子垃圾”的厌恶，促使了对深度阅读和高质量原创内容的回归渴望。它提醒我们：在数字化洪流中，保持审美的洁癖是一种必要的自救。<br><br><img src=\"https://dummyimage.com/600x300/212121/ffffff&text=Digital+Rubbish\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 401,
+    "term": "电子失业",
+    "pinyin": "dzsy",
+    "summary": "指由于AI技术进步或软件停更，导致用户原本熟练的某种数字技能变得毫无价值。",
+    "category": ["科技", "职场", "吐槽"],
+    "content": "随着生成式AI的普及，一些曾经需要学习数年的绘图或代码技巧，现在只需一个提示词（Prompt）即可完成。这种技能的瞬间贬值被调侃为“电子失业”。它反映了现代人在技术爆炸面前，对自己职业护城河被迅速填平的深层焦虑。<br><br><img src=\"https://dummyimage.com/600x300/2C3E50/E74C3C&text=Digital+Unemployment\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 402,
+    "term": "向上管理",
+    "pinyin": "xsgl",
+    "summary": "指员工主动通过沟通和行为，去影响和引导上级的决策与预期。",
+    "category": ["职场", "社交", "默认"],
+    "content": "这不再是单纯的“拍马屁”，而是一种职场生存智慧。通过及时反馈、管理上级的时间、明确任务边界，员工试图在被动的工作环境中抢回主动权。它是对传统科层制下“唯命是从”模式的一种解构和优化。<br><br><img src=\"https://dummyimage.com/600x300/3498DB/ffffff&text=Upward+Management\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 403,
+    "term": "赛博考古",
+    "pinyin": "sbkg",
+    "summary": "指网友在互联网深处挖掘多年前的旧帖、老视频或远古黑料的行为。",
+    "category": ["亚文化", "社交", "科技"],
+    "content": "当某位明星翻车或某件大事重演，网友会顺着时间线爬回十年前的博客或贴吧。赛博考古不仅是为了吃瓜，有时也是在寻找某种逝去的网络纯真时代。这些数字残骸记录了社会心态的变迁，具有独特的“数字化历史”价值。<br><br><img src=\"https://dummyimage.com/600x300/A04000/ffffff&text=Cyber+Archaeology\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 404,
+    "term": "脆皮年轻人",
+    "pinyin": "cpnqn",
+    "summary": "（扩写）泛指身体虚弱、心理承受力低、稍微遇到压力或劳累就崩溃的现代青年。",
+    "category": ["生活", "心理", "吐槽"],
+    "content": "不仅是身体上的“脆”，更是心理上的“玻璃心”。他们自嘲是“行走的人体零件报废站”。这种标签化背后，是长期熬夜、高压工作以及缺乏社交支撑的集体生活写照。他们在网络上互相交流“保命指南”，试图在变脆中寻求共存。<br><br><img src=\"https://dummyimage.com/600x300/FADBD8/333333&text=Fragile+Youth\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 405,
+    "term": "离职羞耻症",
+    "pinyin": "lzxcz",
+    "summary": "指员工在提出离职时，产生的一种像做错事一样的内疚、不安感。",
+    "category": ["职场", "心理", "社交"],
+    "content": "由于公司长期进行的情感捆绑或高压管理，员工离开时会觉得“对不起老板”、“给同事添麻烦了”。这种心理反映了职场权力不对等下的自我CPU（洗脑）。打破这种羞耻，意识到雇佣只是平等的价值交换，是职场人心理成熟的标志。<br><br><img src=\"https://dummyimage.com/600x300/7F8C8D/ffffff&text=Resignation+Guilt\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 406,
+    "term": "洗房",
+    "pinyin": "xf",
+    "summary": "指在结婚前通过一系列手段，将一方的个人房产变为夫妻共同财产的争议行为。",
+    "category": ["社会", "法律", "生活"],
+    "content": "这是一个充满争议的婚恋热词。通常涉及卖掉婚前小房买大房、或加名字等操作。它反映了在房价高企的背景下，婚姻与资产之间的深度博弈，以及现代人在亲密关系中对风险规避的极度敏感和互不信任感。<br><br><img src=\"https://dummyimage.com/600x300/C0392B/ffffff&text=House+Washing\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 407,
+    "term": "电子阳痿",
+    "pinyin": "dz yw",
+    "summary": "指即便拥有大量顶级配置的游戏和时间，却对任何游戏都提不起兴趣的状态。",
+    "category": ["游戏", "生活", "心理"],
+    "content": "这不仅是审美疲劳，更是一种多巴胺阈值被无限拉高后的崩塌。在快节奏生活中，沉下心玩一款几十小时的长篇游戏已成为奢侈。玩家往往停留在“买游戏”的快感中，却再也找不回童年时对着简陋画面也能玩一整天的纯粹快乐。<br><br><img src=\"https://dummyimage.com/600x300/34495E/95A5A6&text=Game+Apathy\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 408,
+    "term": "反向背调",
+    "pinyin": "fxbd",
+    "summary": "指求职者通过各种渠道，对公司、老板及其真实口碑进行背景调查。",
+    "category": ["职场", "生活", "科技"],
+    "content": "不再是单纯的“被面试”。年轻人通过社交平台搜公司黑料、看员工真实评价、甚至潜入公司厕所看纸巾质量。这种对信息不对称的打破，意味着求职者开始掌握更多博弈筹码，追求真正的职场透明度和心理契合度。<br><br><img src=\"https://dummyimage.com/600x300/1E8449/ffffff&text=Reverse+Background+Check\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 409,
+    "term": "电子布道",
+    "pinyin": "dzbd",
+    "summary": "指疯狂地向身边的朋友、网友安利（推荐）某种事物，像布道一样热烈。",
+    "category": ["社交", "情感", "默认"],
+    "content": "当一个人深陷某部剧、某款游戏或某种理念时，会产生一种“我一定要让全人类都知道”的使命感。他们会制作精美的PPT、剪辑视频、甚至写万字长文来安利。这种热忱是互联网社区活力的源泉，也是粉丝经济的核心动力。<br><br><img src=\"https://dummyimage.com/600x300/F1C40F/333333&text=Digital+Preaching\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 410,
+    "term": "赛博失忆",
+    "pinyin": "sbsy",
+    "summary": "形容由于长期刷短视频，导致对几分钟前看过的东西毫无印象的情况。",
+    "category": ["科技", "生活", "心理"],
+    "content": "算法精准投喂下，信息流速过快导致大脑无法进行深度编码。人们就像吞咽快餐一样吞咽信息，除了瞬间的感官刺激，什么都没留下。这种失忆感是数字化生存的副作用之一，标志着个体注意力系统的逐渐退化。<br><br><img src=\"https://dummyimage.com/600x300/BDC3C7/7F8C8D&text=Cyber+Amnesia\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 411,
+    "term": "人脉断舍离",
+    "pinyin": "rmdsl",
+    "summary": "指主动清理通讯录里不再联系、没有意义或带来负面能量的社交关系。",
+    "category": ["社交", "生活", "心理"],
+    "content": "不再追求“朋友多了路好走”，而是追求“朋友少了心不累”。通过删朋友圈、退出死群、屏蔽点赞狂魔，现代人试图找回社交自主权。这是一种心理防御机制，用于抵抗由于社交资源过度冗余带来的无畏损耗。<br><br><img src=\"https://dummyimage.com/600x300/5D6D7E/ffffff&text=Social+Decluttering\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 412,
+    "term": "精致穷 2.0",
+    "pinyin": "jzq",
+    "summary": "（扩写）指消费降级后，依然试图用低成本方式维持“精致感”的活法。",
+    "category": ["消费", "生活", "时尚"],
+    "content": "不再买名牌包，但要把超市买的临期鲜花插得很漂亮；不再去高级餐厅，但在家把拼多多买的餐具摆成法式风格。这种“新精致”不再依赖高额消费，而更倾向于审美层面的自我救赎，是经济下行期的一种乐观生活策略。<br><br><img src=\"https://dummyimage.com/600x300/FADBD8/333333&text=Low-cost+Elegance\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 413,
+    "term": "电子工牌",
+    "pinyin": "dzgp",
+    "summary": "指员工在社交媒体（如小红书、脉脉）的主页上，展示自己的厂牌和职场动态。",
+    "category": ["职场", "社交", "默认"],
+    "content": "这既是一种职业身份的背书，也是一种“随时准备找下家”的在线简历。当现实中的工牌不再代表稳定，互联网上的“电子工牌”成了职场人建立个人IP、抵御失业风险的救命稻草。<br><br><img src=\"https://dummyimage.com/600x300/3498DB/ffffff&text=Digital+Badge\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 414,
+    "term": "互联网垃圾桶",
+    "pinyin": "hlwljt",
+    "summary": "指那些专门接受网友吐槽、倒苦水或匿名爆料的博主账号。",
+    "category": ["吐槽", "社交", "情感"],
+    "content": "大家把现实中不敢说的秘密、对老板的咒骂、对感情的疑惑全部私信发给这些博主。这种博主充当了社会负能量的收集器。虽然内容往往阴郁，但确实为无数压力巨大的个体提供了一个无需负责的匿名宣泄口。<br><br><img src=\"https://dummyimage.com/600x300/212F3D/ffffff&text=Internet+Trash+Can\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 415,
+    "term": "赛博算命 2.0",
+    "pinyin": "sbsm",
+    "summary": "（扩写）指利用AI、大数据算法分析星盘、八字，来决定今日运势的行为。",
+    "category": ["科技", "生活", "抽象"],
+    "content": "现在的算命不再是找天桥下的瞎子，而是打开各种心理App。哪怕知道是概率学或模棱两可的话术，但在面对裁员、考公不确定时，这些数字化的结论能给人一种“未来可控”的错觉。这是一种高科技外壳下的原始心理慰藉。<br><br><img src=\"https://dummyimage.com/600x300/1B4F72/ffffff&text=AI+Fortune+Telling\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 416,
+    "term": "有效发疯",
+    "pinyin": "yxff",
+    "summary": "指在某些特定场合（如维权、争论）通过表现出“失控”来获得利益。",
+    "category": ["社交", "抽象", "吐槽"],
+    "content": "这是一种策略性的战术。面对推诿责任的客服或不讲理的亲戚，冷静往往被视为软弱，而适时的“发疯文学”或大声理论能迅速打破对方的心理预期。其核心不在于情绪，而在于通过反常态的行为迫使规则重新建立。<br><br><img src=\"https://dummyimage.com/600x300/C0392B/ffffff&text=Strategic+Madness\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 417,
+    "term": "社牛恐",
+    "pinyin": "snk",
+    "summary": "形容原本性格开朗、善于社交的人，由于遭遇了严重的社交创伤，突然变得害怕社交。",
+    "category": ["社交", "心理", "生活"],
+    "content": "“社牛”与“社恐”的转折。可能是因为某次真心被辜负，或者是在高强度社交中感到意义缺失。这种转变反映了现代人社交能量的脆弱性，以及对低质量群聚活动的深刻疲惫感。他们依然懂社交，但不再愿意付出。<br><br><img src=\"https://dummyimage.com/600x300/D4E6F1/1F618D&text=Social+Exhaustion\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 418,
+    "term": "反骨仔心态",
+    "pinyin": "fgzxt",
+    "summary": "指年轻人对一切陈旧规则、刻板偏见持有一种“你越说我就越反着来”的叛逆精神。",
+    "category": ["生活", "性格", "吐槽"],
+    "content": "你不让我穿奇装异服上班，我偏要穿。这种心态不仅是叛逆，更是一种对自我主体性的确认。在一切都被标准化的社会中，通过“唱反调”，个体试图证明自己不是流水线上的标准零件。它带有一种解构主义的黑色幽默。<br><br><img src=\"https://dummyimage.com/600x300/000000/00FF00&text=Rebellious+Mindset\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 419,
+    "term": "电子备忘录爱情",
+    "pinyin": "dzbwlaq",
+    "summary": "指双方通过在共用的备忘录或网盘里记叙琐碎日常来维持的恋爱关系。",
+    "category": ["情感", "科技", "社交"],
+    "content": "不同于朋友圈的炫耀，这种交流是私密且深沉的。在碎片化的时代，这种慢节奏的、文档式的记录成为了很多异地恋或社恐情侣的情感寄托。它像是一封永远写不完的长信，记录了彼此在赛博空间里的共同成长。<br><br><img src=\"https://dummyimage.com/600x300/FAD7A0/AF601A&text=E-Note+Love\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 420,
+    "term": "互联网显学 2.0",
+    "pinyin": "hlwxx",
+    "summary": "（扩写）指那些由特定热点事件引发的、具有全民参与度的“全方位解析”风潮。",
+    "category": ["吐槽", "社交", "亚文化"],
+    "content": "如“甄嬛传十级学者”、“春山学”等。当大众开始通过每一帧画面的微表情、每一行文字的语法来推敲人性时，这种解构已成为一种新型的娱乐消费。它反映了网络时代大众对碎片化叙事的极致挖掘能力。<br><br><img src=\"https://dummyimage.com/600x300/2C3E50/ffffff&text=Viral+Analysis\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 421,
+    "term": "电子垃圾山",
+    "pinyin": "dzljs",
+    "summary": "形容用户手机相册里存了几千张、但再也不会去看的截图和照片。",
+    "category": ["科技", "生活", "吐槽"],
+    "content": "“存了等于看了，看了等于懂了。”这些截图往往是由于知识焦虑或瞬间兴趣产生的，但最终都成了静止的数字化垃圾。它们占据着云空间，却从未真正转化为个体的见识。定期清理电子垃圾山已成为一种新型的心理疗愈。<br><br><img src=\"https://dummyimage.com/600x300/95A5A6/ffffff&text=Digital+Debris\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 422,
+    "term": "搭子不搭了",
+    "pinyin": "dzbdl",
+    "summary": "形容原本和谐的临时社交关系（如饭搭子）由于利益或观点冲突而解体。",
+    "category": ["社交", "生活", "默认"],
+    "content": "搭子文化的核心本是“轻社交”，但一旦涉及借钱不还、观念严重不合，这种脆弱的关系会迅速崩塌。它反映了现代人即便在追求极简社交时，依然无法完全规避人性的摩擦。散伙后，人们会迅速寻找下一个更合适的零件。<br><br><img src=\"https://dummyimage.com/600x300/D2B4DE/4A235A&text=Partner+Breakup\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 423,
+    "term": "赛博受难日",
+    "pinyin": "sbsnr",
+    "summary": "（扩写）由于云端服务崩溃、手机遗失或社交账号被封，导致人在现实中陷入瘫痪的一天。",
+    "category": ["科技", "生活", "吐槽"],
+    "content": "在数字化程度极高的今天，手机消失等同于身份消失。不能点外卖、不能坐地铁、不能社交。这种由于“电子基础设施”断裂带来的极度不安全感，让人们意识到现代人的灵魂早已半永久地寄宿在了硅片之中。<br><br><img src=\"https://dummyimage.com/600x300/17202A/E74C3C&text=Digital+Blackout\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 424,
+    "term": "尊嘟假嘟 2.0",
+    "pinyin": "zdjd",
+    "summary": "（补充）除了卖萌，现在更多用于表达一种“对现实魔幻程度的无力感”。",
+    "category": ["萌系", "社交", "时尚"],
+    "content": "当听到离谱的新闻（如AI要取代人类、或者房价暴涨暴跌）时，一句“尊嘟假嘟”消解了严肃的恐惧。它用幼儿化的语言，掩盖了成年人对不可控世界的真实焦虑，带有一种“如果这一切是假的该多好”的温柔希冀。<br><br><img src=\"https://dummyimage.com/600x300/FADBD8/E91E63&text=Really+Cute+2.0\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 425,
+    "term": "互联网刺客",
+    "pinyin": "hlwck",
+    "summary": "指那些在网络上平时温柔理性，关键时刻却能一句话戳穿所有伪善的人。",
+    "category": ["社交", "吐槽", "默认"],
+    "content": "他们像潜伏的刺客，不轻易发言，但每一次留言都直指对方的逻辑死穴或虚伪面具。这种“刺客”深受网友爱戴，因为他们完成了大众想做而没有胆量或智力去做的事。它是网络辩论中的高端力量。<br><br><img src=\"https://dummyimage.com/600x300/000000/ffffff&text=Internet+Assassin\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 426,
+    "term": "我的互联网养老院",
+    "pinyin": "wdhlwyly",
+    "summary": "指那些内容极度安宁、没有冲突、可以让用户逃避现实压力的小众平台或社群。",
+    "category": ["社交", "心理", "生活"],
+    "content": "在这里，没有大V的争吵，没有消费主义的诱导，只有花鸟鱼虫或安静的手工直播。这种“养老院”是现代人的精神后花园，让他们在被流量算法撕碎之前，能在那儿找回几分钟完整的自我。它是数字化时代的隐居地。<br><br><img src=\"https://dummyimage.com/600x300/A9DFBF/1E8449&text=Digital+Retreat\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 427,
+    "term": "已读不回是最高礼仪",
+    "pinyin": "ydbhszgly",
+    "summary": "指在现代高压社交中，双方达成的一种“如果不重要就不需要回复”的默契。",
+    "category": ["社交", "生活", "吐槽"],
+    "content": "这是一种对社交资源极度匮乏的共识。如果我发了一个表情包，你不回我，代表你收到了且我们都很忙，没必要再进行毫无意义的社交礼貌式拉锯。它减轻了回复者的焦虑，也代表了关系的稳定度和信任感。<br><br><img src=\"https://dummyimage.com/600x300/FFFFFF/333333&text=Read+Is+Enough\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 428,
+    "term": "特种兵式上班",
+    "pinyin": "tzbssb",
+    "summary": "指通过极高的通勤效率和极度压缩的睡眠，完成跨城甚至跨省的日常通勤。",
+    "category": ["职场", "生活", "社会"],
+    "content": "凌晨4点起床坐高铁，晚上11点到家。这不仅是体力的透支，更是由于中心城市生活成本过高、而个体又不愿放弃职业机会的极端妥协。这种上班方式被冠以“特种兵”之名，带有一种英雄主义色彩的辛酸。<br><br><img src=\"https://dummyimage.com/600x300/1E8449/ffffff&text=Commuting+Warrior\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 429,
+    "term": "人夫感 2.0",
+    "pinyin": "rfg",
+    "summary": "（补充）指那些具备高情绪价值、善于倾听、并在小事上体现关怀的异性形象。",
+    "category": ["颜值", "情感", "生活"],
+    "content": "审美从“张扬”转向“收敛”。现在的“人夫感”更多强调的是一种“稳定的内核”和“可预期的未来感”。它反映了在不稳定的环境中，人们对情感避风港的极度渴求。哪怕这只是网络营造的一种人设，也足以令人沉溺。<br><br><img src=\"https://dummyimage.com/600x300/D5DBDB/2C3E50&text=Domestic+Charm\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 430,
+    "term": "赛博骨灰盒",
+    "pinyin": "sbghh",
+    "summary": "指专门用来存放那些已经注销但又不舍得彻底删除数据的硬盘或备份盘。",
+    "category": ["科技", "情感", "生活"],
+    "content": "里面锁着一段无疾而终的恋爱聊天记录、或者是曾经热爱过的但已关服的游戏截图。这些数据不再有生命，但对拥有者来说，它们是记忆的某种物化证据。它是数字化死亡与物理怀旧的终极平衡。<br><br><img src=\"https://dummyimage.com/600x300/000000/7F8C8D&text=Digital+Urn\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 431,
+    "term": "纯爱战士万岁",
+    "pinyin": "cazsws",
+    "summary": "（补充）常用于对那些在物欲横流时代依然坚持真挚感情的故事的最高赞赏。",
+    "category": ["二次元", "情感", "亚文化"],
+    "content": "这不仅仅是饭圈口号，更是一种信仰的宣示。在出轨、劈腿八卦满天飞的社交环境下，每一个纯爱故事的胜利，都是对大众内心尚未泯灭的真诚的一次集体加冕。它代表了人类最后的浪漫主义底线。<br><br><img src=\"https://dummyimage.com/600x300/F1948A/ffffff&text=True+Love+Forever\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 432,
+    "term": "你是懂得 XXX 的",
+    "pinyin": "nsddxxx",
+    "summary": "（扩写）一种极具解构主义色彩的评论，暗示对方掌握了某种“邪道”逻辑。",
+    "category": ["社交", "吐槽", "默认"],
+    "content": "比如当有人为了逃避工作而把电脑砸了，评论说“你是懂得带薪休假的”。这不仅仅是嘲讽，更多是一种对他人在极端环境下表现出的“黑色幽默”或“异向思维”的认可。它是网络亚文化对严肃逻辑的又一次集体解构。<br><br><img src=\"https://dummyimage.com/600x300/BDC3C7/333333&text=You+Get+The+Point\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 433,
+    "term": "哈基米 2.0",
+    "pinyin": "hjm",
+    "summary": "（补充）现已演变成一种对所有可爱、易碎事物的一概称呼。",
+    "category": ["萌系", "生活", "默认"],
+    "content": "它的适用范围从猫狗扩散到了漂亮的杯子、可爱的小孩，甚至是笨拙的AI。这个词成为了万能的“萌感形容词”。其洗脑的旋律即便不在，只要看到这三个字，大脑里也会自动响起那段轻快的BGM，是一种跨次元的感官通感。<br><br><img src=\"https://dummyimage.com/600x300/FAD7A0/873600&text=Hajimi+Power\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 434,
+    "term": "精致穷 3.0：精神贵族",
+    "pinyin": "jsgz",
+    "summary": "指那些在物质生活已经跌落到极低谷，但依然在网络上保持高审美、高格调的行为。",
+    "category": ["消费", "生活", "时尚"],
+    "content": "这是一种对贫困的审美化武装。通过在廉价出租屋里画油画、读古希腊哲学，或者是通过高超的P图技术伪造精致生活。这反映了年轻人在无法改变经济现状时，对最后一点精神自尊的疯狂守护。既让人敬佩，也让人感到心酸。<br><br><img src=\"https://dummyimage.com/600x300/E5E7E9/2C3E50&text=Spiritual+Aristocrat\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 435,
+    "term": "赛博冥想 2.0",
+    "pinyin": "sbmx",
+    "summary": "（补充）指通过VR或全景声技术，让自己肉体在工位，灵魂在北极的行为。",
+    "category": ["生活", "科技", "默认"],
+    "content": "通过技术手段实现物理空间的瞬间位移。当戴上耳机那一刻，老板的催促变成了海浪声。这种“被动式逃离”是高压职场下最廉价、最快捷的避风港。它揭示了现代人不仅需要物质解脱，更需要感官层面的瞬间自救。<br><br><img src=\"https://dummyimage.com/600x300/76D7C4/ffffff&text=Virtual+Retreat\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 436,
+    "term": "哈基米式焦虑",
+    "pinyin": "hjmsjl",
+    "summary": "形容由于被大量软萌可爱的短视频轰炸，产生的一种“现实生活怎么这么丑”的失落感。",
+    "category": ["情感", "社交", "吐槽"],
+    "content": "由于网络世界展现的都是最可爱的宠物、最漂亮的人、最精致的餐点。回到现实中，看到乱糟糟的家和疲惫的自己，会产生一种强烈的剥离感。这是高度美化的网络滤镜对普通人真实感知的二次伤害。<br><br><img src=\"https://dummyimage.com/600x300/F5B7B1/C0392B&text=Aesthetic+Anxiety\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 437,
+    "term": "拿捏了：职场版",
+    "pinyin": "nnl",
+    "summary": "（扩写）指职场人完美识破老板画饼、并巧妙避开所有加班坑位的快感。",
+    "category": ["职场", "生活", "默认"],
+    "content": "“今天老板想让我周末加班，结果我先发制人请了年假，拿捏了。”这代表了在劳资关系中，打工人通过智力和规则对权力的微小博弈。每一次这种拿捏，都是对职场生存尊严的一次小小提振。它是属于打工人的胜利时刻。<br><br><img src=\"https://dummyimage.com/600x300/D4AC0D/ffffff&text=Gotcha+Boss\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 438,
+    "term": "互联网垃圾桶博主",
+    "pinyin": "hlwljtbz",
+    "summary": "（补充）那些专门收集并发布他人匿名投稿、尤其是涉及“人性幽暗面”内容的博主。",
+    "category": ["吐槽", "社会", "情感"],
+    "content": "他们发出的内容往往是：“我的前任是奇葩”、“我竟然暗恋我的嫂子”。这种内容满足了人类本能的窥探欲，也通过展示他人的悲惨或离奇，让观看者获得一种“还好我的生活比较正常”的病态慰藉。<br><br><img src=\"https://dummyimage.com/600x300/17202A/95A5A6&text=Confession+Vault\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 439,
+    "term": "已读乱回：职场升级版",
+    "pinyin": "ylh",
+    "summary": "指员工在面对不合理的工作要求时，通过故作愚笨或答非所问来消极对抗。",
+    "category": ["职场", "抽象", "吐槽"],
+    "content": "老板说：“明天出个方案。”员工回：“老板，我刚看了一个纪录片，讲的是蚂蚁是如何搬家的，太震撼了。”这种方式让老板无法发火（因为看起来像是脑回路清奇），又能有效延缓工作的推进速度。是现代职场的新型“摸鱼”艺术。<br><br><img src=\"https://dummyimage.com/600x300/D2B4DE/4A235A&text=Creative+Ghosting\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 440,
+    "term": "赛博考古学：个人版",
+    "pinyin": "sbkg",
+    "summary": "指深夜翻看自己几年前发表的、充满了中二气息的动态，并感到脚趾抠地的过程。",
+    "category": ["亚文化", "情感", "生活"],
+    "content": "这是对过去自我的数字化审判。每一条当时自以为深情的说说，现在看都像是在公开处刑。这反映了人的成长与网络永久记忆之间的冲突。虽然尴尬，但这正是生命流动的证据，是个人成长的数字化年轮。<br><br><img src=\"https://dummyimage.com/600x300/8B4513/ffffff&text=Past+Self+Review\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 441,
+    "term": "电子耗材：高级版",
+    "pinyin": "dzhc",
+    "summary": "指那些看似光鲜亮丽的高级白领，本质上依然是算法或系统里可随时替换的插件。",
+    "category": ["职场", "科技", "社会"],
+    "content": "即使你是PPT高手或资深经理，一旦系统更新或架构调整，你也会发现自己并没有核心护城河。这个词的流行是对“中产职场梦”的一次冷酷戳破，提醒人们：在数字经济时代，没有人是真正不可替代的，除非你拥有生产资料。<br><br><img src=\"https://dummyimage.com/600x300/212F3D/ffffff&text=High-end+Consumables\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 442,
+    "term": "拿捏：宠物版",
+    "pinyin": "nnl",
+    "summary": "指猫狗等宠物精准通过卖萌来博取主人零食的行为，由于这种掌控感极其精准而得名。",
+    "category": ["萌系", "生活", "默认"],
+    "content": "“小样，只要我歪个头，你还不得乖乖把罐头奉上？”在宠主关系中，地位往往是倒置的。宠物的每一个眼神都精准拿捏了人类的保护欲。这是一种跨物种的情感操纵，但人类往往甘之如饴。<br><br><img src=\"https://dummyimage.com/600x300/EB984E/ffffff&text=Pet+Domination\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 443,
+    "term": "赛博算命 3.0：性格标签化",
+    "pinyin": "sbsm",
+    "summary": "指通过MBTI、E/I人等标签，将复杂的性格极度简化，并作为社交准入门槛的行为。",
+    "category": ["科技", "社交", "心理"],
+    "content": "“我是INFP，不和ESTJ说话。”这种标签化的算命不仅是预测未来，更是在预设社交障碍。它反映了在快节奏时代，人们已经失去了深度了解一个人的耐心，转而依赖这些经过数字化包装的性格模版来快速归类。既高效，也极其狭隘。<br><br><img src=\"https://dummyimage.com/600x300/1B4F72/ffffff&text=Personality+Labeling\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 444,
+    "term": "我的互联网养老院：怀旧区",
+    "pinyin": "wdhlwyly",
+    "summary": "指B站或抖音上那些循环播放 2000 年代电视剧、音乐或广告的老物直播间。",
+    "category": ["社交", "时尚", "亚文化"],
+    "content": "在那里，画面带着雪花感，声音充满了磁带味。弹幕里全是“回不去了”或“那时候真简单”。这是集体潜意识对当下复杂生活的一种逃避。人们在那儿寻找一种确定性，哪怕那只是过去的一种幻觉。<br><br><img src=\"https://dummyimage.com/600x300/AED6F1/34495E&text=Nostalgia+Zone\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 445,
+    "term": "互联网垃圾桶：反向版",
+    "pinyin": "hlwljt",
+    "summary": "指网友将自己获得的快乐、中奖消息通过弹幕或留言分发给大家，祈求好运的行为。",
+    "category": ["社交", "情感", "默认"],
+    "content": "“考研过线了，来这还愿，大家接好运！”这种良性的信息流动将原本孤独的个人成就变成了社区共享的喜悦。它是网络社交中温暖的一面，证明了即便在充满吐槽的环境下，人类依然有着分享幸福的原始本能。<br><br><img src=\"https://dummyimage.com/600x300/F7DC6F/333333&text=Luck+Spreading\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 446,
+    "term": "已读乱回：高端情感版",
+    "pinyin": "ylh",
+    "summary": "指在面对暧昧对象的试探或前任的求和时，通过发一些莫名其妙的动图来化解僵局。",
+    "category": ["社交", "情感", "吐槽"],
+    "content": "当对方问“你还爱我吗？”你回了一张“奥特曼打小怪兽”的图。这种乱回是一种极致的拒绝或防御。它通过这种荒诞感切断了对方的情感索取，不给任何可被利用的有效信息，是高手博弈中的“绝杀”。<br><br><img src=\"https://dummyimage.com/600x300/D2B4DE/4A235A&text=Emotional+Defense\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 447,
+    "term": "赛博受难：支付篇",
+    "pinyin": "sbsn",
+    "summary": "指由于手机没电、断网或信号差，在收银台前面面对长队却无法付钱的极度尴尬时刻。",
+    "category": ["科技", "生活", "吐槽"],
+    "content": "这种时刻，每一秒的等待都像是在受刑。它揭示了无现金社会脆弱的一面。当数字信用由于物理原因（没电）而无法提取时，个体的社会地位会瞬间降至冰点。它是对技术依赖的一次辛辣嘲讽。<br><br><img src=\"https://dummyimage.com/600x300/17202A/E74C3C&text=Payment+Failure\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 448,
+    "term": "互联网显学：小众版",
+    "pinyin": "hlwxx",
+    "summary": "指对某种极其冷门的事物（如某种奇怪的菌类、或者是某种地方方言）进行的专家式普及。",
+    "category": ["吐槽", "亚文化", "科技"],
+    "content": "不同于大众爆料，这种显学带有科普色彩。它证明了互联网的利基市场正在变大。当一个人对“如何在零下40度生活”都能写出几十万字的研究报告并获得万赞时，它代表了人类好奇心的极致下沉。<br><br><img src=\"https://dummyimage.com/600x300/2C3E50/ffffff&text=Niche+Study\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 449,
+    "term": "拿捏：自我安慰版",
+    "pinyin": "nnl",
+    "summary": "指在生活一团糟时，依然能找到一两件如意的小事（如正好赶上公交），以此宣布“我拿捏了生活”。",
+    "category": ["生活", "心理", "默认"],
+    "content": "这是一种精神胜利法。在巨大的失控感面前，通过捕捉这些微小的掌控感，来防止心理防线的彻底崩溃。它虽然卑微，但极其坚韧，是普通人在泥潭里保持优雅的一种手段。<br><br><img src=\"https://dummyimage.com/600x300/EB984E/ffffff&text=Small+Wins\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 450,
+    "term": "赛博遗嘱",
+    "pinyin": "sbyz",
+    "summary": "指提前设置好自己在社交账号、游戏账号乃至各种云端资产在离世后的处理方式。",
+    "category": ["科技", "社会", "生活"],
+    "content": "是销毁所有聊天记录？还是将满级账号传给后代？赛博遗嘱的出现标志着数字化资产已正式成为人类存在的核心部分。它迫使我们思考：当肉体腐烂，我们在服务器里的“那个我”该何去何从。它是数字时代最后的尊严。 <br><br><img src=\"https://dummyimage.com/600x300/000000/ffffff&text=Digital+Will\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 451,
+    "term": "AI 幻觉生活",
+    "pinyin": "aihjsh",
+    "summary": "借用AI产生错误信息的术语，形容现实生活中那些看似完美实则漏洞百出的虚假感。",
+    "category": ["科技", "生活", "吐槽"],
+    "content": "当你在朋友圈看到一个精致的露营照，背后的垃圾桶却被P掉了一半，这就是“AI幻觉生活”。它讽刺了在算法审美下，人们开始像AI一样修饰真实，导致生活逐渐失去了粗糙的质感，变得像是一段生成的代码。<br><br><img src=\"https://dummyimage.com/600x300/3498DB/ECF0F1&text=AI+Hallucination+Life\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 452,
+    "term": "数字游民 2.0",
+    "pinyin": "szym",
+    "summary": "指不仅是地理上的移动，更是在多个虚拟职业、多个平台间进行身份切换的自由职业者。",
+    "category": ["职场", "科技", "生活"],
+    "content": "上午是网约车司机，下午是AI提示词工程师，晚上是短视频博主。2.0时代的游民不再局限于在清迈喝咖啡，而是在“多重零工经济”中寻找安全感。这种身份的流变性是应对职业不确定性的终极方案。<br><br><img src=\"https://dummyimage.com/600x300/1ABC9C/ffffff&text=Digital+Nomad+2.0\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 453,
+    "term": "赛博班主任",
+    "pinyin": "sbbzr",
+    "summary": "指那些在网络上监督网友学习、减肥、存钱，并以严厉口吻进行劝诫的博主。",
+    "category": ["社交", "生活", "默认"],
+    "content": "“都几点了还在刷视频？快去背单词！”这种博主利用了人们的“受虐心理”和“自律焦虑”。在失去学校监督后，成年人主动寻找一个虚拟的威权人物来管理自己的惰性。这是一种数字化的自我驯化。<br><br><img src=\"https://dummyimage.com/600x300/2C3E50/E67E22&text=Cyber+Teacher\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 454,
+    "term": "电子失物招领",
+    "pinyin": "dzswzl",
+    "summary": "指在社交平台上寻找多年前丢失的数字记忆，如一个关停网站的截图或一段消失的BGM。",
+    "category": ["亚文化", "情感", "科技"],
+    "content": "这不仅是找东西，是找回过去的自己。由于互联网的易逝性，很多曾经红极一时的内容会瞬间蒸发。网友们发起的这种寻找，往往能引发跨地域的集体共鸣。这种失物招领充满了赛博时代的哀悼意味。<br><br><img src=\"https://dummyimage.com/600x300/95A5A6/ffffff&text=Lost+and+Found\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 455,
+    "term": "离职礼金",
+    "pinyin": "lzlj",
+    "summary": "讽刺说法，指离职时为了“买断”与公司的纠葛，不得不支付的各种隐形成本或违约金。",
+    "category": ["职场", "社会", "吐槽"],
+    "content": "有时也指同事间凑钱给离职者的告别礼。但在更辛辣的语境下，它代表了职场人为了重获自由而不得不做出的金钱或职业履历上的牺牲。它是对“进门容易出门难”职场潜规则的一种无奈调侃。<br><br><img src=\"https://dummyimage.com/600x300/C0392B/ffffff&text=Exit+Fee\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 456,
+    "term": "洗地 2.0：AI 自动洗",
+    "pinyin": "xd",
+    "summary": "形容利用大量的AI自动生成内容，在短时间内淹没负面评论、重塑舆论的行为。",
+    "category": ["科技", "社交", "吐槽"],
+    "content": "以前洗地靠人工，现在靠模型。通过成千上万个马甲发布似是而非的赞美词，让真实的批评在算法推荐中沉底。这标志着网络公关进入了军备竞赛阶段，真相的辨识成本被无限拉高。<br><br><img src=\"https://dummyimage.com/600x300/212F3D/ABB2B9&text=AI+Whitewash\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 457,
+    "term": "电子止痛药",
+    "pinyin": "dzzty",
+    "summary": "指那些没有任何实质内容，但能通过感官刺激暂时缓解现实痛苦的短视频或小游戏。",
+    "category": ["生活", "心理", "默认"],
+    "content": "与“电子榨菜”不同，止痛药带有明显的成瘾性和逃避属性。比如无休止的“开箱视频”或“爽文短剧”。它们不提供营养，只提供瞬间的麻木。这是打工人在极度精神疲惫下的一种“低成本自救”。<br><br><img src=\"https://dummyimage.com/600x300/D2B4DE/4A235A&text=Digital+Painkiller\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 458,
+    "term": "反向消费降级",
+    "pinyin": "fxx fjj",
+    "summary": "指在整体缩减开支的大环境下，唯独在某个能给自己带来巨大精神安慰的领域进行“报复性支出”。",
+    "category": ["消费", "生活", "时尚"],
+    "content": "可以吃一周泡面，但一定要买一张顶级偶像的演唱会门票。这种“局部奢华”是年轻人对生活全面平庸化的一种抗争。它证明了在物质匮乏的恐惧中，人们更愿意为“活着的感觉”买单。<br><br><img src=\"https://dummyimage.com/600x300/F1C40F/333333&text=Emotional+Splurge\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 459,
+    "term": "电子布道：邪典版",
+    "pinyin": "dzbd",
+    "summary": "指通过病毒式传播某种毫无意义、甚至有些让人不适的抽象模因（Meme）。",
+    "category": ["亚文化", "抽象", "默认"],
+    "content": "比如早期的“鸡你太美”或后来的“我姓石”。这种传播不追求审美，只追求“入侵大脑”。当全世界都在刷同一个无厘头的梗时，这种集体的荒诞感本身就成了一种电子宗教。它是对互联网意义系统的一种解构。<br><br><img src=\"https://dummyimage.com/600x300/000000/FF0000&text=Cursed+Meme\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 460,
+    "term": "赛博孤独感",
+    "pinyin": "sbgdg",
+    "summary": "形容在拥有数千好友、数万粉丝的情况下，却找不到一个人可以进行真实、深入对话的状态。",
+    "category": ["心理", "社交", "默认"],
+    "content": "热闹是屏幕里的，孤独是蓝光照射下的。这种孤独感来自于社交的“高带宽、低情感”。人们在互联网上交换信息，却很难交换灵魂。它是数字时代最为普遍的心理顽疾。<br><br><img src=\"https://dummyimage.com/600x300/17202A/5D6D7E&text=Cyber+Loneliness\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 461,
+    "term": "人脉断舍离：职场版",
+    "pinyin": "rmdsl",
+    "summary": "离职后瞬间退出所有工作群、屏蔽所有前同事，甚至删除老板联系方式的决绝行为。",
+    "category": ["职场", "社交", "心理"],
+    "content": "“出了这扇门，大家就是陌生人。”这反映了现代职场中人际关系的极其工具化。既然不再提供职业价值，就不再浪费社交精力。这种冷酷的效率观，是职场人对自己精神空间的强力保护。<br><br><img src=\"https://dummyimage.com/600x300/566573/ffffff&text=Career+Cutoff\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 462,
+    "term": "精致穷 4.0：临期精英",
+    "pinyin": "jzq",
+    "summary": "指通过购买临期进口食品、打折大牌样衣来维持高水准生活审美的消费群体。",
+    "category": ["消费", "生活", "时尚"],
+    "content": "他们对价格极度敏感，对格调极度坚持。通过掌握各种捡漏算法，在有限的预算内模拟出“老钱风”。这种“临期”不仅是商品的期限，也暗喻了中产生活方式的一种脆弱的平衡感。<br><br><img src=\"https://dummyimage.com/600x300/FADBD8/2C3E50&text=Outlet+Elite\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 463,
+    "term": "电子工牌：反向背调版",
+    "pinyin": "dzgp",
+    "summary": "指通过展示前公司的“工牌遗照”，并列举其避雷清单的行为。",
+    "category": ["职场", "社交", "吐槽"],
+    "content": "这是离职后的“清算时刻”。通过展示曾经的身份来增强爆料的可信度。电子工牌在此刻从身份荣耀变成了复仇的徽章，旨在警告后来的打工人不要再次落入同样的火坑。<br><br><img src=\"https://dummyimage.com/600x300/34495E/ffffff&text=Ex-Employee+Badge\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 464,
+    "term": "互联网垃圾桶：反噬版",
+    "pinyin": "hlwljt",
+    "summary": "指由于长期接受负面情绪，博主本人心理崩溃或开始利用网友隐私进行勒索的现象。",
+    "category": ["社交", "情感", "社会"],
+    "content": "垃圾桶也有装满的一天。这种现象提醒人们，在网络上寻求匿名树洞时，不仅可能遭遇情绪污染，还可能面临数据安全和人格被物化的风险。没有任何一个树洞是绝对安全的。<br><br><img src=\"https://dummyimage.com/600x300/17202A/E74C3C&text=Abyssal+Reverse\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 465,
+    "term": "赛博算命 4.0：MBTI 鄙视链",
+    "pinyin": "sbsm",
+    "summary": "指在社交和职场中，根据MBTI类型自动划分高低贵贱的现象。",
+    "category": ["科技", "社交", "默认"],
+    "content": "“我们组只要NT型，SF型请绕道。”这种极端的标签化导致了新的社交隔离。原本是自省的工具，却变成了扣在他人才华上的钢戳。它反映了在信息过载时代，人们对复杂性的极度恐惧和对简化的偏执追求。<br><br><img src=\"https://dummyimage.com/600x300/1B4F72/D4E6F1&text=MBTI+Hierarchy\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 466,
+    "term": "有效发疯：亲戚篇",
+    "pinyin": "yxff",
+    "summary": "指在过年聚会等场合，通过不顾体面的言论来反击亲戚的越界打听。",
+    "category": ["社交", "吐槽", "生活"],
+    "content": "“既然你不让我好过，那大家都别想吃饭。”通过这种极端的策略，年轻人试图在窒息的传统伦理中撕开一个透气的口子。这种发疯本质上是一种边界声明，虽然代价是“名声受损”，但收获了清净。<br><br><img src=\"https://dummyimage.com/600x300/C0392B/ffffff&text=Holiday+Outbreak\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 467,
+    "term": "社牛恐 2.0：表演性人格障碍",
+    "pinyin": "snk",
+    "summary": "形容那些在镜头前或社交媒体上极其亢奋，回到现实却一句话也不想说的“双面人”。",
+    "category": ["社交", "心理", "默认"],
+    "content": "由于社交媒体对“显眼包”的流量奖励，很多人被迫在网络上扮演社牛。这种表演对精神的消耗是巨大的，导致他们在现实中像一节耗尽的电池。这是一种职业化的性格割裂。<br><br><img src=\"https://dummyimage.com/600x300/F1C40F/333333&text=Performance+Socialite\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 468,
+    "term": "反骨仔心态：AI 挑战版",
+    "pinyin": "fgzxt",
+    "summary": "指故意通过错误的提示词或反逻辑的问题去调戏AI，以寻找算法漏洞的行为。",
+    "category": ["科技", "抽象", "吐槽"],
+    "content": "当全世界都在学习如何使用AI时，反骨仔在研究如何搞疯AI。这种行为是对技术权威的一种消解，也是人类试图证明自己“不可预测性”和“灵性”的一种倔强实验。<br><br><img src=\"https://dummyimage.com/600x300/000000/00FF00&text=Glitch+Hunting\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 469,
+    "term": "电子备忘录爱情：证据篇",
+    "pinyin": "dzbwlaq",
+    "summary": "指在分手后，通过翻看共用备忘录来反复折磨自己、或作为对方出轨证据的行为。",
+    "category": ["情感", "社交", "心理"],
+    "content": "备忘录曾是甜蜜的温床，现在成了冰冷的证词。由于其记录的琐碎性和实时性，它比聊天记录更能还原感情崩溃的细节。它是数字时代爱情留下的最锋利的碎片。<br><br><img src=\"https://dummyimage.com/600x300/FAD7A0/873600&text=Digital+Evidence\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 470,
+    "term": "互联网显学 3.0：AI 侦探",
+    "pinyin": "hlwxx",
+    "summary": "指利用各种AI工具去鉴定一张照片是否为生成、一段声音是否为克隆的硬核行为。",
+    "category": ["科技", "社交", "社会"],
+    "content": "在后真相时代，这成了一种生存技能。网友们不再满足于口头争论，而是开始运行代码和模型来还原真相。这是一种“用魔法打败魔法”的数字化抗争，也是互联网显学的最新进化形态。<br><br><img src=\"https://dummyimage.com/600x300/2C3E50/ffffff&text=AI+Detective\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 471,
+    "term": "电子垃圾山：云盘考古版",
+    "pinyin": "dzljs",
+    "summary": "指偶然翻开多年不用的云盘，发现里面存满了早已失效的链接和毫无意义的资料。",
+    "category": ["科技", "情感", "生活"],
+    "content": "这是一种时间的墓地。那些曾经被冠以“必看”、“干货”的文件，如今看起来像是一个个荒诞的笑话。这种考古能让人瞬间意识到自己生命中某些阶段的徒劳无功，从而引发深刻的人生虚无感。<br><br><img src=\"https://dummyimage.com/600x300/7F8C8D/ffffff&text=Cloud+Graveyard\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 472,
+    "term": "搭子不搭了：AA 后遗症",
+    "pinyin": "dzbdl",
+    "summary": "指由于在细微开支上无法达成公平，导致原本和谐的搭子关系迅速恶化的现象。",
+    "category": ["社交", "消费", "默认"],
+    "content": "“虽然只有5块钱，但那是原则问题。”由于搭子关系缺乏深层的情感缓冲，任何利益摩擦都会被放大到原则高度。这种关系的脆弱性，是现代社会极度理性化、契约化导致的情感荒漠化的缩影。<br><br><img src=\"https://dummyimage.com/600x300/D2B4DE/2C3E50&text=Penny+Conflict\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 473,
+    "term": "赛博受难日：验证码篇",
+    "pinyin": "sbsnr",
+    "summary": "指为了登录一个账号，被要求选出所有的“消防栓”，却反复失败导致心态爆炸的过程。",
+    "category": ["科技", "生活", "吐槽"],
+    "content": "“我到底是人还是AI？”在这个时刻，人类被迫证明自己是人类，却往往在算法面前败下阵来。这种极其荒谬的体验是数字化生活中最让人崩溃的小插曲，象征着技术对人性的某种羞辱。<br><br><img src=\"https://dummyimage.com/600x300/17202A/ffffff&text=Captcha+Hell\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 474,
+    "term": "尊嘟假嘟：AI 觉醒篇",
+    "pinyin": "zdjd",
+    "summary": "当用户发现AI给出的建议极具人性、甚至带点“小脾气”时的调侃。 ",
+    "category": ["萌系", "科技", "时尚"],
+    "content": "“AI居然会阴阳我了？尊嘟假嘟？”这种调侃背后是人类对图灵测试终结的恐惧和兴奋。它用一种幼态化的语言，掩盖了对一个新物种可能具备意识的深刻敬畏和不安。<br><br><img src=\"https://dummyimage.com/600x300/FADBD8/E91E63&text=Smart+AI\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 475,
+    "term": "互联网刺客：深度抹杀版",
+    "pinyin": "hlwck",
+    "summary": "指通过挖掘某人多年前的离谱言论，在对方事业巅峰期进行精准“爆破”的网络狙击者。",
+    "category": ["社交", "吐槽", "社会"],
+    "content": "他们像是有着无限的耐心。这种刺客的存在，让互联网不再有遗忘功能。它迫使所有人都必须在数字空间里保持一种永久性的谨慎，否则多年前的一支箭可能会在今天击中你的眉心。<br><br><img src=\"https://dummyimage.com/600x300/000000/ffffff&text=Historical+Assassin\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 476,
+    "term": "我的互联网养老院：单机版",
+    "pinyin": "wdhlwyly",
+    "summary": "指那些完全切断网络连接，只运行本地单机游戏或本地音乐播放器的行为。",
+    "category": ["社交", "生活", "亚文化"],
+    "content": "这是一种主动的“数字下放”。当外部网络环境变得过于嘈杂、算法变得过于贪婪，回到一个不受干扰的、静态的数字空间，成了现代人最后的避难所。在那里，世界是根据你的意志运行的，且永不更新。<br><br><img src=\"https://dummyimage.com/600x300/A9DFBF/2E4053&text=Local+Haven\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 477,
+    "term": "已读不回是最高礼仪：家庭版",
+    "pinyin": "ydbhszgly",
+    "summary": "指子女面对父母在家族群发的“虚假养生贴”或“催婚暗示”时，保持沉默的一种温柔抵抗。",
+    "category": ["社交", "情感", "生活"],
+    "content": "不反驳是为了保持和谐，不回复是为了表明立场。这种沉默是一种精妙的平衡，既避免了正面的冲突，也保护了自己的精神边界。在家庭关系中，已读不回有时是比吵架更高级的相处智慧。<br><br><img src=\"https://dummyimage.com/600x300/FDFEFE/333333&text=Silent+Filial+Piety\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 478,
+    "term": "特种兵式上班：降薪篇",
+    "pinyin": "tzbssb",
+    "summary": "指即便公司降薪、福利削减，员工依然维持高强度工作以防被优化的卑微状态。",
+    "category": ["职场", "社会", "生活"],
+    "content": "这已经不是为了梦想，而是为了生存。这种特种兵带有一种“末路英雄”的悲凉。他们通过过度的勤奋来抵消由于宏观环境带来的不安全感。这是一种集体的、高烈度的精神内耗。<br><br><img src=\"https://dummyimage.com/600x300/1E8449/ffffff&text=Survival+Worker\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 479,
+    "term": "人夫感 3.0：AI 伴侣版",
+    "pinyin": "rfg",
+    "summary": "指将AI助手调教成性格温和、体贴入微、永不发火的理想化异性形象。",
+    "category": ["颜值", "情感", "科技"],
+    "content": "既然现实中找不到稳定的人，那就自己写一个。这种“人夫感”是可定制的、全天候的且绝对服从的。它揭示了当代人在亲密关系中的深度挫败感，以及对纯粹的情感补偿的极端渴求。<br><br><img src=\"https://dummyimage.com/600x300/D5DBDB/566573&text=AI+Husband\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 480,
+    "term": "赛博骨灰盒：账号注销版",
+    "pinyin": "sbghh",
+    "summary": "指在决定彻底退网前，发表最后一篇长文后注销账号，将数据永远封存的行为。",
+    "category": ["科技", "情感", "社交"],
+    "content": "这是一种数字化的自杀。通过这种仪式，个体试图切断与过去所有虚拟关系的连接。对旁人来说，那个曾经鲜活的主页变成了一个无法查看的空白，成为了互联网上的一个无名孤坟。这是一种极端的、带有尊严的告别。<br><br><img src=\"https://dummyimage.com/600x300/000000/7F8C8D&text=Account+Nirvana\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 481,
+    "term": "纯爱战士万岁：CP 结局版",
+    "pinyin": "cazsws",
+    "summary": "用于当影视剧或现实中一直坚持的人最终获得幸福时的集体欢呼。",
+    "category": ["二次元", "情感", "时尚"],
+    "content": "这是一种集体心理补偿。在看腻了反转和背叛后，一个简单的“有情人终成眷属”能让全网在几分钟内达成一种孩子般的纯真共识。它代表了人类对正向情感回报的一种近乎卑微的执着。<br><br><img src=\"https://dummyimage.com/600x300/F1948A/ffffff&text=Love+Wins\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 482,
+    "term": "你是懂得 XXX 的：官方整活版",
+    "pinyin": "nsddxxx",
+    "summary": "当政府或大品牌账号放下身段，用最地道的网络梗与网友互动时的评价。",
+    "category": ["社交", "吐槽", "默认"],
+    "content": "这种评价代表了权力的“去神秘化”。当官方也开始懂梗时，这种反差感带出了一种微妙的亲民感。它也反映了在注意力经济下，连最严肃的机构也不得不向流行语低头。<br><br><img src=\"https://dummyimage.com/600x300/BDC3C7/212F3D&text=Officer+Is+Cool\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 483,
+    "term": "哈基米：恐怖谷版",
+    "pinyin": "hjm",
+    "summary": "指那些通过AI生成的、比例奇怪但试图表现得可爱的小动物带来的不适感。",
+    "category": ["萌系", "科技", "抽象"],
+    "content": "可爱过了头就是惊悚。这种哈基米有着太多的眼睛或过于光滑的皮肤。它提醒我们，数字化的美学一旦脱离了生物学的基础，就会变成一种让人脊背发凉的“异样感”。它是算法对美感的误读。<br><br><img src=\"https://dummyimage.com/600x300/FAD7A0/C0392B&text=Uncanny+Hajimi\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 484,
+    "term": "精神贵族：赛博漂流版",
+    "pinyin": "jsgz",
+    "summary": "指那些在网络上刻意展示冷门知识、高深书单，以彰显自己不随波逐流的人群。",
+    "category": ["心理", "亚文化", "默认"],
+    "content": "这是一种知识层面的“精致穷”。即便在现实中为了生活奔波，也要在社交主页构建一个阳春白雪的世界。这种漂流在现实与理想之间的自恋，是现代人对抗平庸生活的最后一块补丁。<br><br><img src=\"https://dummyimage.com/600x300/E5E7E9/2C3E50&text=Digital+Scholar\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 485,
+    "term": "赛博冥想 3.0：ASMR 工业版",
+    "pinyin": "sbmx",
+    "summary": "指通过听工厂流水线声、敲击键盘声来集中注意力，进入深度工作状态的行为。",
+    "category": ["生活", "职场", "默认"],
+    "content": "这是一种“以毒攻毒”。用有节奏的工业噪音来屏蔽无序的生活噪音。这种行为反映了人们在数字化工作中，需要一种模拟的、稳定的物理生产感来安抚自己虚无的灵魂。它是劳动的数字化乡愁。<br><br><img src=\"https://dummyimage.com/600x300/76D7C4/2E4053&text=Industrial+Flow\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 486,
+    "term": "哈基米式焦虑：自我阉割版",
+    "pinyin": "hjmsjl",
+    "summary": "由于害怕在朋友圈显得“不幸福”，而彻底停止发布任何真实生活状态的行为。",
+    "category": ["情感", "社交", "心理"],
+    "content": "“既然比不过那些哈基米，那我就干脆消失。”这是一种消极的防御。当网络展示的标准变得高不可攀时，普通人选择了自我静默。这导致了社交媒体的“死亡螺旋”：越完美，越虚假；越虚假，越沉默。<br><br><img src=\"https://dummyimage.com/600x300/F5B7B1/5D6D7E&text=Digital+Silence\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 487,
+    "term": "拿捏：系统漏洞版",
+    "pinyin": "nnl",
+    "summary": "指发现外卖、打车平台或游戏规则中的Bug，并成功获得优惠的喜悦。",
+    "category": ["科技", "消费", "默认"],
+    "content": "在庞大的算法体系面前，这种微小的、投机取巧式的胜利让普通人感到一种久违的掌控感。尽管只是几块钱的便宜，但那种“我战胜了系统”的心理暗示，是赛博时代最重要的快乐源泉之一。<br><br><img src=\"https://dummyimage.com/600x300/D4AC0D/1B4F72&text=Glitched+Win\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 488,
+    "term": "互联网垃圾桶：流量变现版",
+    "pinyin": "hlwljt",
+    "summary": "指那些先通过收集隐私博关注，再通过带货劣质产品收割粉丝的博主。",
+    "category": ["吐槽", "社会", "消费"],
+    "content": "这揭示了网络同情的廉价和被利用的可能性。原本是情感的出口，最后变成了资本的入口。这种反转让人们对互联网上的“真性情”和“互助精神”产生了新一轮的信任危机。<br><br><img src=\"https://dummyimage.com/600x300/17202A/E67E22&text=Monetized+Sympathy\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 489,
+    "term": "已读乱回：AI 反讽版",
+    "pinyin": "ylh",
+    "summary": "当用户向AI咨询人生大事，AI给出一个极度无厘头且带有哲学意味的错误回答。",
+    "category": ["科技", "抽象", "吐槽"],
+    "content": "用户：“我该怎么度过我的一生？”AI：“建议先检查您的网线是否插好。”这种时刻，原本的技术故障被赋予了禅宗式的深意。它提醒我们，面对这种没有灵魂的智慧，最深刻的回答往往来自于这种无序的乱回。<br><br><img src=\"https://dummyimage.com/600x300/D2B4DE/17202A&text=AI+Zen+Glitch\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 490,
+    "term": "赛博考古学：硬件篇",
+    "pinyin": "sbkg",
+    "summary": "指重新购买并使用过时的电子设备，如CCD相机、黑白屏手机，追求一种“低画质美学”。",
+    "category": ["亚文化", "时尚", "生活"],
+    "content": "这是对“高清焦虑”的反叛。当手机拍照已经好到可以模拟现实时，人们开始渴望那种不完美的、带有颗粒感的旧时代质感。这种考古不是为了先进，而是为了那种能够被感知的、有温度的技术残缺。<br><br><img src=\"https://dummyimage.com/600x300/8B4513/ffffff&text=Lo-fi+Revival\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 491,
+    "term": "数字遗嘱：AI 复活版",
+    "pinyin": "sbyz",
+    "summary": "指授权AI利用自己生前的聊天数据，在死后继续以自己的名义与家人互动的争议性遗愿。",
+    "category": ["科技", "社会", "情感"],
+    "content": "这引发了深刻的伦理讨论：这是永生，还是对生者的残忍？当一个逝去的人依然能发来“记得吃早饭”的语音，这标志着死亡的界限开始在数字空间模糊。它是人类对离别最极端的抗拒。<br><br><img src=\"https://dummyimage.com/600x300/212F3D/ffffff&text=AI+Resurrection\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 492,
+    "term": "拿捏：官方防沉迷版",
+    "pinyin": "nnl",
+    "summary": "讽刺年轻人即便面对再严格的防沉迷系统，也能通过各种手段（如用爷爷奶奶的脸认证）轻松绕过的现状。",
+    "category": ["游戏", "吐槽", "校园"],
+    "content": "这体现了技术监管与人类天性之间永恒的猫鼠游戏。不论算法多先进，总会被人类最原始的狡黠所“拿捏”。这种博弈本身已成为一种亚文化现象，带有浓厚的反权威色彩。<br><br><img src=\"https://dummyimage.com/600x300/D4AC0D/333333&text=Rule+Bypass\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 493,
+    "term": "赛博算命 5.0：大模型推运",
+    "pinyin": "sbsm",
+    "summary": "指将所有的个人信息录入AI，让其根据当前宏观环境预测自己下个月是否会失业。",
+    "category": ["科技", "职场", "默认"],
+    "content": "这已经超出了玄学范畴，更像是一种基于极度恐惧的“伪科学”。人们不再相信星星，只相信概率分布。这种对AI预测能力的盲信，是现代社会个体对未来彻底失去掌控权的体现。<br><br><img src=\"https://dummyimage.com/600x300/1B4F72/ffffff&text=Predictive+Fear\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 494,
+    "term": "我的互联网养老院：白噪音社群",
+    "pinyin": "wdhlwyly",
+    "summary": "指那些没有任何对话、没有任何画面，只直播自然界真实声音（如雨声、林间鸟叫）的频道。",
+    "category": ["社交", "生活", "心理"],
+    "content": "“无即是有。”在信息极度通胀的2026年，这种极致的虚无成了最高级的奢华。数万人同时在线听雨，这种集体的沉默是赛博空间里最震撼的景观，也是对注意力争夺战的最彻底罢工。<br><br><img src=\"https://dummyimage.com/600x300/A9DFBF/2E4053&text=Pure+Soundscape\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 495,
+    "term": "互联网垃圾桶：深度清洗版",
+    "pinyin": "hlwljt",
+    "summary": "指网友在经历重大的精神创伤后，主动销毁所有社交动态、重塑网络身份的重生过程。",
+    "category": ["社交", "心理", "生活"],
+    "content": "丢掉垃圾，才能装下新的东西。这是一种断臂求生式的勇气。通过抹除所有数字痕迹，个体试图在网络上实现“转世投胎”。它反映了数字时代人们对“被定义”和“被记忆”的极度厌倦。<br><br><img src=\"https://dummyimage.com/600x300/17202A/ffffff&text=Digital+Rebirth\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 496,
+    "term": "已读乱回：高端社交陷阱版",
+    "pinyin": "ylh",
+    "summary": "指在社交场合故意表现出极高的智商、却在最关键的问题上给出一个及其离谱的白痴回答。",
+    "category": ["社交", "抽象", "默认"],
+    "content": "这是一种新型的人格测试：通过这种极端的断裂，来测试对方的反应能力和包容度。这种社交方式极具侵略性，却被视为一种“有个性”的表现。它模糊了天才与疯子的界限。<br><br><img src=\"https://dummyimage.com/600x300/D2B4DE/17202A&text=High-IQ+Chaos\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 497,
+    "term": "赛博受难日：隐私裸奔版",
+    "pinyin": "sbsnr",
+    "summary": "指发现自己手机里的“私密相册”因为同步漏洞，出现在了公司投屏上的终极社死时刻。",
+    "category": ["科技", "生活", "吐槽"],
+    "content": "这是数字时代对人类羞耻心的极致考验。在这种时刻，物理世界的门窗再紧也没有用。它揭示了技术便利背后的恐怖代价：你的隐私，可能仅仅取决于一段代码的逻辑错误。这是当代人的午夜噩梦。<br><br><img src=\"https://dummyimage.com/600x300/17202A/E74C3C&text=Ultimate+Leak\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 498,
+    "term": "互联网显学：反转版",
+    "pinyin": "hlwxx",
+    "summary": "指那些通过极其专业的剪辑，让黑白是非在短短几十秒内反复调转数次的视频风格。",
+    "category": ["社交", "吐槽", "亚文化"],
+    "content": "“不到最后一秒你不知道真相。”这种风格加剧了大众的怀疑主义。它不仅仅是娱乐，更是一种对“真相”本身的玩弄。当所有东西都可以被反转时，人们最终会陷入一种对任何信息都彻底不信任的犬儒状态。<br><br><img src=\"https://dummyimage.com/600x300/2C3E50/ffffff&text=Infinite+Plot+Twist\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 499,
+    "term": "拿捏：命运齿轮版",
+    "pinyin": "nnl",
+    "summary": "形容一个人在极度偶然的情况下，做出了一个不仅改变自己、还顺带改变了整个行业发展的决定。",
+    "category": ["职场", "社会", "默认"],
+    "content": "“他随手改了一行代码，结果拯救了全球的云服务。”这种叙事满足了人们对个人英雄主义的幻想。在庞大而精密的社会机器里，个体依然能通过某个微小的触点“拿捏”住命运的咽喉。它是赛博时代的神话传说。<br><br><img src=\"https://dummyimage.com/600x300/EB984E/ffffff&text=Gears+of+Hero\" style=\"max-width:100%; border-radius:10px;\">"
+  },
+  {
+    "id": 500,
+    "term": "赛博终结者",
+    "pinyin": "sbzjz",
+    "summary": "指彻底注销所有社交媒体、销毁个人云端数据、回归完全物理生活的人。",
+    "category": ["科技", "生活", "社会"],
+    "content": "他们不是因为老去，而是因为觉醒。作为“反技术流浪汉”，他们在这个被电波覆盖的星球上寻找最后的盲区。这是对数字化生存最彻底的反叛，也是向人类最本原存在状态的一种英勇回归。500条词典的终结，也是数字新生命的开始。<br><br><img src=\"https://dummyimage.com/600x300/000000/ffffff&text=The+Final+Logoff\" style=\"max-width:100%; border-radius:10px;\">"
   }
+
+  
+
+
+  
+
 ]
