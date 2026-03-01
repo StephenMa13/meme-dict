@@ -2,7 +2,6 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { getMemes, addMeme as localAdd} from '../db.js'
-// 💡 修复：确保引入了正确的状态名
 import { favoriteIds, toggleFavorite, blacklistIds, randomMemes, likedIds, toggleLike } from '../store.js'
 
 const router = useRouter()
@@ -59,7 +58,6 @@ const clearHistory = () => {
 
 // 3. 🎲 刷新猜你想看列表
 const refreshRandomMemes = () => {
-  // 💡 修复：统一使用 blacklistIds 进行过滤
   const availableMemes = hotMemes.value.filter(meme => !blacklistIds.value.includes(meme.id))
   const shuffled = [...availableMemes].sort(() => 0.5 - Math.random())
   let picked = shuffled.slice(0, 5)
@@ -70,7 +68,7 @@ const refreshRandomMemes = () => {
   sessionStorage.setItem('cachedRandomIds', JSON.stringify(ids))
 }
 
-// 4. 🌟 修复：完美的过滤计算属性
+// 4. 完美的过滤计算属性
 const filteredMemes = computed(() => {
   // 如果当前处于搜索状态，从所有梗(hotMemes)中根据搜索词过滤
   if (activeSearch.value.trim() !== '') {
@@ -118,7 +116,6 @@ const loadThemeAndData = () => {
   
   if (cachedIds && cachedIds.length > 0) {
     const cachedMemes = hotMemes.value.filter(m => cachedIds.includes(m.id))
-    // 💡 修复：统一使用 blacklistIds 进行过滤
     let mems = cachedMemes.filter(m => !blacklistIds.value.includes(m.id))
     mems.sort((a,b) => a.term.length - b.term.length)
     randomMemes.value = mems
@@ -144,7 +141,7 @@ const goToDetail = (id) => {
 
 const truncate = (text) => {
   if (!text) return ''
-  return text.length > 7 ? text.slice(0, 7) + '…' : text
+  return text.length > 10 ? text.slice(0, 10) + '…' : text
 }
 </script>
 
@@ -175,7 +172,7 @@ const truncate = (text) => {
           <input 
             v-model="inputText" 
             type="text" 
-            placeholder="输入后按回车搜索 (例如：xyb)" 
+            placeholder="输入后按回车搜索 " 
             class="search-input"
             @focus="showHistory = true" 
             @blur="showHistory = false" 
@@ -210,18 +207,23 @@ const truncate = (text) => {
         </div>
       </div>
       
-      <div class="card-grid">
+      <div v-if="activeSearch && filteredMemes.length === 0" class="empty-state">
+        这个梗现在还没有，欢迎你的补充 😊
+      </div>
+
+      <div v-else class="card-grid">
         <div class="card" v-for="(meme, index) in filteredMemes" :key="meme.id" @click="goToDetail(meme.id)">
           <div class="card-top">
-            <span class="rank" :class="'rank-' + (index + 1)" v-if="!activeSearch">{{ index + 1 }}</span>
             <div class="meme-info">
               <h3 class="meme-term">{{ truncate(meme.term) }}</h3>
             </div>
             <div class="card-actions">
               <button class="action-btn fav-btn small-btn" :class="{ 'active': favoriteIds.includes(meme.id) }" @click.stop="toggleFavorite(meme.id)">
-                {{ favoriteIds.includes(meme.id) ? '⭐ 已收藏' : '☆ 收藏' }}
+                {{ favoriteIds.includes(meme.id) ? '⭐ ' : '☆ ' }}
               </button>
-              <button class="action-btn like-btn small-btn" :class="{ 'liked-active': likedIds.includes(meme.id) }" @click.stop="toggleLike(meme.id)"> {{ likedIds.includes(meme.id) ? '❤️ 已赞' : '👍 点赞' }}</button>
+              <button class="action-btn like-btn small-btn" @click.stop="toggleLike(meme.id)">
+                {{ likedIds.includes(meme.id) ? '❤️ ' : '🤍 ' }}
+              </button>            
             </div>
           </div>
         </div>
@@ -250,34 +252,23 @@ const truncate = (text) => {
 </template>
 
 <style scoped>
-/* 💡 注意：我已经把里面写死的 #fff, #333, #f0f2f5 等全部替换成了 var() 全局变量 */
-
-/* ==================== 
-   🎨 新增：背景色全局样式 
-   ==================== */
 :global(html) {
   transition: background-color 0.4s ease;
 }
 :global(.bg-pink) { background-color: #FFE4E1 !important; }
 :global(.bg-green) { background-color: #C7EDCC !important; }
 
-/* 夜间模式最高优先级 */
 :global(html.dark-mode) {
   background-color: #121212 !important; 
 }
 
-/* ==================== 
-   UI 样式 
-   ==================== */
 .app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: transparent !important; min-height: 100vh; transition: background-color 0.3s; }
 .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; gap: 20px; }
 .logo { font-size: 20px; font-weight: bold; color: var(--text-main); }
 .add-btn { background-color: #FFD700; border: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; cursor: pointer; color: #333; }
 
-/* 🌟 右侧按钮组的排版 */
 .nav-actions { display: flex; align-items: center; gap: 10px; }
 
-/* 🎨 新增：颜色切换小圆点 */
 .color-dots { display: flex; gap: 6px; align-items: center; margin-right: 4px; }
 .dot { display: inline-block; width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s, border-color 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 .dot:hover { transform: scale(1.2); }
@@ -286,7 +277,6 @@ const truncate = (text) => {
 .dot.green { background-color: #8fbc8f; }
 .dot.default { background-color: #f5f5f5; border: 1px solid #ddd; }
 
-/* 🌟 主题切换按钮样式 */
 .theme-toggle-btn { background-color: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
 .theme-toggle-btn:hover { background-color: var(--bg-color); }
 
@@ -311,32 +301,37 @@ const truncate = (text) => {
 .section-btn { background-color: var(--bg-color); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; color: var(--text-main); cursor: pointer; transition: background-color 0.2s; display: inline-flex; align-items: center; gap: 4px; }
 .refresh-random-btn:hover { filter: brightness(0.9); }
 
+/* 💡 新增：空状态样式 */
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--text-secondary, #888);
+  font-size: 16px;
+  background: var(--card-bg);
+  border: 1px dashed var(--border-color);
+  border-radius: 12px;
+  margin-top: 10px;
+}
+
 .card-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 .card { background: var(--card-bg) !important; border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; box-shadow: 0 3px 6px rgba(0,0,0,0.04); cursor: pointer; color: var(--text-main); }
 .card-top { display: flex; align-items: center; gap: 10px; justify-content: space-between; }
 .card-actions { display: flex; gap: 8px; }
-.rank { font-size: 15px; font-weight: 900; color: #bbb; width: 20px; margin-right: 8px; flex-shrink: 0; text-align: center; }
-.rank-1 { color: #FF4500; font-size: 17px; }
-.rank-2 { color: #FF8C00; font-size: 16px; }
-.rank-3 { color: #FFA500; font-size: 15px; }
+
 .meme-info { flex: 1; display: flex; align-items: center; }
 .meme-term { font-size: 14px; font-weight: 700; margin: 0 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-main); }
 .small-btn { width: 76px; padding: 6px 8px; font-size: 12px; }
 
-.action-btn { border: none; padding: 6px 0; border-radius: 12px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; width: 85px; flex-shrink: 0; transition: all 0.2s; }
+.action-btn { border: none; padding: 6px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; width: auto; flex-shrink: 0; transition: all 0.2s; }
 .fav-btn { background-color: rgba(74, 144, 226, 0.1); color: #4a90e2; }
 .like-btn { background-color: rgba(255, 143, 0, 0.1); color: #ff8f00; }
-.liked-active { background-color: #ffe0b2 !important; color: #e65100 !important; }
 
 @media (min-width: 768px) { .card-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
 @media (min-width: 1024px) { .card-grid { grid-template-columns: repeat(3, 1fr); } }
 
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(3px); display: flex; justify-content: center; align-items: center; z-index: 2000; }
-.modal-content { background: #ffffff; width: 90%; max-width: 360px; padding: 24px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 12px; animation: modal-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid var(--border-color); }
-@keyframes modal-pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-/* 修复后：弹窗背景跟随卡片背景变量 */
 .modal-content { 
-  background: var(--card-bg); /* 💡 修改：使用卡片背景变量 */
+  background: var(--card-bg); 
   width: 90%; 
   max-width: 360px; 
   padding: 24px; 
@@ -348,12 +343,12 @@ const truncate = (text) => {
   animation: modal-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
   border: 1px solid var(--border-color); 
 }
+@keyframes modal-pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-/* 修复后：输入框边框也跟随变量 */
 .modal-input, .modal-textarea { 
   width: 100%; 
   padding: 12px 14px; 
-  border: 1px solid var(--border-color); /* 💡 修改：原来的 #ccc 替换为变量 */
+  border: 1px solid var(--border-color);
   border-radius: 10px; 
   font-size: 14px; 
   background-color: var(--bg-color); 
@@ -367,13 +362,12 @@ const truncate = (text) => {
 .modal-textarea { resize: vertical; min-height: 80px; }
 .modal-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; }
 .cancel-btn, .submit-btn { flex: 1; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 15px; font-weight: bold; }
-.cancel-btn { background-color: var(--bg-color); color: var(--text-secondary); border: 1px solid var(--border-color); }
-.submit-btn { background-color: #FFD700; color: #333; }
 .cancel-btn { 
   background-color: var(--bg-color); 
-  color: var(--text-main); /* 💡 修改这里：统一改成 --text-main，不然夜间模式容易看不清 */
+  color: var(--text-main); 
   border: 1px solid var(--border-color); 
 }
+.submit-btn { background-color: #FFD700; color: #333; }
 .modal-content h3 {
   margin: 0;
   color: var(--text-main);

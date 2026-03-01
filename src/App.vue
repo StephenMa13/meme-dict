@@ -126,6 +126,7 @@ onMounted(() => {
    ==================== */
 .main-content {
   padding-bottom: calc(80px + env(safe-area-inset-bottom)); 
+  padding-top: env(safe-area-inset-top);
 }
 
 .bottom-nav {
@@ -194,5 +195,12 @@ html.dark-mode {
   --nav-bg: #1E1E1E;
   --border-color: #2C2C2C;
   --text-secondary: #AAAAAA; /* 晚上的次要文字（浅灰） */
+}
+/* 📱 新增：专门针对手机屏幕（宽度小于 768px）的样式调整 */
+@media (max-width: 768px) {
+  .main-content {
+    /* 在安全距离的基础上，额外往下移动 40px，你可以根据实际视觉效果修改这个数字 */
+    padding-top: calc(40px + env(safe-area-inset-top)); 
+  }
 }
 </style>
