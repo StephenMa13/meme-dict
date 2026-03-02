@@ -57,15 +57,31 @@ const clearHistory = () => {
   localStorage.removeItem('searchHistory')
 }
 
+// 在 script setup 顶部定义已阅池（或者从 localStorage 读取实现持久化）
+const viewedIds = ref(JSON.parse(localStorage.getItem('viewedIds') || '[]'))
+
 // 3. 🎲 刷新猜你想看列表
 const refreshRandomMemes = () => {
   const availableMemes = hotMemes.value.filter(meme => !blacklistIds.value.includes(meme.id))
-  const shuffled = [...availableMemes].sort(() => 0.5 - Math.random())
+  let unviewed = availableMemes.filter(meme => !viewedIds.value.includes(meme.id))
+  if (unviewed.length <5) {
+    viewedIds.value = []
+    unviewed = availableMemes
+  }
+  const shuffled = [...unviewed].sort(() => 0.5 - Math.random())
   let picked = shuffled.slice(0, 5)
   picked.sort((a,b) => a.term.length - b.term.length)
   randomMemes.value = picked
+  const ids = picked.map(m => m.id)
+  // 只有在重置后，或者正常追加时，确保 viewedIds 能够准确追踪
+  // 如果刚才重置了，viewedIds 就是 newIds；如果没有重置，就是累加
+  // 简便写法：
+  const currentTotalViewed = JSON.parse(localStorage.getItem('viewedIds') || '[]')
+  // 如果上面重置了，这里就只存新的，否则合并
+  const updatedViewed = unviewed.length === availableMemes.length ? ids : [...currentTotalViewed, ...ids]
   
-  const ids = randomMemes.value.map(m => m.id)
+  viewedIds.value = updatedViewed
+  localStorage.setItem('viewedIds', JSON.stringify(updatedViewed))
   sessionStorage.setItem('cachedRandomIds', JSON.stringify(ids))
 }
 
