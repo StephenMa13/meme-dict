@@ -28,13 +28,14 @@ const isDark = ref(false)
 // 1. 执行搜索并保存历史
 const executeSearch = () => {
   const term = inputText.value.trim()
-  activeSearch.value = term 
+  /*activeSearch.value = term */
 
   if (term) {
     searchHistory.value = searchHistory.value.filter(item => item !== term)
     searchHistory.value.unshift(term)
     if (searchHistory.value.length > 10) searchHistory.value.pop()
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory.value))
+    router.push({ path: '/search', query: { q: term } })
   }
   showHistory.value = false 
 }
@@ -70,11 +71,6 @@ const refreshRandomMemes = () => {
 
 // 4. 完美的过滤计算属性
 const filteredMemes = computed(() => {
-  // 如果当前处于搜索状态，从所有梗(hotMemes)中根据搜索词过滤
-  if (activeSearch.value.trim() !== '') {
-    return hotMemes.value.filter(item => item.term.includes(activeSearch.value));
-  }
-  // 否则，展示猜你想看(randomMemes)，并且过滤掉黑名单
   return randomMemes.value.filter(item => !blacklistIds.value.includes(item.id));
 });
 

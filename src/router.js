@@ -4,6 +4,7 @@ import Detail from './pages/Detail.vue'
 import Favorites from './pages/Favorites.vue'
 import Categories from './pages/Categories.vue'
 import CategoryDetail from './pages/CategoryDetail.vue' 
+import Search from './pages/Search.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -11,8 +12,8 @@ const router = createRouter({
     { path: '/meme/:id', component: Detail }, 
     { path: '/favorites', component: Favorites }, 
     { path: '/categories', component: Categories},
-    { path: '/category/:name', component: CategoryDetail }
-  
+    { path: '/category/:name', component: CategoryDetail },
+    { path: '/search', component: Search }
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {

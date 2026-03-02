@@ -11,10 +11,11 @@ const meme = ref(null)
 const goBack = () => {
   router.back() 
 }
+const goToCategory = (categoryName) => {
+  router.push(`/category/${categoryName}`)
+}
 
 // 在 <script setup> 中定义一个响应式变量，标记是否已拉黑
-
-
 const handleNotInterested = (id) => {
   if (likedIds.value.includes(id) || favoriteIds.value.includes(id)) return;
   toggleNotInterested(id); 
@@ -89,8 +90,9 @@ onMounted(() => {
       <div class="tags">
         <span v-for="tag in meme.tagsInfo" 
               :key="tag.name" 
-              class="tag-badge" 
-              :style="{ backgroundColor: tag.color }">
+              class="tag-badge clickable-tag" 
+              :style="{ backgroundColor: tag.color }"
+              @click="goToCategory(tag.name)">
           {{ tag.icon }} {{ tag.name }}
         </span>
       </div>
@@ -196,12 +198,34 @@ onMounted(() => {
 
 /* 标签：给个半透明背景，这样在粉色/绿色背景下都能看清 */
 .tag-badge { 
-  padding: 6px 10px; border-radius: 18px; font-size: 12px; 
+  padding: 4px 10px; border-radius: 18px; font-size: 10px; 
   font-weight: bold; color: var(--text-main); 
+  letter-spacing: 0.5px;
   background: rgba(128, 128, 128, 0.1); 
   border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+/* 让标签鼠标悬停时变手型 */
+.clickable-tag {
+  cursor: pointer;
+  transition: transform 0.2s, filter 0.2s;
+  user-select: none; /* 防止点快了选中文本 */
 }
 
+/* 悬浮微动效：轻微放大并加深一点颜色 */
+.clickable-tag:hover {
+  transform: scale(1.05);
+  filter: brightness(0.9);
+}
+
+/* 点击时的缩放反馈 */
+.clickable-tag:active {
+  transform: scale(0.95);
+}
 /* 3. 内容区：适配文字颜色 */
 .content { text-align: left; margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 30px; }
 .content h3 { color: var(--text-main); font-size: 20px; border-left: 4px solid #FFD700; padding-left: 10px; }
