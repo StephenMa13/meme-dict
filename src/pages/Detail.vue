@@ -75,9 +75,12 @@ onMounted(() => {
 
 <template>
   <div class="detail-container" v-if="meme">
-    <button class="back-btn" @click="goBack">🔙 返回</button>
-    
     <div class="card">
+      <button class="back-btn-inner" @click="goBack">
+        <span class="icon">🔙</span>
+        <span class="text">返回</span>
+      </button>
+    
       <div class="avatar" :style="{ backgroundColor: meme.bgColor }">
         {{ meme.icon }}
       </div>
@@ -100,19 +103,39 @@ onMounted(() => {
       </div>
 
       <div class="detail-actions" v-if="meme">
-        <button class="action-btn fav-btn" :class="{ 'active': favoriteIds.includes(meme.id) }" @click="toggleFavorite(meme.id)">
-          {{ favoriteIds.includes(meme.id) ? '⭐ ' : '☆ ' }}
+        <button 
+          class="action-btn fav-btn" 
+          :class="{ 'active': favoriteIds.includes(meme.id), 'is-disabled': blacklistIds.includes(meme.id) }" 
+          :disabled="blacklistIds.includes(meme.id)"
+          @click="toggleFavorite(meme.id)"
+        >
+          <span class="icon-box">
+            {{ favoriteIds.includes(meme.id) ? '⭐' : '☆' }}
+          </span>
         </button>
-        <button class="action-btn like-btn" :class="{ 'liked-active': likedIds.includes(meme.id) }" @click="toggleLike(meme.id)">
-          {{ likedIds.includes(meme.id) ? '❤️ ' : '🤍 ' }}
+
+        <button 
+          class="action-btn like-btn" 
+          :class="{ 'is-disabled': blacklistIds.includes(meme.id) }" 
+          :disabled="blacklistIds.includes(meme.id)"
+          @click="toggleLike(meme.id)"
+        >
+          <span class="icon-box">
+            {{ likedIds.includes(meme.id) ? '❤️' : '🤍' }}
+          </span>
         </button>
         <button 
-          v-if="!likedIds.includes(meme.id) && !favoriteIds.includes(meme.id)"
           class="action-btn not-interested-btn" 
-          :class="{ 'is-hidden': blacklistIds.includes(meme.id) }"
+          :class="{ 
+            'is-hidden': blacklistIds.includes(meme.id),
+            'is-disabled': likedIds.includes(meme.id) || favoriteIds.includes(meme.id) 
+          }"
+          :disabled="likedIds.includes(meme.id) || favoriteIds.includes(meme.id)"
           @click="handleNotInterested(meme.id)"
         >
+          <span class="icon-wrapper">
           {{ blacklistIds.includes(meme.id) ? '🙈 ' : '🙈 ' }}
+          </span>
         </button>
       </div>
     </div>
@@ -124,19 +147,33 @@ onMounted(() => {
 .detail-container { max-width: 800px; margin: 40px auto; padding: 0 20px; font-family: sans-serif; color: var(--text-main); }
 
 /* 返回按钮：适配黑夜模式 */
-.back-btn { 
-  background: var(--card-bg); 
-  border: 1px solid var(--border-color); 
-  padding: 8px 16px; 
-  border-radius: 20px; 
-  cursor: pointer; 
-  margin-bottom: 20px; 
-  font-weight: bold; 
-  color: var(--text-main);
+.back-btn-inner {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  
+  /* 去掉背景和边框，保持简约 */
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 20px;
+  font-weight: bold;
+  padding: 8px;
+  transition: all 0.2s;
 }
 
+.back-btn-inner:active {
+  transform: scale(0.9); /* 点击时的Q弹反馈 */
+  opacity: 0.7;
+}
 /* 核心卡片：背景跟随变量 */
 .card { 
+  position: relative; /* 必须加这一行 */
+  padding-top:30px;  /* 顶部留出空间，防止返回按钮离头像太近 */
   background: var(--card-bg); 
   padding: 40px 30px; 
   border-radius: 12px; 
@@ -159,7 +196,7 @@ onMounted(() => {
 
 /* 标签：给个半透明背景，这样在粉色/绿色背景下都能看清 */
 .tag-badge { 
-  padding: 6px 12px; border-radius: 20px; font-size: 14px; 
+  padding: 6px 10px; border-radius: 18px; font-size: 12px; 
   font-weight: bold; color: var(--text-main); 
   background: rgba(128, 128, 128, 0.1); 
   border: 1px solid var(--border-color);
@@ -180,43 +217,105 @@ onMounted(() => {
 }
 
 .action-btn {
-  border: none;
-  padding: 10px 0; 
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
+  /* 1. 强制设定为正方形或固定宽度的长方形 */
+  width: 60px; 
+  height: 60px;
+  
+  /* 2. 彻底锁死盒模型，防止任何 padding 撑开 */
+  box-sizing: border-box;
+  padding: 0 !important;
+  margin: 0;
+  
+  /* 3. 居中对齐 */
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  width: 100px; /* 稍微加宽一点点，容纳“已收藏”等字样 */
-  transition: all 0.2s;
+  
+  /* 4. 消除所有背景和边框 */
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  
+  /* 5. 解决点击时的缩放位移 */
+  transform-origin: center;
+  transition: transform 0.1s;
 }
 
-.action-btn:active { transform: scale(0.95); }
+/* 核心：图标容器 */
+.icon-wrapper {
+  display: inline-block;
+  width: 50px;  /* 固定宽度 */
+  height: 50px; /* 固定高度 */
+  line-height: 50px;
+  text-align: center;
+  font-size: 24px; /* 统一图标大小 */
+}
 
+/* 针对你怀疑的罪魁祸首进行微调 */
+.action-btn:active {
+  /* 如果还要缩放，保持极小幅度，或者干脆改成透明度变化 */
+  transform: scale(0.96); 
+  opacity: 0.8;
+}
 /* 5. 各按钮配色（使用 RGBA 确保在黑夜模式下也有质感） */
-.fav-btn { background-color: rgba(74, 144, 226, 0.1); color: #4a90e2; }
+.fav-btn {  color: #4a90e2; }
+.like-btn {  color: #ff8f00; }
+.fav-btn.active, .like-btn.liked-active {
+  background-color: transparent !important;
+  border: none !important;
+}
 
-.like-btn { background-color: rgba(255, 143, 0, 0.1); color: #ff8f00; }
-
+.icon-box {
+  display: inline-block;
+  /* 1. 调整这里：这是图标的大小（原本是 20px） */
+  font-size: 28px;  
+  
+  /* 2. 这里的宽高要比 font-size 大一点点，确保图标有活动空间 */
+  width: 32px;      
+  height: 32px;
+  line-height: 32px; /* 保持行高和高度一致，图标才会垂直居中 */
+  
+  text-align: center;
+  transition: all 0.2s;
+}
 /* 没意思按钮的初始样式 */
 .not-interested-btn {
-  background-color: rgba(128, 128, 128, 0.1);
+  background-color:transparent !important;
   color: #888;
   transition: all 0.2s;
+  padding: 0 !important;
+  border: none !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 💡 点击后变成“撤销隐藏”的样式 */
 .not-interested-btn.is-hidden {
-  background-color: #333 !important; /* 变成深色，警示意味更浓 */
-  color: #fff !important;
-  border: 1px solid #555;
+  background-color: transparent !important; 
+  color: var(--text-secondary) !important;
+  opacity: 0.5;
+  text-decoration: line-through; /* 增加删除线视觉效果 */
 }
 
+.not-interested-btn .icon-wrapper {
+  /* 这里的数值要和你给点赞收藏设置的一模一样 */
+  font-size: 28px; 
+  line-height: 32px; 
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  text-align: center;
+}
 /* 悬浮时的反馈 */
 .not-interested-btn:hover {
   filter: brightness(0.9);
 }
+.is-disabled {
+  opacity: 0.3;      /* 变透明，表示无法点击 */
+  cursor: not-allowed;
+  filter: grayscale(1); /* 变成灰色 */
+  pointer-events: none;
+}
 </style>
+

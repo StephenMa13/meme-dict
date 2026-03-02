@@ -1,13 +1,31 @@
 import { ref, watch } from 'vue'
 
-// --- 原有的收藏功能 ---
-const savedFavorites = JSON.parse(localStorage.getItem('my_favorite_memes')) || []
-export const favoriteIds = ref(savedFavorites)
+// --- 1. 状态初始化 (保持你原有的 Key 名) ---
+export const favoriteIds = ref(JSON.parse(localStorage.getItem('my_favorite_memes') || '[]'))
+export const blacklistIds = ref(JSON.parse(localStorage.getItem('meme_blacklist') || '[]'))
+export const likedIds = ref(JSON.parse(localStorage.getItem('likedIds') || '[]'))
+export const randomMemes = ref([])
+
+// --- 2. 自动持久化监听 ---
 watch(favoriteIds, (newVal) => {
   localStorage.setItem('my_favorite_memes', JSON.stringify(newVal))
 }, { deep: true })
 
+watch(blacklistIds, (newVal) => {
+  localStorage.setItem('meme_blacklist', JSON.stringify(newVal))
+}, { deep: true })
+
+watch(likedIds, (newVal) => {
+  localStorage.setItem('likedIds', JSON.stringify(newVal))
+}, { deep: true })
+
+// --- 3. 核心功能函数 (带双向互斥逻辑) ---
+
+// 💡 收藏功能：排除黑名单
 export function toggleFavorite(memeId) {
+  // 🛡️ 拦截：如果已经在黑名单，禁止收藏
+  if (blacklistIds.value.includes(memeId)) return 
+
   const index = favoriteIds.value.indexOf(memeId)
   if (index === -1) {
     favoriteIds.value.push(memeId)
@@ -16,41 +34,28 @@ export function toggleFavorite(memeId) {
   }
 }
 
-export const randomMemes = ref([])
+// 💡 点赞功能：排除黑名单
+export function toggleLike(memeId) {
+  // 🛡️ 拦截：如果已经在黑名单，禁止点赞
+  if (blacklistIds.value.includes(memeId)) return
 
-// 👇 --- 整合后的“黑名单”全局功能 ---
-// 统一使用 'meme_blacklist' 这个 Key，和咱们之前的逻辑保持一致
-export const blacklistIds = ref(JSON.parse(localStorage.getItem('meme_blacklist') || '[]'))
-
-// 只要黑名单有变化，自动存入本地！
-watch(blacklistIds, (newVal) => {
-  localStorage.setItem('meme_blacklist', JSON.stringify(newVal))
-}, { deep: true })
-
-// 💡 改造成 Toggle（开关）函数，完美适配咱们之前设计的“撤销隐藏”功能
-export function toggleNotInterested(memeId) {
-  const index = blacklistIds.value.indexOf(memeId)
+  const index = likedIds.value.indexOf(memeId)
   if (index === -1) {
-    blacklistIds.value.push(memeId) // 拉黑
+    likedIds.value.push(memeId)
   } else {
-    blacklistIds.value.splice(index, 1) // 撤销拉黑
+    likedIds.value.splice(index, 1)
   }
 }
 
-// 👇 1. 新增：读取本地存的点赞记录（如果没有就默认为空数组）
-export const likedIds = ref(JSON.parse(localStorage.getItem('likedIds') || '[]'))
+// 💡 没意思/黑名单功能：排除已点赞或已收藏
+export function toggleNotInterested(memeId) {
+  // 🛡️ 拦截：如果已经点赞过或收藏过，禁止点“没意思”
+  if (likedIds.value.includes(memeId) || favoriteIds.value.includes(memeId)) return
 
-// 👇 2. 新增：只要点赞列表发生变化，就自动存入浏览器本地硬盘！
-watch(likedIds, (newVal) => {
-  localStorage.setItem('likedIds', JSON.stringify(newVal))
-}, { deep: true })
-
-// 👇 3. 新增：切换点赞状态的函数
-export function toggleLike(memeId) {
-  const index = likedIds.value.indexOf(memeId)
+  const index = blacklistIds.value.indexOf(memeId)
   if (index === -1) {
-    likedIds.value.push(memeId) // 没赞过就加入
+    blacklistIds.value.push(memeId) 
   } else {
-    likedIds.value.splice(index, 1) // 赞过就取消
+    blacklistIds.value.splice(index, 1) 
   }
 }
