@@ -37,7 +37,6 @@
               <!-- 收藏按钮 -->
               <button 
                 class="action-btn fav-btn small-btn" 
-                :class="{ 'active': favoriteIds.includes(meme.id) }" 
                 @click.stop="toggleFavorite(meme.id)"
               >
                 {{ favoriteIds.includes(meme.id) ? '⭐' : '☆' }}
