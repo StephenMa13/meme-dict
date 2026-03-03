@@ -1,26 +1,19 @@
 {
-	"name": "cpa",
-	"version": "open",
-	"bin": {
-		"cbm": "index.js"
-	},
-	"dependencies": {
-		"colors": "^1.1.2"
-	},
-	"main": "index.js",
-	"devDependencies": {},
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/Jiang-Xuan/cbm.git"
-	},
-	"author": "",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/Jiang-Xuan/cbm/issues"
-	},
-	"homepage": "https://github.com/Jiang-Xuan/cbm#readme",
-	"description": ""
+  "name": "frontend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.29",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.4",
+    "vite": "^5.4.21",
+    "vite-plugin-pwa": "^0.19.8"
+  }
 }

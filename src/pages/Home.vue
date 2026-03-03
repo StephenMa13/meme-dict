@@ -87,8 +87,13 @@ const refreshRandomMemes = () => {
 
 // 4. 完美的过滤计算属性
 const filteredMemes = computed(() => {
-  return randomMemes.value.filter(item => !blacklistIds.value.includes(item.id));
-});
+  // 对当前随机到的梗进行排序
+  return [...randomMemes.value].sort((a, b) => {
+    const aIsBlack = blacklistIds.value.includes(a.id) ? 1 : 0
+    const bIsBlack = blacklistIds.value.includes(b.id) ? 1 : 0
+    return aIsBlack - bIsBlack // 黑名单(1) 会排在 非黑名单(0) 后面
+  })
+})
 
 // 5. 主题与背景切换
 const setBgColor = (color) => {
@@ -128,9 +133,8 @@ const loadThemeAndData = () => {
   
   if (cachedIds && cachedIds.length > 0) {
     const cachedMemes = hotMemes.value.filter(m => cachedIds.includes(m.id))
-    let mems = cachedMemes.filter(m => !blacklistIds.value.includes(m.id))
-    mems.sort((a,b) => a.term.length - b.term.length)
-    randomMemes.value = mems
+    cachedMemes.sort((a,b) => a.term.length - b.term.length)
+    randomMemes.value = cachedMemes
   } else if (randomMemes.value.length === 0) {
     refreshRandomMemes()
   }
@@ -191,6 +195,9 @@ const truncate = (text) => {
             @keyup.enter="executeSearch"
             @input="handleInput"
           />
+          <div @click="executeSearch" style="cursor:pointer; display:flex; align-items:center; padding-right:15px;">
+            🔍
+          </div>
         </div>
 
         <div class="history-dropdown" v-if="showHistory && searchHistory.length > 0">
@@ -224,10 +231,13 @@ const truncate = (text) => {
       </div>
 
       <div v-else class="card-grid">
-        <div class="card" v-for="(meme, index) in filteredMemes" :key="meme.id" @click="goToDetail(meme.id)">
+        <div class="card" v-for="(meme, index) in filteredMemes" :key="meme.id" @click="goToDetail(meme.id)"
+          :style="blacklistIds.includes(meme.id) ? { opacity: 0.4, filter: 'grayscale(1)', borderStyle: 'dashed' } : {}">
           <div class="card-top">
             <div class="meme-info">
-              <h3 class="meme-term">{{ truncate(meme.term) }}</h3>
+              <h3 class="meme-term">{{ truncate(meme.term) }}
+                <span v-if="blacklistIds.includes(meme.id)" style="font-size:10px; opacity:0.6; margin-left:5px;">(已屏蔽)</span>
+              </h3>
             </div>
             <div class="card-actions">
               <button class="action-btn fav-btn small-btn" :class="{ 'active': favoriteIds.includes(meme.id) }" @click.stop="toggleFavorite(meme.id)">

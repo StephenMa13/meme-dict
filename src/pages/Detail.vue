@@ -79,7 +79,6 @@ onMounted(() => {
     <div class="card">
       <button class="back-btn-inner" @click="goBack">
         <span class="icon">🔙</span>
-        <span class="text">返回</span>
       </button>
     
       <div class="avatar" :style="{ backgroundColor: meme.bgColor }">
