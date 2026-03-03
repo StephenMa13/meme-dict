@@ -8,6 +8,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/app": "^8.0.1",
+    "@capacitor/haptics": "^8.0.1",
+    "@capacitor/status-bar": "^8.0.1",
     "vue": "^3.5.29",
     "vue-router": "^4.6.4"
   },

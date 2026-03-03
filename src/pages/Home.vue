@@ -3,7 +3,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { getMemes, addMeme as localAdd} from '../db.js'
 import { favoriteIds, toggleFavorite, blacklistIds, randomMemes, likedIds, toggleLike } from '../store.js'
-
+import { categoryConfig } from '../categories' 
 const router = useRouter()
 const hotMemes = ref([]) // 真正的所有梗的数据源
 
@@ -159,6 +159,8 @@ const truncate = (text) => {
   if (!text) return ''
   return text.length > 10 ? text.slice(0, 10) + '…' : text
 }
+
+const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 </script>
 
 <template>
@@ -226,11 +228,9 @@ const truncate = (text) => {
         </div>
       </div>
       
-      <div v-if="activeSearch && filteredMemes.length === 0" class="empty-state">
-        这个梗现在还没有，欢迎你的补充 😊
-      </div>
 
-      <div v-else class="card-grid">
+
+      <div class="card-grid">
         <div class="card" v-for="(meme, index) in filteredMemes" :key="meme.id" @click="goToDetail(meme.id)"
           :style="blacklistIds.includes(meme.id) ? { opacity: 0.4, filter: 'grayscale(1)', borderStyle: 'dashed' } : {}">
           <div class="card-top">
@@ -259,10 +259,9 @@ const truncate = (text) => {
         <textarea v-model="newForm.summary" placeholder="解释一下..." class="modal-textarea"></textarea>
         <select v-model="newForm.category" class="modal-input">
           <option value="默认">选择分类...</option>
-          <option value="萌系">萌系</option>
-          <option value="科技">科技</option>
-          <option value="二次元">二次元</option>
-          <option value="方言">方言</option>
+          <option v-for="name in categoryList" :key="name" :value="name">
+            {{ categoryConfig[name].icon }} {{ name }}
+          </option>
         </select>
         <div class="modal-actions">
           <button class="cancel-btn" @click="showModal = false">取消</button>

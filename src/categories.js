@@ -1,0 +1,21 @@
+// src/constants/categories.js
+export const categoryConfig = {
+  '萌系': { icon: '🐱', color: '#FFE4E1' },
+  '科技': { icon: '🤖', color: '#E0F7FA' },
+  '二次元': { icon: '🌸', color: '#F3E5F5' },
+  '方言': { icon: '🐒', color: '#FFF9C4' },
+  '职场': { icon: '💻', color: '#E8F5E9' },
+  '情感': { icon: '❤️‍🔥', color: '#FCE4EC' },
+  '游戏': { icon: '🎮', color: '#E8EAF6' },
+  '抽象': { icon: '🤡', color: '#F3E5F5' },
+  '社交': { icon: '💬', color: '#E3F2FD' },
+  '生活': { icon: '🛋️', color: '#F5F5F5' },
+  '饭圈': { icon: '🌟', color: '#FFF3E0' },
+  '校园': { icon: '🎓', color: '#FFFDE7' },
+  '谐音梗': { icon: '📢', color: '#FBE9E7' },
+  '亚文化': { icon: '🎭', color: '#E1BEE7' },
+  '消费': { icon: '🛍️', color: '#FFCCBC' },
+  '时尚': { icon: '✨', color: '#F8BBD0' },
+  '吐槽': { icon: '🗣️', color: '#CFD8DC' }, 
+  '默认': { icon: '💡', color: '#F0F0F0' },
+}

@@ -35,11 +35,19 @@ export function toggleFavorite(memeId) {
 }
 
 // 💡 点赞功能：排除黑名单
-export function toggleLike(memeId) {
+export async function toggleLike(memeId) {
   // 🛡️ 拦截：如果已经在黑名单，禁止点赞
   if (blacklistIds.value.includes(memeId)) return
 
   const index = likedIds.value.indexOf(memeId)
+  
+  try {
+    // 只有在点击时产生一个“轻微”的撞击感
+    await Haptics.impact({ style: ImpactStyle.Light });
+  } catch (e) {
+    // 在浏览器预览时会报错，这里保持安静即可
+  }
+  
   if (index === -1) {
     likedIds.value.push(memeId)
   } else {

@@ -1,24 +1,50 @@
 <script setup>
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router' // 1. 引入路由
+import { App } from '@capacitor/app'   // 2. 引入 Capacitor App 插件
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 // 💡 响应式变量，记录当前选中的背景颜色
+const router = useRouter()
 const currentBg = ref('default')
 
-// 💡 切换背景颜色的方法
-const setBgColor = (color) => {
+// 💡 切换背景颜色的z方法
+const setBgColor = async (color) => {
   currentBg.value = color
-  localStorage.setItem('bgColor', color) // 保存到本地，刷新不丢失
+  localStorage.setItem('bgColor', color)
 
-  // 先移除之前可能添加的背景类名
+  // 处理网页内部的背景类名
   document.documentElement.classList.remove('bg-pink', 'bg-green')
+  if (color === 'pink') document.documentElement.classList.add('bg-pink')
+  if (color === 'green') document.documentElement.classList.add('bg-green')
 
-  // 根据选择添加对应类名
-  if (color === 'pink') {
-    document.documentElement.classList.add('bg-pink')
-  } else if (color === 'green') {
-    document.documentElement.classList.add('bg-green')
+  // --- 🌟 核心：同步修改手机状态栏 ---
+  // 使用 try-catch 防止在浏览器预览时报错导致后续代码不执行
+  try {
+    // 逻辑 A：如果当前是夜间模式，状态栏永远是黑色
+    if (document.documentElement.classList.contains('dark-mode')) {
+      await StatusBar.setBackgroundColor({ color: '#121212' });
+      await StatusBar.setStyle({ style: Style.Dark }); // 状态栏文字为白色
+    } 
+    // 逻辑 B：如果不是夜间模式，根据颜色调整
+    else if (color === 'pink') {
+      await StatusBar.setBackgroundColor({ color: '#FFE4E1' });
+      await StatusBar.setStyle({ style: Style.Light }); // 状态栏文字为黑色
+    } 
+    else if (color === 'green') {
+      await StatusBar.setBackgroundColor({ color: '#C7EDCC' });
+      await StatusBar.setStyle({ style: Style.Light });
+    } 
+    // 逻辑 C：默认背景（白色或浅灰色）
+    else {
+      await StatusBar.setBackgroundColor({ color: '#F5F5F5' }); // 你的默认背景色
+      await StatusBar.setStyle({ style: Style.Light });
+    }
+  } catch (error) {
+    console.warn('StatusBar 插件在当前环境下不可用 (可能是浏览器环境)');
   }
 }
+
 
 onMounted(() => {
   // 1. 读取夜间模式状态
@@ -32,6 +58,16 @@ onMounted(() => {
   if (savedBg) {
     setBgColor(savedBg)
   }
+
+  App.addListener('backButton', ({ canGoBack }) => {
+    // 逻辑：如果浏览器历史记录可以后退，就后退；否则退出应用
+    if (canGoBack) {
+      window.history.back() 
+    } else {
+      // 如果已经在首页（或者没有历史记录了），直接关闭应用
+      App.exitApp()
+    }
+  })
 })
 </script>
 
