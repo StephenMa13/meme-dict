@@ -28,6 +28,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { getMemes } from '../db.js' 
 import { favoriteIds, toggleFavorite } from '../store.js' // 引入全局记忆
 
 // ⚠️ 注意：这里需要引入你所有的梗数据！
@@ -42,7 +43,9 @@ const goToDetail = (id) => {
 
 // 魔法核心：计算属性。从所有梗里，揪出那些 ID 在收藏列表里的梗
 const favoriteMemes = computed(() => {
-  return allMemes.filter(meme => favoriteIds.value.includes(meme.id))
+  const allMemesFromDB = getMemes() 
+
+  return allMemesFromDB.filter(meme => favoriteIds.value.includes(meme.id))
 })
 </script>
 

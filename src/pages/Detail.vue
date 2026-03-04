@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getMemeById } from '../db.js'
-// 1. 导入外部分类配置
+// 1. 导入外部配置
 import { categoryConfig } from '../categories.js' 
 import { favoriteIds, toggleFavorite, blacklistIds, toggleNotInterested, likedIds, toggleLike } from '../store.js'
 
@@ -13,9 +13,28 @@ const meme = ref(null)
 const goBack = () => { router.back() }
 const goToCategory = (categoryName) => { router.push(`/category/${categoryName}`) }
 
-const handleNotInterested = (id) => {
-  if (likedIds.value.includes(id) || favoriteIds.value.includes(id)) return;
-  toggleNotInterested(id); 
+/** 
+ * 🌟 核心逻辑修改：互斥处理
+ */
+
+// 处理喜欢点击：如果当前是不喜欢，则先取消不喜欢，再执行喜欢
+const handleLikeClick = (id) => {
+  if (blacklistIds.value.includes(id)) {
+    toggleNotInterested(id); // 移除不喜欢
+  }
+  toggleLike(id);
+};
+
+const handleFavoriteClick = (id) => {
+  toggleFavorite(id);
+};
+
+// 处理不喜欢点击：如果当前是喜欢，则先取消喜欢，再执行不喜欢
+const handleNotInterestedClick = (id) => {
+  if (likedIds.value.includes(id)) {
+    toggleLike(id); // 移除喜欢
+  }
+  toggleNotInterested(id);
 };
 
 onMounted(() => {
@@ -33,7 +52,7 @@ onMounted(() => {
       tagsInfo: processedTags,
       icon: primaryConfig.icon,
       bgColor: primaryConfig.color,
-      // 优先读取新字段 details，兼容旧字段 content
+      // 兼容旧字段 content 和新字段 details
       details: localMeme.details || localMeme.content || `还没有关于“${localMeme.term}”的详细科普哦...`
     }
   }
@@ -44,7 +63,7 @@ onMounted(() => {
   <div class="detail-container" v-if="meme">
     <div class="card">
       
-      <!-- 🌟 固定区域：头像、标题、标签 -->
+      <!-- 🌟 固定区域：头像、标题、标签 (不可滑动) -->
       <div class="card-fixed-header">
         <button class="back-btn-inner" @click="goBack">
           <span class="icon">🔙</span>
@@ -68,7 +87,7 @@ onMounted(() => {
         <div class="divider"></div>
       </div>
 
-      <!-- 🌟 仅此处可滑动：深度科普内容 -->
+      <!-- 🌟 仅此处可滑动：内容与操作按钮 -->
       <div class="card-scroll-body">
         <div class="content">
           <h3>📖 一句话秒懂</h3>
@@ -78,21 +97,30 @@ onMounted(() => {
           <p class="details-text" v-html="meme.details"></p>
         </div>
 
-        <!-- 交互按钮放在滑动区域底部 -->
+        <!-- 🌟 按钮组：始终有效，状态互斥 -->
         <div class="detail-actions">
-          <button class="action-btn fav-btn" :class="{ 'active': favoriteIds.includes(meme.id), 'is-disabled': blacklistIds.includes(meme.id) }" :disabled="blacklistIds.includes(meme.id)" @click="toggleFavorite(meme.id)">
+          <!-- 收藏：独立 -->
+          <button class="action-btn" 
+                  :class="{ 'active-fav': favoriteIds.includes(meme.id) }" 
+                  @click="handleFavoriteClick(meme.id)">
             <span class="icon-box">{{ favoriteIds.includes(meme.id) ? '⭐' : '☆' }}</span>
           </button>
 
-          <button class="action-btn like-btn" :class="{ 'is-disabled': blacklistIds.includes(meme.id) }" :disabled="blacklistIds.includes(meme.id)" @click="toggleLike(meme.id)">
-            <span class="icon-box">❤️</span>
+          <!-- 喜欢：与不喜欢互斥 -->
+          <button class="action-btn" 
+                  :class="{ 'active-like': likedIds.includes(meme.id) }" 
+                  @click="handleLikeClick(meme.id)">
+            <span class="icon-box">{{ likedIds.includes(meme.id) ? '❤️' : '🤍' }}</span>
           </button>
 
-          <button class="action-btn not-interested-btn" :class="{ 'is-hidden': blacklistIds.includes(meme.id), 'is-disabled': likedIds.includes(meme.id) || favoriteIds.includes(meme.id) }" :disabled="likedIds.includes(meme.id) || favoriteIds.includes(meme.id)" @click="handleNotInterested(meme.id)">
-            <span class="icon-wrapper">🙈</span>
+          <!-- 不喜欢：与喜欢互斥 -->
+          <button class="action-btn" 
+                  :class="{ 'active-dislike': blacklistIds.includes(meme.id) }" 
+                  @click="handleNotInterestedClick(meme.id)">
+            <span class="icon-box">{{ blacklistIds.includes(meme.id) ? '🙈' : '👁️' }}</span>
           </button>
         </div>
-        <div style="height: 20px;"></div>
+        <div style="height: 30px;"></div>
       </div>
       
     </div>
@@ -100,99 +128,64 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* 彻底锁定外部，禁止整页滚动 */
+/* 锁定视口 */
 .detail-container { 
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  padding: 20px;
-  background-color: var(--bg-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  padding: 20px; background-color: var(--bg-color);
+  display: flex; justify-content: center; align-items: center;
   overflow: hidden; 
 }
 
 .card { 
-  background: var(--card-bg); 
-  border-radius: 24px; 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-  border: 1px solid var(--border-color);
-  width: 100%;
-  max-width: 500px;
-  height: 85vh; /* 卡片固定高度 */
-  display: flex;
-  flex-direction: column; /* 垂直排版 */
-  overflow: hidden; 
+  background: var(--card-bg); border-radius: 24px; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid var(--border-color);
+  width: 100%; max-width: 500px;
+  height: 85vh; display: flex; flex-direction: column; overflow: hidden; 
 }
 
-/* 固定头部样式 */
+/* 固定头部 */
 .card-fixed-header {
-  flex-shrink: 0; /* 绝对不收缩 */
-  padding: 40px 25px 0 25px;
-  text-align: center;
-  position: relative;
+  flex-shrink: 0; padding: 40px 25px 0 25px;
+  text-align: center; position: relative;
 }
 
-/* 滚动主体样式 */
+/* 仅中间内容滚动 */
 .card-scroll-body {
-  flex: 1; /* 占据剩下的所有空间 */
-  overflow-y: auto; /* 允许纵向滚动 */
-  padding: 0 25px;
-  /* 优化滚动流畅度 */
+  flex: 1; overflow-y: auto; padding: 0 25px;
   -webkit-overflow-scrolling: touch; 
 }
 
-/* 滚动条美化 (可选) */
-.card-scroll-body::-webkit-scrollbar { width: 4px; }
-.card-scroll-body::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+.divider { height: 1px; background: var(--border-color); margin: 20px 0 0 0; opacity: 0.5; }
+.back-btn-inner { position: absolute; top: 15px; left: 15px; background: transparent; border: none; font-size: 20px; cursor: pointer; }
+.title { font-size: 32px; margin: 10px 0; font-weight: 800; color: var(--text-main); }
+.avatar { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 10px; display: flex; justify-content: center; align-items: center; font-size: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.tag-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(0,0,0,0.05); }
 
-.divider {
-  height: 1px;
-  background: var(--border-color);
-  margin: 20px 0 0 0;
-  opacity: 0.5;
-}
+.content { padding-top: 20px; text-align: left; }
+.content h3 { font-size: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--text-main); }
+.summary-text { background: var(--bg-color); padding: 15px; border-radius: 12px; font-style: italic; color: var(--text-main); line-height: 1.6; }
+.details-text { line-height: 1.8; font-size: 16px; white-space: pre-wrap; color: var(--text-main); opacity: 0.9; }
 
-.back-btn-inner {
-  position: absolute; top: 15px; left: 15px;
-  background: transparent; border: none; font-size: 20px; cursor: pointer;
-}
-
-.title { font-size: 32px; margin: 10px 0; font-weight: 800; }
-
-.avatar { 
-  width: 80px; height: 80px; border-radius: 50%; 
-  margin: 0 auto 10px; display: flex; justify-content: center; align-items: center; 
-  font-size: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
-}
-
-.tag-badge { 
-  padding: 4px 12px; border-radius: 20px; font-size: 12px; 
-  font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
-  border: 1px solid rgba(0,0,0,0.05);
-}
-
-.content { padding-top: 20px; }
-.content h3 { font-size: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-.summary-text { background: var(--bg-color); padding: 12px; border-radius: 12px; font-style: italic; }
-.details-text { line-height: 1.8; font-size: 16px; white-space: pre-wrap; }
-
+/* 🌟 操作按钮样式优化 */
 .detail-actions {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 40px;
-  padding-top: 20px;
+  display: flex; justify-content: center; gap: 40px;
+  margin-top: 40px; padding: 20px 0;
   border-top: 1px dashed var(--border-color);
 }
 
 .action-btn {
-  width: 48px; height: 48px;
-  background: transparent; border: none;
-  cursor: pointer; transition: transform 0.2s;
+  width: 50px; height: 50px; border-radius: 50%;
+  background: var(--bg-color); border: 1px solid var(--border-color);
+  cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
 }
+
 .action-btn:active { transform: scale(0.9); }
+
+/* 激活状态的颜色 */
+.active-fav { background: #fffdf0; border-color: #FFD700; color: #FFD700; box-shadow: 0 2px 8px rgba(255,215,0,0.2); }
+.active-like { background: #fff5f5; border-color: #ff4757; color: #ff4757; box-shadow: 0 2px 8px rgba(255,71,87,0.2); }
+.active-dislike { background: #f1f2f6; border-color: #2f3542; color: #2f3542; opacity: 1; }
+
 .icon-box { font-size: 24px; }
-.fav-btn.active { color: #FFD700; }
-.is-disabled { opacity: 0.3; filter: grayscale(1); pointer-events: none; }
 </style>

@@ -234,12 +234,10 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 
 
       <div class="card-grid">
-        <div class="card" v-for="(meme, index) in filteredMemes" :key="meme.id" @click="goToDetail(meme.id)"
-          :style="blacklistIds.includes(meme.id) ? { opacity: 0.4, filter: 'grayscale(1)', borderStyle: 'dashed' } : {}">
+        <div class="card" v-for="(meme, index) in filteredMemes" :key="meme.id" @click="goToDetail(meme.id)">
           <div class="card-top">
             <div class="meme-info">
               <h3 class="meme-term">{{ truncate(meme.term) }}
-                <span v-if="blacklistIds.includes(meme.id)" style="font-size:10px; opacity:0.6; margin-left:5px;">(已屏蔽)</span>
               </h3>
             </div>
             <div class="card-actions">

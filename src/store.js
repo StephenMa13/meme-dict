@@ -23,9 +23,6 @@ watch(likedIds, (newVal) => {
 
 // 💡 收藏功能：排除黑名单
 export function toggleFavorite(memeId) {
-  // 🛡️ 拦截：如果已经在黑名单，禁止收藏
-  if (blacklistIds.value.includes(memeId)) return 
-
   const index = favoriteIds.value.indexOf(memeId)
   if (index === -1) {
     favoriteIds.value.push(memeId)
@@ -36,32 +33,31 @@ export function toggleFavorite(memeId) {
 
 // 💡 点赞功能：排除黑名单
 export async function toggleLike(memeId) {
-  // 🛡️ 拦截：如果已经在黑名单，禁止点赞
-  if (blacklistIds.value.includes(memeId)) return
-
   const index = likedIds.value.indexOf(memeId)
-  
-  try {
-    // 只有在点击时产生一个“轻微”的撞击感
-    await Haptics.impact({ style: ImpactStyle.Light });
-  } catch (e) {
-    // 在浏览器预览时会报错，这里保持安静即可
-  }
-  
   if (index === -1) {
+    // 🛡️ 互斥：点赞时，如果已经在黑名单，则自动移除黑名单
+    const bIndex = blacklistIds.value.indexOf(memeId)
+    if (bIndex !== -1) blacklistIds.value.splice(bIndex, 1)
+    
     likedIds.value.push(memeId)
   } else {
     likedIds.value.splice(index, 1)
   }
+
+  try {
+    await Haptics.impact({ style: ImpactStyle.Light });
+  } catch (e) {}
 }
 
 // 💡 没意思/黑名单功能：排除已点赞或已收藏
 export function toggleNotInterested(memeId) {
-  // 🛡️ 拦截：如果已经点赞过或收藏过，禁止点“没意思”
-  if (likedIds.value.includes(memeId) || favoriteIds.value.includes(memeId)) return
-
   const index = blacklistIds.value.indexOf(memeId)
   if (index === -1) {
+    // 🛡️ 互斥：点不喜欢时，如果已经点赞，则自动移除点赞
+    const lIndex = likedIds.value.indexOf(memeId)
+    if (lIndex !== -1) likedIds.value.splice(lIndex, 1)
+    
+    // 🗑️ 注意：这里删除了 favoriteIds 的判断，允许与收藏共存
     blacklistIds.value.push(memeId) 
   } else {
     blacklistIds.value.splice(index, 1) 
