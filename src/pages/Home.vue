@@ -259,13 +259,24 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
       <div class="modal-content">
         <h3>贡献新梗</h3>
         <input v-model="newForm.term" placeholder="名字" class="modal-input" />
-        <textarea v-model="newForm.summary" placeholder="解释一下..." class="modal-textarea"></textarea>
         <select v-model="newForm.category" class="modal-input">
           <option value="默认">选择分类...</option>
           <option v-for="name in categoryList" :key="name" :value="name">
             {{ categoryConfig[name].icon }} {{ name }}
           </option>
         </select>
+        <textarea 
+          v-model="newForm.summary" 
+          placeholder="解释一下..." 
+          class="modal-textarea"
+        ></textarea>
+
+        <textarea 
+          v-model="newForm.details" 
+          placeholder="详细科普 (起源、背景故事、具体用法...)" 
+          class="modal-textarea detail-field"
+        ></textarea>
+
         <div class="modal-actions">
           <button class="cancel-btn" @click="showModal = false">取消</button>
           <button class="submit-btn" @click="submitMeme">提交</button>
@@ -359,7 +370,7 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 .modal-content { 
   background: var(--card-bg); 
   width: 90%; 
-  max-width: 360px; 
+  max-width: 480px; 
   padding: 24px; 
   border-radius: 16px; 
   box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
@@ -369,11 +380,16 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
   animation: modal-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
   border: 1px solid var(--border-color); 
 }
+.detail-field {
+  min-height: 180px; 
+  line-height: 1.6;     
+  font-size: 14px;
+}
 @keyframes modal-pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
 .modal-input, .modal-textarea { 
   width: 100%; 
-  padding: 12px 14px; 
+  padding: 10px 12px; 
   border: 1px solid var(--border-color);
   border-radius: 10px; 
   font-size: 14px; 
@@ -385,7 +401,7 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
   transition: border-color 0.2s; 
 }
 .modal-input:focus, .modal-textarea:focus { border-color: #FFD700; background-color: var(--card-bg); }
-.modal-textarea { resize: vertical; min-height: 80px; }
+.modal-textarea { resize: vertical; min-height: 60px; }
 .modal-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; }
 .cancel-btn, .submit-btn { flex: 1; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 15px; font-weight: bold; }
 .cancel-btn { 

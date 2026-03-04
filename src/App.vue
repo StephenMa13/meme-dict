@@ -83,7 +83,7 @@ onMounted(() => {
     </router-link>
     <router-link to="/categories" class="nav-item">
       <span class="icon">🫧</span>
-      <span class="text">分类</span>
+      <span class="text">梗星系</span>
     </router-link>
     <router-link to="/favorites" class="nav-item">
       <span class="icon">⭐</span>
