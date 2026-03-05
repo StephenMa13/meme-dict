@@ -81,7 +81,10 @@ onMounted(() => initSearch())
   <div class="app-container">
     <nav class="navbar">
       <div class="navbar-left" @click="router.push('/')" style="cursor:pointer">
-        <div class="logo">🔥 梗查查</div>
+        <div class="logo">
+          <img src="/Home-logo.png" alt="Logo" class="spark-logo" />  
+          梗查查
+        </div>
       </div>
     </nav>
 
@@ -139,7 +142,6 @@ onMounted(() => initSearch())
             <div class="meme-info">
               <h3 class="meme-term">
                 {{ truncate(meme.term) }}
-                <span v-if="blacklistIds.includes(meme.id)" class="blacklist-tag">(已屏蔽)</span>
               </h3>
             </div>
             <div class="card-actions">
@@ -162,7 +164,9 @@ onMounted(() => initSearch())
 
 .app-container { min-height: 100vh; background: transparent; }
 .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; padding: 12px 20px; }
-.logo { font-size: 20px; font-weight: bold; color: var(--text-main); }
+.logo { font-size: 18px; font-weight: bold; color: var(--text-main); display: flex;align-items: center;gap: 8px;}
+.spark-logo { width: 1.5em;  height: 1.5em;  object-fit: contain; position: relative;top: 1px;}
+
 .hero { padding: 20px; text-align: center; }
 .search-wrapper { position: relative; max-width: 600px; margin: 0 auto; z-index:1001;}
 

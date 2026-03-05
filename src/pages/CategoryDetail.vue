@@ -10,11 +10,7 @@
       </div>
     </header>
 
-    <main class="hot-list">
-      <div class="section-header">
-        <h2 class="section-title">🔥 热门排行</h2>
-      </div>
-      
+    <main class="hot-list">      
       <!-- 列表为空的状态 -->
       <div v-if="categoryMemes.length === 0" class="empty-state">
         该分类下暂时没有词条哦 😊
@@ -129,14 +125,14 @@ const truncate = (text) => {
 .app-container { 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
   min-height: 100vh; 
-  background-color: #f8f9fa;
+  background-color: var(--bg-color); /* 使用变量 */
   color: var(--text-main);
 }
 
-/* 2. 🌟 核心修改：大标题头部区域样式 */
+/* 2. 大标题头部区域 */
 .category-hero {
-  padding: 60px 25px 30px; /* 增加顶部内边距，让标题下移 */
-  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 60px 25px 30px; 
+  background: linear-gradient(180deg, var(--card-bg) 0%, var(--bg-color) 100%);
   text-align: left;
   max-width: 1200px;
   margin: 0 auto;
@@ -151,10 +147,10 @@ const truncate = (text) => {
 }
 
 .category-display-title {
-  font-size: 3.2rem; /* 极大字体 */
+  font-size: 3.2rem; 
   font-weight: 800;
   margin: 10px 0;
-  color: #1a1a1a;
+  color: var(--text-main);
   letter-spacing: -1px;
 }
 
@@ -164,50 +160,80 @@ const truncate = (text) => {
   margin-top: 5px;
 }
 
-/* 3. 核心列表样式（保持与首页一致） */
+/* 3. 核心列表样式 - 100% 同步首页 */
 .hot-list { max-width: 1200px; margin: 0 auto; padding: 10px 20px; }
-.section-header { margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-.section-title { font-size: 18px; font-weight: bold; color: #333; }
 
-.card-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+/* 网格布局同步 */
+.card-grid { 
+  display: grid; 
+  grid-template-columns: 1fr; 
+  gap: 12px; 
+}
 
-/* 🌟 卡片样式：复刻首页 */
+/* 卡片样式同步 */
 .card { 
-  background: white; 
-  border: 1px solid #eee; 
-  border-radius: 16px; 
-  padding: 16px; 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
+  background: var(--card-bg) !important; 
+  border: 1px solid var(--border-color); 
+  border-radius: 10px; /* 圆角变小 */
+  padding: 10px 12px; /* 内边距变紧凑 */
+  box-shadow: 0 3px 6px rgba(0,0,0,0.04); 
   cursor: pointer; 
+  color: var(--text-main);
   transition: all 0.2s ease;
 }
-.card:active { transform: scale(0.97); }
+.card:active { transform: scale(0.98); }
 
-.card-top { display: flex; align-items: center; justify-content: space-between; }
-.card-actions { display: flex; gap: 8px; }
-
-.meme-info { flex: 1; }
-.meme-term { 
-  font-size: 1.1rem; 
-  font-weight: 700; 
-  margin: 0; 
-  color: #222; 
+.card-top { 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  justify-content: space-between; 
 }
 
-/* 按钮样式 */
-.small-btn { width: 50px; height: 36px; }
+.meme-info { 
+  flex: 1; 
+  display: flex; 
+  align-items: center; 
+  min-width: 0; /* 必须加这个才能让省略号生效 */
+}
+
+/* 词条文字样式同步 */
+.meme-term { 
+  font-size: 14px; /* 字体变小 */
+  font-weight: 700; 
+  margin: 0 !important; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  color: var(--text-main); 
+}
+
+.card-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+/* 按钮样式同步 */
+.small-btn { 
+  width: 76px; /* 按钮宽度同步 */
+  padding: 6px 8px; 
+  font-size: 12px; 
+}
+
 .action-btn { 
   border: none; 
-  border-radius: 10px; 
-  font-size: 16px; 
+  border-radius: 12px; 
+  font-size: 12px; 
+  font-weight: bold; 
   cursor: pointer; 
   display: flex; 
   align-items: center; 
   justify-content: center; 
+  gap: 4px; 
+  width: auto; 
+  flex-shrink: 0; 
   transition: all 0.2s; 
 }
-.fav-btn { background-color: #f0f7ff; color: #4a90e2; }
-.like-btn { background-color: #fff4e5; color: #ff8f00; }
+
+.fav-btn { background-color: rgba(74, 144, 226, 0.1); color: #4a90e2; }
+.like-btn { background-color: rgba(255, 143, 0, 0.1); color: #ff8f00; }
 .fav-btn.active { background-color: #4a90e2; color: white; }
 
 /* 空状态 */
@@ -215,14 +241,14 @@ const truncate = (text) => {
   text-align: center;
   padding: 60px 20px;
   color: #999;
-  background: white;
+  background: var(--card-bg);
   border-radius: 20px;
   margin-top: 20px;
 }
 
-/* 响应式断点 */
+/* 响应式断点同步 */
 @media (min-width: 768px) { 
-  .card-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } 
+  .card-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } 
   .category-display-title { font-size: 4rem; }
 }
 @media (min-width: 1024px) { 

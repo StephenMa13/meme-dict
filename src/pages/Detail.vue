@@ -2,7 +2,6 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getMemeById } from '../db.js'
-// 1. 导入外部配置
 import { categoryConfig } from '../categories.js' 
 import { favoriteIds, toggleFavorite, blacklistIds, toggleNotInterested, likedIds, toggleLike } from '../store.js'
 
@@ -13,14 +12,10 @@ const meme = ref(null)
 const goBack = () => { router.back() }
 const goToCategory = (categoryName) => { router.push(`/category/${categoryName}`) }
 
-/** 
- * 🌟 核心逻辑修改：互斥处理
- */
-
-// 处理喜欢点击：如果当前是不喜欢，则先取消不喜欢，再执行喜欢
+// 处理喜欢点击
 const handleLikeClick = (id) => {
   if (blacklistIds.value.includes(id)) {
-    toggleNotInterested(id); // 移除不喜欢
+    toggleNotInterested(id); 
   }
   toggleLike(id);
 };
@@ -29,10 +24,10 @@ const handleFavoriteClick = (id) => {
   toggleFavorite(id);
 };
 
-// 处理不喜欢点击：如果当前是喜欢，则先取消喜欢，再执行不喜欢
+// 处理不喜欢点击
 const handleNotInterestedClick = (id) => {
   if (likedIds.value.includes(id)) {
-    toggleLike(id); // 移除喜欢
+    toggleLike(id); 
   }
   toggleNotInterested(id);
 };
@@ -52,7 +47,6 @@ onMounted(() => {
       tagsInfo: processedTags,
       icon: primaryConfig.icon,
       bgColor: primaryConfig.color,
-      // 兼容旧字段 content 和新字段 details
       details: localMeme.details || localMeme.content || `还没有关于“${localMeme.term}”的详细科普哦...`
     }
   }
@@ -63,7 +57,7 @@ onMounted(() => {
   <div class="detail-container" v-if="meme">
     <div class="card">
       
-      <!-- 🌟 固定区域：头像、标题、标签 (不可滑动) -->
+      <!-- 固定区域 -->
       <div class="card-fixed-header">
         <button class="back-btn-inner" @click="goBack">
           <span class="icon">🔙</span>
@@ -87,7 +81,7 @@ onMounted(() => {
         <div class="divider"></div>
       </div>
 
-      <!-- 🌟 仅此处可滑动：内容与操作按钮 -->
+      <!-- 滑动区域 -->
       <div class="card-scroll-body">
         <div class="content">
           <h3>📖 一句话秒懂</h3>
@@ -97,27 +91,31 @@ onMounted(() => {
           <p class="details-text" v-html="meme.details"></p>
         </div>
 
-        <!-- 🌟 按钮组：始终有效，状态互斥 -->
+        <!-- 操作按钮：纯图标、固定宽度、不位移 -->
         <div class="detail-actions">
-          <!-- 收藏：独立 -->
-          <button class="action-btn" 
-                  :class="{ 'active-fav': favoriteIds.includes(meme.id) }" 
+          <!-- 收藏 -->
+          <button class="action-btn-minimal" 
                   @click="handleFavoriteClick(meme.id)">
-            <span class="icon-box">{{ favoriteIds.includes(meme.id) ? '⭐' : '☆' }}</span>
+            <span class="icon-box" :class="{ 'active-icon': favoriteIds.includes(meme.id) }">
+              {{ favoriteIds.includes(meme.id) ? '⭐' : '☆' }}
+            </span>
           </button>
 
-          <!-- 喜欢：与不喜欢互斥 -->
-          <button class="action-btn" 
-                  :class="{ 'active-like': likedIds.includes(meme.id) }" 
+          <!-- 喜欢 -->
+          <button class="action-btn-minimal" 
                   @click="handleLikeClick(meme.id)">
-            <span class="icon-box">{{ likedIds.includes(meme.id) ? '❤️' : '🤍' }}</span>
+            <span class="icon-box" :class="{ 'active-icon': likedIds.includes(meme.id) }">
+              {{ likedIds.includes(meme.id) ? '❤️' : '🤍' }}
+            </span>
           </button>
 
-          <!-- 不喜欢：与喜欢互斥 -->
-          <button class="action-btn" 
-                  :class="{ 'active-dislike': blacklistIds.includes(meme.id) }" 
+          <!-- 不喜欢：图标保持为 👎，通过 CSS 改变激活状态 -->
+          <button class="action-btn-minimal" 
                   @click="handleNotInterestedClick(meme.id)">
-            <span class="icon-box">{{ blacklistIds.includes(meme.id) ? '🙈' : '👁️' }}</span>
+            <span class="icon-box dislike-icon" 
+                  :class="{ 'active-dislike': blacklistIds.includes(meme.id) }">
+              👎
+            </span>
           </button>
         </div>
         <div style="height: 30px;"></div>
@@ -128,7 +126,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* 锁定视口 */
 .detail-container { 
   position: fixed; top: 0; left: 0; right: 0; bottom: 0;
   padding: 20px; background-color: var(--bg-color);
@@ -143,13 +140,11 @@ onMounted(() => {
   height: 85vh; display: flex; flex-direction: column; overflow: hidden; 
 }
 
-/* 固定头部 */
 .card-fixed-header {
   flex-shrink: 0; padding: 40px 25px 0 25px;
   text-align: center; position: relative;
 }
 
-/* 仅中间内容滚动 */
 .card-scroll-body {
   flex: 1; overflow-y: auto; padding: 0 25px;
   -webkit-overflow-scrolling: touch; 
@@ -166,26 +161,50 @@ onMounted(() => {
 .summary-text { background: var(--bg-color); padding: 15px; border-radius: 12px; font-style: italic; color: var(--text-main); line-height: 1.6; }
 .details-text { line-height: 1.8; font-size: 16px; white-space: pre-wrap; color: var(--text-main); opacity: 0.9; }
 
-/* 🌟 操作按钮样式优化 */
+/* 🌟 操作按钮：强制固定宽度，防止偏移 */
 .detail-actions {
-  display: flex; justify-content: center; gap: 40px;
+  display: flex; justify-content: center; gap: 50px;
   margin-top: 40px; padding: 20px 0;
   border-top: 1px dashed var(--border-color);
 }
 
-.action-btn {
-  width: 50px; height: 50px; border-radius: 50%;
-  background: var(--bg-color); border: 1px solid var(--border-color);
-  cursor: pointer; transition: all 0.2s;
+.action-btn-minimal {
+  background: transparent; border: none; cursor: pointer;
+  padding: 0; outline: none;
+  -webkit-tap-highlight-color: transparent;
+  
+  /* 关键：固定容器宽度，确保按钮中心点不动 */
+  width: 44px; 
+  height: 44px;
+  flex-shrink: 0; /* 禁止伸缩 */
   display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s;
 }
 
-.action-btn:active { transform: scale(0.9); }
+.action-btn-minimal:active {
+  transform: scale(1.3);
+}
 
-/* 激活状态的颜色 */
-.active-fav { background: #fffdf0; border-color: #FFD700; color: #FFD700; box-shadow: 0 2px 8px rgba(255,215,0,0.2); }
-.active-like { background: #fff5f5; border-color: #ff4757; color: #ff4757; box-shadow: 0 2px 8px rgba(255,71,87,0.2); }
-.active-dislike { background: #f1f2f6; border-color: #2f3542; color: #2f3542; opacity: 1; }
+/* 🌟 图标样式 */
+.icon-box {
+  font-size: 20px; /* 图标缩小 */
+  line-height: 1;
+  opacity: 0.4; /* 默认未激活状态为浅色（模拟空心感） */
+  transition: all 0.2s;
+}
 
-.icon-box { font-size: 24px; }
+/* 激活状态 */
+.active-icon {
+  opacity: 1; /* 激活后变为实色 */
+  filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3)); /* 增加一点光晕感 */
+}
+
+/* 不喜欢图标专属 */
+.dislike-icon {
+  opacity: 0.3; /* 初始更浅一些 */
+}
+.active-dislike {
+  opacity: 1 !important;
+  filter: grayscale(0); /* 如果有需要可以加点颜色 */
+}
 </style>

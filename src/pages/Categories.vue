@@ -6,92 +6,83 @@ import { categoryConfig } from '../categories.js'
 
 const router = useRouter()
 const allMemes = ref([])
+const dragItemIndex = ref(null) // 记录拖拽的对象
 
 onMounted(() => {
   allMemes.value = getMemes() || []
 })
 
-// 1. 核心逻辑：计算分类数据并生成随机预览，包含尺寸预计算
-const bubbleCategories = computed(() => {
-  if (!allMemes.value || allMemes.value.length === 0) return []
+// 1. 核心数据计算
+const bubbleCategories = ref([])
 
+onMounted(() => {
+  const memes = getMemes() || []
   const categoryMap = {}
 
-  // 第一步：聚合并收集该分类下的所有词条名
-  allMemes.value.forEach(meme => {
+  memes.forEach(meme => {
     let cats = meme.category || '其他'
     if (!Array.isArray(cats)) cats = [cats]
-
     cats.forEach(cat => {
       if (!categoryMap[cat]) {
-        categoryMap[cat] = { 
-          name: cat, 
-          totalViews: 0, 
-          count: 0,
-          allTerms: []
-        }
+        categoryMap[cat] = { name: cat, totalViews: 0, count: 0, allTerms: [] }
       }
-      categoryMap[cat].totalViews += (meme.view_count || 0)
       categoryMap[cat].count += 1
       categoryMap[cat].allTerms.push(meme.term) 
     })
   })
 
-  // 提取极值用于计算缩放
   const counts = Object.values(categoryMap).map(c => c.count)
-  const maxCount = counts.length ? Math.max(...counts) : 1
-  const minCount = counts.length ? Math.min(...counts) : 0
+  const maxCount = Math.max(...counts) || 1
+  const minCount = Math.min(...counts) || 0
 
-  // 🌟 缩小 1/3 的尺寸界限 (原：90~200，现：60~134)
-  const minSize = 60  
-  const maxSize = 134 
+  // 🌟 尺寸增加 1/5 (原 60~134 -> 现 72~160)
+  const minSize = 75 
+  const maxSize = 165 
 
-  // 第二步：转为数组，先计算每个泡泡的大小，再决定放几个词
-  const categoriesArray = Object.values(categoryMap).map(item => {
+  bubbleCategories.value = Object.values(categoryMap).map((item, index) => {
     let size = (minSize + maxSize) / 2
     if (maxCount !== minCount) {
       const ratio = (item.count - minCount) / (maxCount - minCount)
       size = minSize + Math.pow(ratio, 1.2) * (maxSize - minSize)
     }
 
-    // 🌟 动态判断：根据算出来的物理尺寸决定展示的词条数量
-    let maxTerms = 3
-    if (size < 85) {
-      maxTerms = 1 // 太小的气泡只放1个词
-    } else if (size < 110) {
-      maxTerms = 2 // 中等的气泡放2个词
-    }
-
-    // 随机洗牌该分类下的词条
+    let maxTerms = size < 90 ? 1 : (size < 125 ? 2 : 3)
     const shuffledTerms = [...item.allTerms].sort(() => 0.5 - Math.random())
-    
-    return {
-      name: item.name,
-      count: item.count,
-      totalViews: item.totalViews,
-      size: size, // 把计算好的物理尺寸保存下来
-      previewTerms: shuffledTerms.slice(0, maxTerms) 
-    }
-  })
+    const config = categoryConfig[item.name] || { icon: '✨', color: '#ffffff' }
 
-  // 第三步：打乱整个分类数组的顺序以产生随机错落感
-  return categoriesArray.sort(() => 0.5 - Math.random())
+    return {
+      ...item,
+      size: size,
+      icon: config.icon,
+      color: config.color,
+      previewTerms: shuffledTerms.slice(0, maxTerms),
+      // 为每个气泡生成唯一的随机动画参数，解决瞬移并让浮动更圆滑
+      delay: -(Math.random() * 5), 
+      duration: 4 + Math.random() * 4,
+      ox: index % 2 === 0 ? 10 : -10, // 初始 X 偏移
+      oy: index % 3 === 0 ? 12 : -12 // 初始 Y 偏移
+    }
+  }).sort(() => 0.5 - Math.random())
 })
 
+// 2. 拖拽逻辑：让气泡“自然向另一边排列”
+const onDragStart = (index) => {
+  dragItemIndex.value = index
+}
 
-// 2. 动态样式计算：直接使用已经在 computed 里算好的 size
-const getBubbleStyle = (size, index) => {
-  const offsetY = index % 2 === 0 ? '12px' : '-12px';
-  const offsetX = index % 3 === 0 ? '8px' : '-8px';
+const onDragEnter = (index) => {
+  if (dragItemIndex.value === null || dragItemIndex.value === index) return
+  // 交换数组位置，transition-group 会自动处理平滑移动
+  const list = [...bubbleCategories.value]
+  const dragItem = list[dragItemIndex.value]
+  list.splice(dragItemIndex.value, 1)
+  list.splice(index, 0, dragItem)
+  dragItemIndex.value = index
+  bubbleCategories.value = list
+}
 
-  return {
-    width: `${size}px`,
-    height: `${size}px`,
-    transform: `translate(${offsetX}, ${offsetY})`,
-    // 字体基准随气泡尺寸按比例缩小，最小11px
-    fontSize: `${Math.max(11, size / 11)}px`,
-    transition: 'all 0.4s ease-out'
-  }
+const onDragEnd = () => {
+  dragItemIndex.value = null
 }
 
 const goToCategory = (name) => {
@@ -101,176 +92,179 @@ const goToCategory = (name) => {
 
 <template>
   <div class="categories-page">
-    <div class="bubbles-wrapper">
-      <!-- 🌟 注意这里传入的是 cat.size -->
+    <!-- 使用 transition-group 实现拖拽时的自然滑动排列 -->
+    <transition-group name="bubble-list" tag="div" class="bubbles-wrapper">
       <div 
         v-for="(cat, index) in bubbleCategories" 
         :key="cat.name" 
         class="bubble-item"
-        :style="getBubbleStyle(cat.size, index)" 
+        :draggable="true"
+        @dragstart="onDragStart(index)"
+        @dragenter.prevent="onDragEnter(index)"
+        @dragover.prevent
+        @dragend="onDragEnd"
         @click="goToCategory(cat.name)" 
+        :style="{
+          width: `${cat.size}px`,
+          height: `${cat.size}px`,
+          fontSize: `${Math.max(12, cat.size / 10.5)}px`,
+          '--ox': `${cat.ox}px`,
+          '--oy': `${cat.oy}px`,
+          animationDelay: `${cat.delay}s`,
+          animationDuration: `${cat.duration}s`
+        }"
       >
         <div class="bubble-inner">
-          <span class="cat-icon">{{ categoryConfig[cat.name]?.icon || '✨' }}</span>
+          <span class="cat-icon">{{ cat.icon }}</span>
           <strong class="cat-name">{{ cat.name }}</strong>
           
           <div class="preview-cloud">
-            <span v-for="term in cat.previewTerms" :key="term" class="preview-tag">
+            <!-- 🌟 词条背景色逻辑：白色则透明，否则同步分类色 -->
+            <span v-for="term in cat.previewTerms" 
+                  :key="term" 
+                  class="preview-tag">       
               {{ term }}
             </span>
           </div>
         </div>
       </div>
-    </div>
+    </transition-group>
   </div>
 </template>
 
 <style scoped>
-/* 1. 页面整体布局 */
 .categories-page {
-  padding: 60px 20px;
-  min-height: 80vh;
+  padding: 40px 10px;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
-.page-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.page-header h2 {
-  margin: 0;
-  color: var(--text-main);
-  font-size: 28px;
-  font-weight: 800;
-}
-
-.subtitle {
-  color: var(--text-secondary);
-  font-size: 15px;
-  margin-top: 10px;
-  opacity: 0.8;
-}
-
-/* 2. 气泡容器 */
 .bubbles-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 20px; /* 间距稍微调小一点，配合缩小的气泡 */
+  gap: 25px; /* 间距增大，配合更大的气泡 */
   max-width: 1200px;
-  padding: 20px;
+  padding: 40px 20px;
+  perspective: 1000px;
 }
 
-/* 3. 气泡个体 */
+/* 🌟 核心动画：将初始偏移融入浮动，消除瞬移 */
+@keyframes smoothFloat {
+  0% { transform: translate(var(--ox), var(--oy)); }
+  50% { transform: translate(calc(var(--ox) * -1), calc(var(--oy) * -1.2)); }
+  100% { transform: translate(var(--ox), var(--oy)); }
+}
+
 .bubble-item {
   border-radius: 50%;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
-  
-  box-shadow: 
-    0 10px 25px rgba(0,0,0,0.06), 
-    inset -4px -4px 12px rgba(0,0,0,0.03),
-    inset 4px 4px 12px rgba(255,255,255,0.7);
-
+  box-shadow: 0 12px 30px rgba(0,0,0,0.07), inset -4px -4px 12px rgba(0,0,0,0.02);
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: grab;
   flex-shrink: 0; 
-  
-  transition: 
-    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
-  animation: float 5s ease-in-out infinite;
-  
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  animation: smoothFloat infinite ease-in-out;
   overflow: hidden;
   text-align: center;
-  /* 🌟 Padding 必须缩小，否则文字会被挤出边界 */
-  padding: 8px; 
+  padding: 10px;
+  user-select: none;
+  -webkit-user-drag: element;
+  /* 1. 去掉点击时的灰色高亮框 (iOS & Android Chrome) */
+  -webkit-tap-highlight-color: transparent; 
+
+  /* 2. 禁止弹出系统默认菜单（如复制、查看图像），长按时就不出方框了 */
+  -webkit-touch-callout: none; 
+
+  /* 3. 禁止用户选中气泡内的文字 */
+  user-select: none;
+  -webkit-user-select: none;
+
+  /* 4. 去掉可能的焦点轮廓线 */
+  outline: none;
 }
 
-.bubble-item:nth-child(even) { animation-delay: 1s; animation-duration: 6s; }
-.bubble-item:nth-child(3n) { animation-delay: 2s; animation-duration: 4.5s; }
+.bubble-item:active { cursor: grabbing; }
+
+/* 🌟 当数组顺序改变时，未被拖动的元素会平滑滑动 */
+.bubble-list-move {
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
 
 .bubble-item:hover {
-  transform: scale(1.1) translateY(-10px) !important;
-  z-index: 10;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+  z-index: 100;
   border-color: #FFD700;
-  animation-play-state: paused; 
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  animation-play-state: paused; /* 悬停时停止浮动，方便点击 */
 }
 
-/* 4. 气泡内部内容布局 */
 .bubble-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px; /* 内部间隙变紧凑 */
+  gap: 6px;
   width: 100%;
 }
 
-.cat-icon { 
-  font-size: 1.2em; /* 随气泡缩小 */
-  margin-bottom: -2px;
-}
-
+.cat-icon { font-size: 1.3em; }
 .cat-name { 
-  font-size: 1em; /* 随气泡缩小 */
+  font-size: 1.1em; 
   color: var(--text-main); 
   font-weight: 800; 
   white-space: nowrap;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-
-/* 5. 词条云预览 */
-.preview-tag {
-  font-size: 0.6em; /* 字体缩小防溢出 */
-  padding: 1px 4px;       
-  margin: 1px;            
-  background: var(--bg-color);
-  color: var(--text-secondary);
-  border-radius: 6px;
-  white-space: nowrap;
-  opacity: 0.9;
-  
-  /* 🌟 防溢出兜底：就算词条超级长，也绝对截断加省略号，不撑破气泡 */
-  max-width: 90%;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .preview-cloud {
   display: flex;
-  flex-wrap: wrap;        
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  gap: 1px;               
-  max-width: 98%;         
+  gap: 3px;
 }
 
-/* 6. 动画与适配 */
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+.preview-tag {
+  font-size: 0.65em;
+  padding: 2px 6px;
+  border-radius: 8px;
+  white-space: nowrap;
+  max-width: 85px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  background-color: #f8f9fa; 
+  /* color: var(--text-secondary);  */
+  border: 1px solid rgba(0,0,0,0.03); 
+  transition: background-color 0.3s ease; 
+}
+/* 当首页选择了“粉色”时 */
+:global(.bg-pink) .preview-tag {
+  background-color: #FFE4E1 !important; /* 与你首页设置的粉色完全一致 */
+  color: #d87093; /* 稍微深一点的粉色文字，保证清晰 */
+  border: 1px solid rgba(0,0,0,0.03);
 }
 
-:global(html.dark-mode) .bubble-item {
-  box-shadow: 
-    0 10px 30px rgba(0,0,0,0.4), 
-    inset -2px -2px 8px rgba(0,0,0,0.3),
-    inset 2px 2px 8px rgba(255,255,255,0.05);
+/* 当首页选择了“绿色”时 */
+:global(.bg-green) .preview-tag {
+  background-color: #C7EDCC !important; /* 与你首页设置的绿色完全一致 */
+  color: #556b2f; /* 稍微深一点的绿色文字 */
+  border: 1px solid rgba(0,0,0,0.03);
 }
 
+/* 🌟 夜间模式：设为灰色 */
+:global(html.dark-mode) .preview-tag {
+  background-color: #333333 !important; /* 深灰色 */
+  color: #aaaaaa !important;
+  border: none !important;
+}
+
+/* 适配移动端 */
 @media (max-width: 768px) {
-  .bubbles-wrapper { gap: 10px; }
-  .page-header h2 { font-size: 22px; }
-  .bubble-item { animation-duration: 7s; }
+  .bubbles-wrapper { gap: 15px; padding: 20px 10px; }
+  .bubble-item { animation-duration: 8s !important; } /* 手机上慢一点更优雅 */
 }
 </style>
