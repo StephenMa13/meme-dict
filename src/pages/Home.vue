@@ -168,7 +168,7 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
     <nav class="navbar">
       <div class="navbar-left">
         <div class="logo">
-          <img src="/logo.png" alt="Logo" class="spark-logo" /> 
+          <img src="/Home-logo.png" alt="Logo" class="spark-logo" /> 
           梗查查
         </div>
       </div>
@@ -297,7 +297,7 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 
 .app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: transparent !important; min-height: 100vh; transition: background-color 0.3s; }
 .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; gap: 20px; }
-.logo { font-size: 20px; font-weight: bold; color: var(--text-main); display: flex;align-items: center;gap: 8px;}
+.logo { font-size: 18px; font-weight: bold; color: var(--text-main); display: flex;align-items: center;gap: 8px;}
 .spark-logo { width: 1.5em;  height: 1.5em;  object-fit: contain; position: relative;top: 1px;}
 
 .add-btn { background-color: #FFD700; border: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; cursor: pointer; color: #333; }

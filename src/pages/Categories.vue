@@ -3,17 +3,18 @@ import { ref, computed, onMounted } from 'vue'
 import { getMemes } from '../db.js' 
 import { useRouter } from 'vue-router'
 import { categoryConfig } from '../categories.js'
+
 const router = useRouter()
 const allMemes = ref([])
 
 onMounted(() => {
-  allMemes.value = getMemes()
+  allMemes.value = getMemes() || []
 })
 
-
-
-// 1. 核心逻辑：计算分类数据并生成随机预览
+// 1. 核心逻辑：计算分类数据并生成随机预览，包含尺寸预计算
 const bubbleCategories = computed(() => {
+  if (!allMemes.value || allMemes.value.length === 0) return []
+
   const categoryMap = {}
 
   // 第一步：聚合并收集该分类下的所有词条名
@@ -27,7 +28,7 @@ const bubbleCategories = computed(() => {
           name: cat, 
           totalViews: 0, 
           count: 0,
-          allTerms: [] // 新增：存入该分类下所有的梗名称
+          allTerms: []
         }
       }
       categoryMap[cat].totalViews += (meme.view_count || 0)
@@ -36,53 +37,59 @@ const bubbleCategories = computed(() => {
     })
   })
 
-  // 第二步：将 Map 转为数组，并为每个分类抽取随机预览词
+  // 提取极值用于计算缩放
+  const counts = Object.values(categoryMap).map(c => c.count)
+  const maxCount = counts.length ? Math.max(...counts) : 1
+  const minCount = counts.length ? Math.min(...counts) : 0
+
+  // 🌟 缩小 1/3 的尺寸界限 (原：90~200，现：60~134)
+  const minSize = 60  
+  const maxSize = 134 
+
+  // 第二步：转为数组，先计算每个泡泡的大小，再决定放几个词
   const categoriesArray = Object.values(categoryMap).map(item => {
-    // 随机洗牌该分类下的词条，取前 3 个
+    let size = (minSize + maxSize) / 2
+    if (maxCount !== minCount) {
+      const ratio = (item.count - minCount) / (maxCount - minCount)
+      size = minSize + Math.pow(ratio, 1.2) * (maxSize - minSize)
+    }
+
+    // 🌟 动态判断：根据算出来的物理尺寸决定展示的词条数量
+    let maxTerms = 3
+    if (size < 85) {
+      maxTerms = 1 // 太小的气泡只放1个词
+    } else if (size < 110) {
+      maxTerms = 2 // 中等的气泡放2个词
+    }
+
+    // 随机洗牌该分类下的词条
     const shuffledTerms = [...item.allTerms].sort(() => 0.5 - Math.random())
     
     return {
       name: item.name,
       count: item.count,
       totalViews: item.totalViews,
-      // 这里的 previewTerms 就是我们要显示在气泡里的词
-      previewTerms: shuffledTerms.slice(0, 3) 
+      size: size, // 把计算好的物理尺寸保存下来
+      previewTerms: shuffledTerms.slice(0, maxTerms) 
     }
   })
 
-  // 第三步：🌟 关键！打乱整个分类数组的顺序
-  // 这样在 DOM 渲染时，大泡泡（数量多）和小泡泡（数量少）就会随机挨在一起
+  // 第三步：打乱整个分类数组的顺序以产生随机错落感
   return categoriesArray.sort(() => 0.5 - Math.random())
 })
 
 
-// 2. 动态样式计算：根据 count 映射直径尺寸
-const getBubbleStyle = (count, index) => {
-  const counts = bubbleCategories.value.map(c => c.count)
-  const maxCount = Math.max(...counts)
-  const minCount = Math.min(...counts)
-
-  const minSize = 90  // 稍微大一点，否则放不下文字
-  const maxSize = 200 
-
-  let size = (minSize + maxSize) / 2
-
-  if (maxCount !== minCount) {
-    // 使用 Math.pow 让大小差距更明显（大者更大，小者更小）
-    const ratio = (count - minCount) / (maxCount - minCount)
-    size = minSize + Math.pow(ratio, 1.2) * (maxSize - minSize)
-  }
-
-  // 💡 错落感核心：根据 index 奇偶性产生上下位移偏移
+// 2. 动态样式计算：直接使用已经在 computed 里算好的 size
+const getBubbleStyle = (size, index) => {
   const offsetY = index % 2 === 0 ? '12px' : '-12px';
   const offsetX = index % 3 === 0 ? '8px' : '-8px';
 
   return {
     width: `${size}px`,
     height: `${size}px`,
-    // 这里的 transform 让球体不再死板地排列在水平线上
     transform: `translate(${offsetX}, ${offsetY})`,
-    fontSize: `${Math.max(13, size / 10)}px`,
+    // 字体基准随气泡尺寸按比例缩小，最小11px
+    fontSize: `${Math.max(11, size / 11)}px`,
     transition: 'all 0.4s ease-out'
   }
 }
@@ -95,19 +102,18 @@ const goToCategory = (name) => {
 <template>
   <div class="categories-page">
     <div class="bubbles-wrapper">
-      <!-- 💡 传入 index 用于计算位置偏移，实现“大中有小、错落有致” -->
+      <!-- 🌟 注意这里传入的是 cat.size -->
       <div 
         v-for="(cat, index) in bubbleCategories" 
         :key="cat.name" 
         class="bubble-item"
-        :style="getBubbleStyle(cat.count, index)" 
+        :style="getBubbleStyle(cat.size, index)" 
         @click="goToCategory(cat.name)" 
       >
         <div class="bubble-inner">
           <span class="cat-icon">{{ categoryConfig[cat.name]?.icon || '✨' }}</span>
           <strong class="cat-name">{{ cat.name }}</strong>
           
-          <!-- 🌟 替换原来的数字：展示该分类下随机的几个词 -->
           <div class="preview-cloud">
             <span v-for="term in cat.previewTerms" :key="term" class="preview-tag">
               {{ term }}
@@ -119,14 +125,13 @@ const goToCategory = (name) => {
   </div>
 </template>
 
-
 <style scoped>
 /* 1. 页面整体布局 */
 .categories-page {
   padding: 60px 20px;
   min-height: 80vh;
   display: flex;
-  flex-direction: column; /* 纵向排列 Header 和 Bubbles */
+  flex-direction: column;
   align-items: center;
 }
 
@@ -155,18 +160,17 @@ const goToCategory = (name) => {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 30px; /* 增大间距，让呼吸感更强 */
+  gap: 20px; /* 间距稍微调小一点，配合缩小的气泡 */
   max-width: 1200px;
   padding: 20px;
 }
 
-/* 3. 气泡个体 - 融合了拟物阴影与漂浮动效 */
+/* 3. 气泡个体 */
 .bubble-item {
   border-radius: 50%;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   
-  /* 拟物化阴影：外阴影 + 内高光 */
   box-shadow: 
     0 10px 25px rgba(0,0,0,0.06), 
     inset -4px -4px 12px rgba(0,0,0,0.03),
@@ -176,9 +180,8 @@ const goToCategory = (name) => {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  flex-shrink: 0; /* 强制保持圆形 */
+  flex-shrink: 0; 
   
-  /* 动画结合：过渡 + 循环漂浮 */
   transition: 
     transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
     box-shadow 0.3s ease,
@@ -187,20 +190,19 @@ const goToCategory = (name) => {
   
   overflow: hidden;
   text-align: center;
-  padding: 15px;
+  /* 🌟 Padding 必须缩小，否则文字会被挤出边界 */
+  padding: 8px; 
 }
 
-/* 利用 nth-child 实现交错的漂浮效果 */
 .bubble-item:nth-child(even) { animation-delay: 1s; animation-duration: 6s; }
 .bubble-item:nth-child(3n) { animation-delay: 2s; animation-duration: 4.5s; }
 
 .bubble-item:hover {
-  /* 悬停时稍微放大并停止位移感 */
   transform: scale(1.1) translateY(-10px) !important;
   z-index: 10;
   box-shadow: 0 15px 35px rgba(0,0,0,0.12);
   border-color: #FFD700;
-  animation-play-state: paused; /* 悬停时静止以便阅读词条 */
+  animation-play-state: paused; 
 }
 
 /* 4. 气泡内部内容布局 */
@@ -209,55 +211,56 @@ const goToCategory = (name) => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 4px; /* 内部间隙变紧凑 */
   width: 100%;
 }
 
 .cat-icon { 
-  font-size: 1.5em; 
-  margin-bottom: -4px;
+  font-size: 1.2em; /* 随气泡缩小 */
+  margin-bottom: -2px;
 }
 
 .cat-name { 
-  font-size: 1.15em; 
+  font-size: 1em; /* 随气泡缩小 */
   color: var(--text-main); 
   font-weight: 800; 
   white-space: nowrap;
   text-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
-/* 5. 词条云预览 (取代了数字) */
-/* 修改这一处，让标签更紧凑 */
+/* 5. 词条云预览 */
 .preview-tag {
-  font-size: 0.65em;      /* 稍微调小字号 */
-  padding: 1px 6px;       /* 缩小内边距 */
-  margin: 1px;            /* 增加间距防止重叠 */
+  font-size: 0.6em; /* 字体缩小防溢出 */
+  padding: 1px 4px;       
+  margin: 1px;            
   background: var(--bg-color);
   color: var(--text-secondary);
-  border-radius: 8px;
+  border-radius: 6px;
   white-space: nowrap;
   opacity: 0.9;
+  
+  /* 🌟 防溢出兜底：就算词条超级长，也绝对截断加省略号，不撑破气泡 */
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* 确保容器能换行排布 */
 .preview-cloud {
   display: flex;
-  flex-wrap: wrap;        /* 必须允许换行 */
+  flex-wrap: wrap;        
   justify-content: center;
   align-items: center;
-  gap: 2px;               /* 词与词之间的间距 */
-  max-width: 95%;         /* 占用气泡更宽的面积 */
+  gap: 1px;               
+  max-width: 98%;         
 }
-
 
 /* 6. 动画与适配 */
 @keyframes float {
   0% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
+  50% { transform: translateY(-10px); }
   100% { transform: translateY(0px); }
 }
 
-/* 夜间模式特定阴影调整 */
 :global(html.dark-mode) .bubble-item {
   box-shadow: 
     0 10px 30px rgba(0,0,0,0.4), 
@@ -265,20 +268,9 @@ const goToCategory = (name) => {
     inset 2px 2px 8px rgba(255,255,255,0.05);
 }
 
-/* 移动端适配 */
 @media (max-width: 768px) {
-  .bubbles-wrapper { gap: 15px; }
+  .bubbles-wrapper { gap: 10px; }
   .page-header h2 { font-size: 22px; }
-  
-  .bubble-item { 
-    /* 移动端减小动画幅度 */
-    animation-duration: 7s;
-  }
-  
-  .preview-tag {
-  }
-  .preview-tag:first-child {
-  }
+  .bubble-item { animation-duration: 7s; }
 }
-
 </style>
