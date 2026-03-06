@@ -10,6 +10,41 @@ const draggingIndex = ref(null) // 正在拖拽的索引
 
 const STORAGE_KEY = 'meme_bubble_layout_v1'
 
+const isRefreshing = ref(false)
+const pullDistance = ref(0)
+let startY = 0
+
+// 🌟 核心：手动触发刷新的方法
+const refreshBubbles = () => {
+  localStorage.removeItem(STORAGE_KEY) // 清除位置记忆
+  initBubbles() // 重新调用初始化的随机逻辑
+}
+
+const handleTouchStart = (e) => {
+  if (window.scrollY === 0) startY = e.touches[0].pageY
+}
+
+const handleTouchMove = (e) => {
+  const currentY = e.touches[0].pageY
+  if (currentY > startY && window.scrollY === 0) {
+    pullDistance.value = Math.min((currentY - startY) * 0.4, 70)
+  }
+}
+
+const handleTouchEnd = async () => {
+  if (pullDistance.value >= 50) {
+    isRefreshing.value = true
+    pullDistance.value = 40
+    
+    // 刷新逻辑
+    await new Promise(resolve => setTimeout(resolve, 600))
+    refreshBubbles()
+    
+    isRefreshing.value = false
+  }
+  pullDistance.value = 0
+}
+
 // 1. 初始化数据：优先从本地读取，没有则生成
 const initBubbles = () => {
   const cached = localStorage.getItem(STORAGE_KEY)
@@ -116,7 +151,17 @@ onMounted(initBubbles)
 </script>
 
 <template>
-  <div class="categories-page">
+  <div class="categories-page"
+    @touchstart="handleTouchStart"
+    @touchmove="handleTouchMove"  
+    @touchend="handleTouchEnd"  >
+    
+    <div class="refresh-bar" :style="{ height: pullDistance + 'px' }">
+      <div class="bubbles-loader" v-if="isRefreshing">
+         <span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+      </div>
+      <span v-else-if="pullDistance > 20" style="font-size: 20px;">🫧</span>
+    </div>
     <transition-group name="bubble-list" tag="div" class="bubbles-wrapper">
       <div 
         v-for="(cat, index) in bubbleCategories" 
@@ -165,6 +210,8 @@ onMounted(initBubbles)
   display: flex;
   justify-content: center;
   overflow-x: hidden;
+  touch-action: pan-y;
+  padding-top: 20px;
 }
 
 .bubbles-wrapper {
@@ -278,4 +325,27 @@ onMounted(initBubbles)
   .bubbles-wrapper { gap: 12px; }
   .bubble-item { animation-duration: 10s !important; }
 }
+
+.refresh-bar {
+  position: fixed; /* 固定在顶部 */
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  z-index: 1000;
+  overflow: hidden;
+  transition: height 0.2s;
+}
+
+.bubbles-loader { font-size: 24px; color: var(--text-main); }
+.dot { animation: dot-blink 1s infinite; }
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dot-blink { 
+  0%, 100% { opacity: 0; transform: translateY(0); } 
+  50% { opacity: 1; transform: translateY(-5px); } 
+}
+
 </style>
