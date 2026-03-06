@@ -94,13 +94,20 @@ const favoriteMemes = computed(() => {
   flex-direction: row !important;     
   justify-content: space-between !important; 
   align-items: center !important;     
-  background: var(--card-bg) !important; /* 💡 改用变量，夜间会变深灰 */
-  border: 1px solid var(--border-color); /* 💡 改用变量 */
-  border-radius: 12px; 
-  padding: 16px 20px; 
+  background: var(--card-bg) !important; 
+  border: 1px solid var(--border-color); 
+  border-radius: 10px; 
+  padding: 8px 12px; 
   box-shadow: 0 4px 8px rgba(0,0,0,0.04); 
   cursor: pointer; 
-  color: var(--text-main); /* 💡 确保文字颜色正确 */
+  color: var(--text-main);
+  max-width: 92%;  
+  transition:transform 0.1s, box-shadow 0.1s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.card:active {
+  transform: scale(0.98);
 }
 
 /* 强制左侧（标题）横向排版 */
@@ -117,21 +124,21 @@ const favoriteMemes = computed(() => {
   display: flex !important; 
   flex-direction: row !important; 
   align-items: center !important; 
-  gap: 10px !important; 
+  gap: 8px !important; 
   margin-left: 10px; 
 }
 
 /* 标题防换行样式 */
 .meme-info { flex: 1; display: flex; align-items: center; }
 .meme-term { 
-  font-size: 16px; font-weight: bold; margin: 0 !important; 
+  font-size: 14px !important; font-weight: 700px !important; margin: 0 !important; 
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
   color: var(--text-main); /* 💡 改用变量 */
 }
 
 /* 收藏按钮样式 */
 .action-btn { 
-  border: none; padding: 6px 12px; border-radius: 12px; font-size: 12px; 
+  border: none; padding: 6px 10px; border-radius: 8px; font-size: 11px; 
   font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; 
 }
 

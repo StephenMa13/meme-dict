@@ -73,7 +73,7 @@ const handleTouchMove = (e) => {
   // 只有向下拉，且在顶部时才计算距离
   if (diff > 0 && window.scrollY === 0) {
     // 增加阻尼感：拉得越深越费劲 (Math.pow(diff, 0.8))
-    pullDistance.value = Math.min(Math.pow(diff, 0.8) * 2, 80) 
+    pullDistance.value = Math.min(diff*0.5, 80) 
     
     // 阻止浏览器默认的下拉回弹（橡皮筋效果）以优化体验
     if (pullDistance.value > 10) {
@@ -115,13 +115,13 @@ const calculateDisplayCount = () => {
   const isMobile = window.innerWidth < 768;
   
   // 减去导航栏(约60px)和搜索区域(约140px)和标题(约50px)
-  const availableHeight = vh - 250; 
+  const availableHeight = vh - 330; 
   const cardHeight = 54; // 紧凑型卡片高度（含gap）
   
   const rows = Math.floor(availableHeight / cardHeight);
   const cols = isMobile ? 1 : (window.innerWidth < 1024 ? 2 : 3);
   
-  return Math.max(rows * cols, 6); // 保证至少显示6个
+  return Math.max(rows * cols, isMobile ? 4 : 6); // 保证至少显示6个
 }
 
 const displayCount = ref(10); // 默认值
@@ -381,11 +381,13 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
   background-color: #121212 !important; 
 }
 
-.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; min-height: 100dvh; overflow: hidden; background-color: transparent !important; transition: background-color 0.3s; overflow-x: hidden; overscroll-behavior-y: contain;}
+.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100dvh !important; overflow: hidden !important; background-color: transparent !important; transition: background-color 0.3s; overflow-x: hidden; overscroll-behavior-y: contain; flex-direction: column;  padding-bottom: 80px;  box-sizing: border-box;}
 .navbar { margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; gap: 20px; flex-shrink: 0;}
 .logo { font-size: 18px; font-weight: bold; color: var(--text-main); display: flex;align-items: center;gap: 8px;}
 .spark-logo { width: 1.5em;  height: 1.5em;  object-fit: contain; position: relative;top: 1px;}
-
+.navbar, .hero, .section-header {
+  flex-shrink: 0;
+}
 .add-btn { background-color: #FFD700; border: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; cursor: pointer; color: #333; }
 
 .nav-actions { display: flex; align-items: center; gap: 10px; z-index: 100; }
@@ -412,14 +414,14 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 .clear-btn { cursor: pointer; color: #ff4757; font-weight: bold; transition: opacity 0.2s; }
 .clear-btn:hover { opacity: 0.8; }
 .history-list { list-style: none; margin: 0; padding: 0; }
-.history-list li { padding: 14px 20px; font-size: 15px; color: var(--text-main); cursor: pointer; transition: background 0.2s; }
+.history-list li { padding: 14px 20px; font-size: 15px; color: var(--text-main); cursor: pointer; transition: background-color 0.2s; }
 .history-list li:hover { background-color: var(--bg-color); }
 
-.hot-list { margin: 0 auto; padding: 10px 20px; }
+.hot-list { margin: 0 auto; padding: 10px 20px; flex-direction: column; display: flex; box-sizing: border-box;}
 .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-shrink: 0;}
 .section-title { font-size: 18px; font-weight: bold; margin: 0; color: var(--text-main); }
 .section-controls { display: flex; gap: 8px; align-items: center; }
-.section-btn { background-color: var(--bg-color); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; color: var(--text-main); cursor: pointer; transition: background-color 0.2s; display: inline-flex; align-items: center; gap: 4px; }
+.section-btn { background-color: transparent; padding: 6px 14px; border: 1px solid transparent; outline: none;border-radius: 20px; font-size: 13px; font-weight: bold; color: var(--text-main); cursor: pointer; transition: background-color 0.2s; display: inline-flex; align-items: center; gap: 4px; }
 .refresh-random-btn:hover { filter: brightness(0.9); }
 
 /* 💡 新增：空状态样式 */
@@ -517,8 +519,9 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
   justify-content: center;
   overflow: hidden;
   background-color: transparent;
-  transition: height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  pointer-events: none; /* 不干扰点击 */
+  transition: height 0.2s ease-out;
+  pointer-events: none; 
+  flex-shrink: 0;
 }
 
 .refresh-content {

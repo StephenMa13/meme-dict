@@ -103,17 +103,17 @@ onMounted(() => {
 
 /* 淡粉色 */
 :global(.bg-pink body) {
-  background-color: #FFE4E1 !important; 
+  --bg-color: #FFE4E1 !important; 
 }
 
 /* 绿豆沙色（经典护眼色） */
 :global(.bg-green body) {
-  background-color: #C7EDCC !important;
+  --bg-color: #C7EDCC !important;
 }
 
 /* ⚠️ 核心防御：如果开启了夜间模式，强制覆盖自定义背景色，保护视力 */
 :global(.dark-mode body) {
-  background-color: #121212 !important; 
+  --bg-color: #121212 !important; 
 }
 
 
