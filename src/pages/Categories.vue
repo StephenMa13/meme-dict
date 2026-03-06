@@ -1,51 +1,37 @@
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
-import { getMemes } from '../db.js' 
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { getMemes } from '../db.js'
 import { useRouter } from 'vue-router'
 import { categoryConfig } from '../categories.js'
 
 const router = useRouter()
 const bubbleCategories = ref([])
-const draggingIndex = ref(null) // 正在拖拽的索引
-
 const STORAGE_KEY = 'meme_bubble_layout_v1'
 
+// ========== 拖拽状态 ==========
+const draggingIndex = ref(null)
+const dragStyle = ref({})        // 拖拽中的浮动样式
+const isDragging = ref(false)
+
+let longPressTimer = null
+let touchStartX = 0
+let touchStartY = 0
+let dragOffsetX = 0
+let dragOffsetY = 0
+let dragElement = null
+
+// ========== 下拉刷新 ==========
 const isRefreshing = ref(false)
 const pullDistance = ref(0)
-let startY = 0
+let pullStartY = 0
+let isPulling = false
 
-// 🌟 核心：手动触发刷新的方法
 const refreshBubbles = () => {
-  localStorage.removeItem(STORAGE_KEY) // 清除位置记忆
-  initBubbles() // 重新调用初始化的随机逻辑
+  localStorage.removeItem(STORAGE_KEY)
+  initBubbles()
 }
 
-const handleTouchStart = (e) => {
-  if (window.scrollY === 0) startY = e.touches[0].pageY
-}
-
-const handleTouchMove = (e) => {
-  const currentY = e.touches[0].pageY
-  if (currentY > startY && window.scrollY === 0) {
-    pullDistance.value = Math.min((currentY - startY) * 0.4, 70)
-  }
-}
-
-const handleTouchEnd = async () => {
-  if (pullDistance.value >= 50) {
-    isRefreshing.value = true
-    pullDistance.value = 40
-    
-    // 刷新逻辑
-    await new Promise(resolve => setTimeout(resolve, 600))
-    refreshBubbles()
-    
-    isRefreshing.value = false
-  }
-  pullDistance.value = 0
-}
-
-// 1. 初始化数据：优先从本地读取，没有则生成
+// ========== 初始化 ==========
 const initBubbles = () => {
   const cached = localStorage.getItem(STORAGE_KEY)
   if (cached) {
@@ -56,7 +42,6 @@ const initBubbles = () => {
   const memes = getMemes() || []
   const categoryMap = {}
 
-  // 整理分类数据，同时存储词条的 {term, id}
   memes.forEach(meme => {
     let cats = meme.category || '其他'
     if (!Array.isArray(cats)) cats = [cats]
@@ -65,14 +50,15 @@ const initBubbles = () => {
         categoryMap[cat] = { name: cat, count: 0, allItems: [] }
       }
       categoryMap[cat].count += 1
-      categoryMap[cat].allItems.push({ term: meme.term, id: meme.id }) 
+      categoryMap[cat].allItems.push({ term: meme.term, id: meme.id })
     })
   })
 
   const counts = Object.values(categoryMap).map(c => c.count)
   const maxCount = Math.max(...counts) || 1
   const minCount = Math.min(...counts) || 0
-  const minSize = 85; const maxSize = 170 
+  const minSize = 85
+  const maxSize = 170
 
   const newList = Object.values(categoryMap).map((item, index) => {
     let size = (minSize + maxSize) / 2
@@ -81,7 +67,6 @@ const initBubbles = () => {
       size = minSize + Math.pow(ratio, 1.2) * (maxSize - minSize)
     }
 
-    // 🌟 核心要求：至少显示 2 个词条
     let maxTerms = size < 100 ? 2 : (size < 130 ? 3 : 4)
     const shuffledItems = [...item.allItems].sort(() => 0.5 - Math.random())
     const config = categoryConfig[item.name] || { icon: '✨', color: '#ffffff' }
@@ -91,9 +76,8 @@ const initBubbles = () => {
       size,
       icon: config.icon,
       color: config.color,
-      // 存储对象以便跳转
-      previewItems: shuffledItems.slice(0, Math.max(2, maxTerms)), 
-      delay: -(Math.random() * 5), 
+      previewItems: shuffledItems.slice(0, Math.max(2, maxTerms)),
+      delay: -(Math.random() * 5),
       duration: 5 + Math.random() * 5,
       ox: index % 2 === 0 ? 8 : -8,
       oy: index % 3 === 0 ? 10 : -10
@@ -108,72 +92,206 @@ const saveLayout = () => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(bubbleCategories.value))
 }
 
-// 2. 拖拽逻辑增强
+// ========== 🌟 核心：Touch 拖拽（替代 HTML5 drag） ==========
+
+const onTouchStart = (e, index) => {
+  const touch = e.touches[0]
+  touchStartX = touch.clientX
+  touchStartY = touch.clientY
+
+  // 长按 300ms 才进入拖拽模式，短按是点击
+  longPressTimer = setTimeout(() => {
+    isDragging.value = true
+    draggingIndex.value = index
+
+    // 记录手指相对于气泡中心的偏移
+    const rect = e.currentTarget.getBoundingClientRect()
+    dragOffsetX = touch.clientX - rect.left - rect.width / 2
+    dragOffsetY = touch.clientY - rect.top - rect.height / 2
+    dragElement = e.currentTarget
+
+    // 震动反馈（如果设备支持）
+    if (navigator.vibrate) navigator.vibrate(30)
+
+    // 设置浮动位置
+    dragStyle.value = {
+      left: `${touch.clientX - rect.width / 2}px`,
+      top: `${touch.clientY - rect.height / 2}px`,
+      width: `${rect.width}px`,
+      height: `${rect.height}px`,
+    }
+  }, 300)
+}
+
+const onTouchMove = (e, index) => {
+  const touch = e.touches[0]
+  const dx = touch.clientX - touchStartX
+  const dy = touch.clientY - touchStartY
+
+  // 🌟 如果移动距离太小且还没进入拖拽，可能是下拉刷新
+  if (!isDragging.value) {
+    // 取消长按计时器（手指滑动了 = 不是长按）
+    if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
+      clearTimeout(longPressTimer)
+    }
+
+    // 下拉刷新逻辑
+    if (dy > 0 && window.scrollY === 0 && !isDragging.value) {
+      isPulling = true
+      pullDistance.value = Math.min(dy * 0.4, 70)
+      e.preventDefault()
+    }
+    return
+  }
+
+  // ===== 正在拖拽 =====
+  e.preventDefault() // 🌟 关键：阻止页面滚动
+
+  const cat = bubbleCategories.value[draggingIndex.value]
+  const size = cat ? cat.size : 100
+
+  dragStyle.value = {
+    ...dragStyle.value,
+    left: `${touch.clientX - size / 2}px`,
+    top: `${touch.clientY - size / 2}px`,
+  }
+
+  // 🌟 检测手指下面是哪个气泡 → 交换位置
+  const targetIndex = getIndexAtPoint(touch.clientX, touch.clientY)
+  if (targetIndex !== null && targetIndex !== draggingIndex.value) {
+    const list = [...bubbleCategories.value]
+    const item = list.splice(draggingIndex.value, 1)[0]
+    list.splice(targetIndex, 0, item)
+    draggingIndex.value = targetIndex
+    bubbleCategories.value = list
+  }
+}
+
+const onTouchEnd = (e, index) => {
+  clearTimeout(longPressTimer)
+
+  // 下拉刷新结束
+  if (isPulling) {
+    if (pullDistance.value >= 50) {
+      isRefreshing.value = true
+      setTimeout(() => {
+        refreshBubbles()
+        isRefreshing.value = false
+        pullDistance.value = 0
+      }, 600)
+    } else {
+      pullDistance.value = 0
+    }
+    isPulling = false
+    return
+  }
+
+  // 拖拽结束
+  if (isDragging.value) {
+    isDragging.value = false
+    draggingIndex.value = null
+    dragStyle.value = {}
+    saveLayout()
+    return // 拖拽操作不触发点击
+  }
+
+  // 如果不是拖拽，就是点击 → 导航
+  // (什么也不做，让 @click 处理)
+}
+
+// 🌟 根据坐标找到手指下方的气泡索引
+const getIndexAtPoint = (x, y) => {
+  const items = document.querySelectorAll('.bubble-item:not(.drag-clone)')
+  for (let i = 0; i < items.length; i++) {
+    const rect = items[i].getBoundingClientRect()
+    // 用圆形碰撞检测而不是矩形
+    const cx = rect.left + rect.width / 2
+    const cy = rect.top + rect.height / 2
+    const r = rect.width / 2
+    const dist = Math.sqrt((x - cx) ** 2 + (y - cy) ** 2)
+    if (dist < r) return i
+  }
+  return null
+}
+
+// ========== PC 端保留 drag 事件 ==========
+const isMobile = ref(false)
+
+onMounted(() => {
+  isMobile.value = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+  initBubbles()
+})
+
+// PC 拖拽
 const onDragStart = (e, index) => {
+  if (isMobile.value) return
   draggingIndex.value = index
   e.dataTransfer.effectAllowed = 'move'
-  
-  // 🌟 解决“方形背景”：自定义拖拽预览图为空，或者稍微延迟修改样式
   const ghost = e.target.cloneNode(true)
-  ghost.style.opacity = "0" // 让原生的拖拽跟随图变透明
+  ghost.style.opacity = '0'
   document.body.appendChild(ghost)
   e.dataTransfer.setDragImage(ghost, 0, 0)
   setTimeout(() => document.body.removeChild(ghost), 0)
 }
 
 const onDragEnter = (index) => {
+  if (isMobile.value) return
   if (draggingIndex.value === null || draggingIndex.value === index) return
-  
-  // 交换位置
   const list = [...bubbleCategories.value]
-  const targetItem = list.splice(draggingIndex.value, 1)[0]
-  list.splice(index, 0, targetItem)
-  
+  const item = list.splice(draggingIndex.value, 1)[0]
+  list.splice(index, 0, item)
   draggingIndex.value = index
   bubbleCategories.value = list
 }
 
 const onDragEnd = () => {
+  if (isMobile.value) return
   draggingIndex.value = null
-  saveLayout() // 松手后持久化位置
+  saveLayout()
 }
 
-// 3. 导航逻辑
+// 导航
 const goToCategory = (name) => {
+  if (isDragging.value) return // 拖拽中不跳转
   router.push(`/category/${name}`)
 }
 
 const goToMeme = (id) => {
+  if (isDragging.value) return
   router.push(`/meme/${id}`)
 }
-
-onMounted(initBubbles)
 </script>
 
 <template>
-  <div class="categories-page"
-    @touchstart="handleTouchStart"
-    @touchmove="handleTouchMove"  
-    @touchend="handleTouchEnd"  >
-    
+  <div class="categories-page">
+
+    <!-- 下拉刷新指示器 -->
     <div class="refresh-bar" :style="{ height: pullDistance + 'px' }">
       <div class="bubbles-loader" v-if="isRefreshing">
-         <span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+        <span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
       </div>
       <span v-else-if="pullDistance > 20" style="font-size: 20px;">🫧</span>
     </div>
+
+    <!-- 气泡列表 -->
     <transition-group name="bubble-list" tag="div" class="bubbles-wrapper">
-      <div 
-        v-for="(cat, index) in bubbleCategories" 
-        :key="cat.name" 
+      <div
+        v-for="(cat, index) in bubbleCategories"
+        :key="cat.name"
         class="bubble-item"
-        :class="{ 'is-ghost': draggingIndex === index }"
-        :draggable="true"
+        :class="{
+          'is-ghost': draggingIndex === index && isDragging,
+          'is-pc-ghost': draggingIndex === index && !isDragging
+        }"
+        :draggable="!isMobile"
         @dragstart="onDragStart($event, index)"
         @dragenter.prevent="onDragEnter(index)"
         @dragover.prevent
         @dragend="onDragEnd"
-        @click="goToCategory(cat.name)" 
+        @touchstart.passive="onTouchStart($event, index)"
+        @touchmove="onTouchMove($event, index)"
+        @touchend="onTouchEnd($event, index)"
+        @click="goToCategory(cat.name)"
         :style="{
           width: `${cat.size}px`,
           height: `${cat.size}px`,
@@ -187,19 +305,34 @@ onMounted(initBubbles)
         <div class="bubble-inner">
           <span class="cat-icon">{{ cat.icon }}</span>
           <strong class="cat-name">{{ cat.name }}</strong>
-          
           <div class="preview-cloud">
-            <!-- 🌟 点击词条停止冒泡，直接去词条页 -->
-            <span v-for="item in cat.previewItems" 
-                  :key="item.id" 
-                  class="preview-tag"
-                  @click.stop="goToMeme(item.id)">       
+            <span
+              v-for="item in cat.previewItems"
+              :key="item.id"
+              class="preview-tag"
+              @click.stop="goToMeme(item.id)"
+            >
               {{ item.term }}
             </span>
           </div>
         </div>
       </div>
     </transition-group>
+
+    <!-- 🌟 拖拽时的浮动克隆体（手机端） -->
+    <div
+      v-if="isDragging && draggingIndex !== null"
+      class="drag-clone"
+      :style="{
+        ...dragStyle,
+        fontSize: `${Math.max(12, bubbleCategories[draggingIndex]?.size / 11)}px`
+      }"
+    >
+      <div class="bubble-inner">
+        <span class="cat-icon">{{ bubbleCategories[draggingIndex]?.icon }}</span>
+        <strong class="cat-name">{{ bubbleCategories[draggingIndex]?.name }}</strong>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -208,10 +341,12 @@ onMounted(initBubbles)
   padding: 40px 10px;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   overflow-x: hidden;
   touch-action: pan-y;
   padding-top: 20px;
+  position: relative;
 }
 
 .bubbles-wrapper {
@@ -224,7 +359,6 @@ onMounted(initBubbles)
   padding: 40px 20px;
 }
 
-/* 🌟 核心动画 */
 @keyframes smoothFloat {
   0%, 100% { transform: translate(var(--ox), var(--oy)); }
   50% { transform: translate(calc(var(--ox) * -1), calc(var(--oy) * -1.2)); }
@@ -239,32 +373,62 @@ onMounted(initBubbles)
   align-items: center;
   justify-content: center;
   cursor: grab;
-  flex-shrink: 0; 
-  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* 增加弹性动画 */
+  flex-shrink: 0;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation: smoothFloat infinite ease-in-out;
   overflow: hidden;
   text-align: center;
   padding: 12px;
   user-select: none;
+  -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
+  /* 🌟 关键：阻止手机端长按弹出菜单 */
+  -webkit-touch-callout: none;
 }
 
-/* 🌟 解决方形背景：让正在拖动的原件变成“浅色阴影”占位符 */
+/* 手机端拖拽时原位置的占位 */
 .is-ghost {
+  opacity: 0.25;
+  background: var(--bg-color) !important;
+  border: 2px dashed var(--border-color);
+  box-shadow: none;
+  transform: scale(0.85) !important;
+  animation: none !important;
+}
+
+/* PC 端拖拽占位 */
+.is-pc-ghost {
   opacity: 0.3;
   background: var(--bg-color) !important;
   border: 1px dashed var(--border-color);
   box-shadow: none;
   transform: scale(0.9) !important;
-  animation: none; /* 占位符不飘动 */
+  animation: none;
 }
 
-/* 🌟 拖拽时的平滑滑动顺序动画 */
+/* 🌟 手机端浮动的拖拽克隆体 */
+.drag-clone {
+  position: fixed;
+  z-index: 9999;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 2px solid #FFD700;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* 🌟 不接收任何事件 */
+  transform: scale(1.08);
+  transition: left 0.05s, top 0.05s; /* 微微平滑跟手 */
+  text-align: center;
+  padding: 12px;
+}
+
 .bubble-list-move {
   transition: transform 0.5s cubic-bezier(0.2, 0, 0, 1);
 }
 
-.bubble-item:hover:not(.is-ghost) {
+.bubble-item:hover:not(.is-ghost):not(.is-pc-ghost) {
   z-index: 10;
   border-color: #FFD700;
   box-shadow: 0 15px 35px rgba(0,0,0,0.12);
@@ -280,10 +444,10 @@ onMounted(initBubbles)
   gap: 4px;
 }
 
-.cat-name { 
-  font-size: 1.1em; 
-  color: var(--text-main); 
-  font-weight: 800; 
+.cat-name {
+  font-size: 1.1em;
+  color: var(--text-main);
+  font-weight: 800;
   margin-bottom: 2px;
 }
 
@@ -294,7 +458,6 @@ onMounted(initBubbles)
   gap: 4px;
 }
 
-/* 词条标签样式 */
 .preview-tag {
   font-size: 0.65em;
   padding: 2px 8px;
@@ -316,7 +479,6 @@ onMounted(initBubbles)
   transform: translateY(-2px);
 }
 
-/* 主题颜色适配（同步首页逻辑） */
 :global(.bg-pink) .preview-tag { background-color: #FFE4E1 !important; color: #d87093; }
 :global(.bg-green) .preview-tag { background-color: #C7EDCC !important; color: #556b2f; }
 :global(html.dark-mode) .preview-tag { background-color: #333 !important; color: #aaa; border: none; }
@@ -327,7 +489,7 @@ onMounted(initBubbles)
 }
 
 .refresh-bar {
-  position: fixed; /* 固定在顶部 */
+  position: fixed;
   top: 0; left: 0; right: 0;
   display: flex;
   align-items: center;
@@ -343,9 +505,8 @@ onMounted(initBubbles)
 .dot:nth-child(2) { animation-delay: 0.2s; }
 .dot:nth-child(3) { animation-delay: 0.4s; }
 
-@keyframes dot-blink { 
-  0%, 100% { opacity: 0; transform: translateY(0); } 
-  50% { opacity: 1; transform: translateY(-5px); } 
+@keyframes dot-blink {
+  0%, 100% { opacity: 0; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-5px); }
 }
-
 </style>
