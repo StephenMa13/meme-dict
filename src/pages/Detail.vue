@@ -128,9 +128,12 @@ onMounted(() => {
 <style scoped>
 .detail-container { 
   position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  padding: 20px; background-color: var(--bg-color);
+  padding: 20px; background-color: transparent;
   display: flex; justify-content: center; align-items: center;
   overflow: hidden; 
+  backdrop-filter: blur(10px); /* 让底层背景模糊 */
+  -webkit-backdrop-filter: blur(10px); /* 兼容 Safari */
+  z-index: 99;
 }
 
 .card { 
@@ -154,8 +157,16 @@ onMounted(() => {
 .back-btn-inner { position: absolute; top: 15px; left: 15px; background: transparent; border: none; font-size: 20px; cursor: pointer; }
 .title { font-size: 32px; margin: 10px 0; font-weight: 800; color: var(--text-main); }
 .avatar { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 10px; display: flex; justify-content: center; align-items: center; font-size: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-.tag-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(0,0,0,0.05); }
-
+.tags {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* 标签多的时候自动换行 */
+  gap: 12px;      /* 👈 这就是你要的“分开一点距离” */
+  margin-top: 10px;
+}
+.tag-badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(0,0,0,0.05); transition: transform 0.2s; }
+.tag-badge:active { transform: scale(0.95); }
+.clike-badge:hover { transform: scale(1.05); }
 .content { padding-top: 20px; text-align: left; }
 .content h3 { font-size: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--text-main); }
 .summary-text { background: var(--bg-color); padding: 15px; border-radius: 12px; font-style: italic; color: var(--text-main); line-height: 1.6; }
@@ -190,13 +201,16 @@ onMounted(() => {
   font-size: 20px; /* 图标缩小 */
   line-height: 1;
   opacity: 0.4; /* 默认未激活状态为浅色（模拟空心感） */
-  transition: all 0.2s;
+  transition: all 0.3s ;
+  color: var(--text-main);
 }
 
 /* 激活状态 */
 .active-icon {
-  opacity: 1; /* 激活后变为实色 */
+  opacity: 1 !important; /* 激活后变为实色 */
+  color: inherit;
   filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3)); /* 增加一点光晕感 */
+  transform: scale(1.1);
 }
 
 /* 不喜欢图标专属 */

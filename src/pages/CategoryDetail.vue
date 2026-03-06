@@ -125,58 +125,50 @@ const truncate = (text) => {
 .app-container { 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
   min-height: 100vh; 
-  background-color: var(--bg-color); /* 使用变量 */
+  background-color: var(--bg-color); 
   color: var(--text-main);
 }
 
 /* 2. 大标题头部区域 */
 .category-hero {
-  padding: 60px 25px 30px; 
+  padding: 20px 25px 15px; 
   background: linear-gradient(180deg, var(--card-bg) 0%, var(--bg-color) 100%);
   text-align: left;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
-.category-tag {
-  font-size: 14px;
-  color: #ff8f00;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
 .category-display-title {
-  font-size: 3.2rem; 
+  font-size: 2.2rem; 
   font-weight: 800;
-  margin: 10px 0;
+  margin: 5px 0;
   color: var(--text-main);
   letter-spacing: -1px;
 }
 
 .category-stats {
-  font-size: 14px;
+  font-size: 12px;
   color: #888;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 /* 3. 核心列表样式 - 100% 同步首页 */
-.hot-list { max-width: 1200px; margin: 0 auto; padding: 10px 20px; }
+.hot-list { max-width: 1000px; margin: 0 auto; padding: 5px 20px; }
 
 /* 网格布局同步 */
 .card-grid { 
   display: grid; 
   grid-template-columns: 1fr; 
-  gap: 12px; 
+  gap: 10px; 
 }
 
 /* 卡片样式同步 */
 .card { 
   background: var(--card-bg) !important; 
   border: 1px solid var(--border-color); 
-  border-radius: 10px; /* 圆角变小 */
-  padding: 10px 12px; /* 内边距变紧凑 */
-  box-shadow: 0 3px 6px rgba(0,0,0,0.04); 
+  border-radius: 8px; /* 圆角变小 */
+  padding: 8px 10px; /* 内边距变紧凑 */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03); 
   cursor: pointer; 
   color: var(--text-main);
   transition: all 0.2s ease;
@@ -212,15 +204,15 @@ const truncate = (text) => {
 
 /* 按钮样式同步 */
 .small-btn { 
-  width: 76px; /* 按钮宽度同步 */
+  width: 70px; /* 按钮宽度同步 */
   padding: 6px 8px; 
   font-size: 12px; 
 }
 
 .action-btn { 
   border: none; 
-  border-radius: 12px; 
-  font-size: 12px; 
+  border-radius: 8px; 
+  font-size: 11px; 
   font-weight: bold; 
   cursor: pointer; 
   display: flex; 
@@ -248,8 +240,8 @@ const truncate = (text) => {
 
 /* 响应式断点同步 */
 @media (min-width: 768px) { 
-  .card-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } 
-  .category-display-title { font-size: 4rem; }
+  .card-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } 
+  .category-display-title { font-size: 3rem; }
 }
 @media (min-width: 1024px) { 
   .card-grid { grid-template-columns: repeat(3, 1fr); } 

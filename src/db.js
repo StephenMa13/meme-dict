@@ -1,18 +1,28 @@
 // 引入我们的出厂词典
 import defaultMemes from './data/memes.json'
 
-const DB_KEY = 'my_offline_memes_v2' // 本地硬盘的文件夹名字
+const DB_KEY = 'my_offline_memes_v3' // 本地硬盘的文件夹名字
 
 // 1. 获取所有梗
 export const getMemes = () => {
   const localData = localStorage.getItem(DB_KEY)
-  if (localData) {
-    return JSON.parse(localData) // 如果本地有保存过，就用本地的
-  } else {
-    // 如果是第一次打开，就把出厂词典存进本地硬盘，并返回
-    localStorage.setItem(DB_KEY, JSON.stringify(defaultMemes))
-    return defaultMemes
+  const localMemes = localData ? JSON.parse(localData) : []
+  const hasNewDefault = defaultMemes.some(
+    dm => !localMemes.find(lm => lm.id === dm.id)
+  )
+
+  if (hasNewDefault) {
+    // 找出所有本地没有的新梗
+    const newItems = defaultMemes.filter(
+      dm => !localMemes.find(lm => lm.id === dm.id)
+    )
+    // 合并并保存
+    const updatedMemes = [...localMemes, ...newItems]
+    saveMemes(updatedMemes)
+    return updatedMemes
   }
+
+  return localMemes.length > 0 ? localMemes : defaultMemes
 }
 
 // 2. 保存数据到本地硬盘（内部使用）

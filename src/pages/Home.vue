@@ -60,24 +60,47 @@ const clearHistory = () => {
 // 在 script setup 顶部定义已阅池（或者从 localStorage 读取实现持久化）
 const viewedIds = ref(JSON.parse(localStorage.getItem('viewedIds') || '[]'))
 
+// 🌟 新增：动态计算每屏展示数量
+const calculateDisplayCount = () => {
+  const vh = window.innerHeight;
+  const isMobile = window.innerWidth < 768;
+  
+  // 减去导航栏(约60px)和搜索区域(约140px)和标题(约50px)
+  const availableHeight = vh - 250; 
+  const cardHeight = 54; // 紧凑型卡片高度（含gap）
+  
+  const rows = Math.floor(availableHeight / cardHeight);
+  const cols = isMobile ? 1 : (window.innerWidth < 1024 ? 2 : 3);
+  
+  return Math.max(rows * cols, 6); // 保证至少显示6个
+}
+
+const displayCount = ref(10); // 默认值
+
 // 3. 🎲 刷新猜你想看列表
 const refreshRandomMemes = () => {
+  displayCount.value = calculateDisplayCount(); // 刷新时重新计算空间
+  
   const availableMemes = hotMemes.value.filter(meme => !blacklistIds.value.includes(meme.id))
   let unviewed = availableMemes.filter(meme => !viewedIds.value.includes(meme.id))
-  if (unviewed.length <5) {
+  
+  // 如果剩下的不够一屏了，重置已阅池
+  if (unviewed.length < displayCount.value) {
     viewedIds.value = []
     unviewed = availableMemes
   }
+  
   const shuffled = [...unviewed].sort(() => 0.5 - Math.random())
-  let picked = shuffled.slice(0, 5)
+  // 🌟 这里改为根据 displayCount 截取
+  let picked = shuffled.slice(0, displayCount.value)
+  
+  // 保持词条长短交错的视觉感
   picked.sort((a,b) => a.term.length - b.term.length)
+  
   randomMemes.value = picked
   const ids = picked.map(m => m.id)
-  // 只有在重置后，或者正常追加时，确保 viewedIds 能够准确追踪
-  // 如果刚才重置了，viewedIds 就是 newIds；如果没有重置，就是累加
-  // 简便写法：
+  
   const currentTotalViewed = JSON.parse(localStorage.getItem('viewedIds') || '[]')
-  // 如果上面重置了，这里就只存新的，否则合并
   const updatedViewed = unviewed.length === availableMemes.length ? ids : [...currentTotalViewed, ...ids]
   
   viewedIds.value = updatedViewed
@@ -295,8 +318,8 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
   background-color: #121212 !important; 
 }
 
-.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: transparent !important; min-height: 100vh; transition: background-color 0.3s; }
-.navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; gap: 20px; }
+.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100vh; overflow: hidden; background-color: transparent !important; transition: background-color 0.3s; }
+.navbar { margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; gap: 20px; flex-shrink: 0;}
 .logo { font-size: 18px; font-weight: bold; color: var(--text-main); display: flex;align-items: center;gap: 8px;}
 .spark-logo { width: 1.5em;  height: 1.5em;  object-fit: contain; position: relative;top: 1px;}
 
@@ -315,7 +338,7 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 .theme-toggle-btn { background-color: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
 .theme-toggle-btn:hover { background-color: var(--bg-color); }
 
-.hero { padding: 20px; text-align: center; margin-bottom: 20px; }
+.hero { padding: 10px 20px; text-align: center; margin-bottom: 5px; flex-shrink: 0; }
 
 .search-wrapper { position: relative; max-width: 600px; margin: 0 auto; width: 100%; }
 .search-box { display: flex; background: var(--card-bg,#ffffff); border-radius: 30px; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; border: 1px solid var(--border-color); }
@@ -329,8 +352,8 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 .history-list li { padding: 14px 20px; font-size: 15px; color: var(--text-main); cursor: pointer; transition: background 0.2s; }
 .history-list li:hover { background-color: var(--bg-color); }
 
-.hot-list { max-width: 1200px; margin: 0 auto; padding: 10px 20px; }
-.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.hot-list { margin: 0 auto; padding: 10px 20px; }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-shrink: 0;}
 .section-title { font-size: 18px; font-weight: bold; margin: 0; color: var(--text-main); }
 .section-controls { display: flex; gap: 8px; align-items: center; }
 .section-btn { background-color: var(--bg-color); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; color: var(--text-main); cursor: pointer; transition: background-color 0.2s; display: inline-flex; align-items: center; gap: 4px; }
@@ -348,22 +371,30 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
   margin-top: 10px;
 }
 
-.card-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-.card { background: var(--card-bg) !important; border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; box-shadow: 0 3px 6px rgba(0,0,0,0.04); cursor: pointer; color: var(--text-main); }
-.card-top { display: flex; align-items: center; gap: 10px; justify-content: space-between; }
+.card-grid { display: grid; grid-template-columns: 1fr; gap: 10px; align-content: start; }
+.card { background: var(--card-bg) !important; border: 1px solid var(--border-color); border-radius: 8px; padding: 8px 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); cursor: pointer; color: var(--text-main); }
+.card-top { width:100%; display: flex; align-items: center; gap: 10px; justify-content: space-between; }
 .card-actions { display: flex; gap: 8px; }
 
 .meme-info { flex: 1; display: flex; align-items: center; }
 .meme-term { font-size: 14px; font-weight: 700; margin: 0 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-main); }
-.small-btn { width: 76px; padding: 6px 8px; font-size: 12px; }
+.small-btn { width: 70px; padding: 6px 8px; font-size: 12px; }
 
-.action-btn { border: none; padding: 6px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; width: auto; flex-shrink: 0; transition: all 0.2s; }
+.action-btn { border: none; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; width: auto; flex-shrink: 0; transition: all 0.2s; }
 .fav-btn { background-color: rgba(74, 144, 226, 0.1); color: #4a90e2; }
 .like-btn { background-color: rgba(255, 143, 0, 0.1); color: #ff8f00; }
 
-@media (min-width: 768px) { .card-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
-@media (min-width: 1024px) { .card-grid { grid-template-columns: repeat(3, 1fr); } }
-
+@media (min-width: 768px) { 
+  .card-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } 
+  .hot-list { max-width: 800px; }
+}
+@media (min-width: 1024px) { 
+  .card-grid { grid-template-columns: repeat(3, 1fr); } 
+  .hot-list { max-width: 1000px; } 
+}
+@media (max-height: 600px) {
+  .hero { display: none; } /* 屏幕太矮时隐藏搜索区，保证词条显示 */
+}
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(3px); display: flex; justify-content: center; align-items: center; z-index: 2000; }
 .modal-content { 
   background: var(--card-bg); 
