@@ -1,105 +1,130 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import { getMemes } from '../db.js' 
 import { useRouter } from 'vue-router'
 import { categoryConfig } from '../categories.js'
 
 const router = useRouter()
-const allMemes = ref([])
-const dragItemIndex = ref(null) // 记录拖拽的对象
-
-onMounted(() => {
-  allMemes.value = getMemes() || []
-})
-
-// 1. 核心数据计算
 const bubbleCategories = ref([])
+const draggingIndex = ref(null) // 正在拖拽的索引
 
-onMounted(() => {
+const STORAGE_KEY = 'meme_bubble_layout_v1'
+
+// 1. 初始化数据：优先从本地读取，没有则生成
+const initBubbles = () => {
+  const cached = localStorage.getItem(STORAGE_KEY)
+  if (cached) {
+    bubbleCategories.value = JSON.parse(cached)
+    return
+  }
+
   const memes = getMemes() || []
   const categoryMap = {}
 
+  // 整理分类数据，同时存储词条的 {term, id}
   memes.forEach(meme => {
     let cats = meme.category || '其他'
     if (!Array.isArray(cats)) cats = [cats]
     cats.forEach(cat => {
       if (!categoryMap[cat]) {
-        categoryMap[cat] = { name: cat, totalViews: 0, count: 0, allTerms: [] }
+        categoryMap[cat] = { name: cat, count: 0, allItems: [] }
       }
       categoryMap[cat].count += 1
-      categoryMap[cat].allTerms.push(meme.term) 
+      categoryMap[cat].allItems.push({ term: meme.term, id: meme.id }) 
     })
   })
 
   const counts = Object.values(categoryMap).map(c => c.count)
   const maxCount = Math.max(...counts) || 1
   const minCount = Math.min(...counts) || 0
+  const minSize = 85; const maxSize = 170 
 
-  // 🌟 尺寸增加 1/5 (原 60~134 -> 现 72~160)
-  const minSize = 75 
-  const maxSize = 165 
-
-  bubbleCategories.value = Object.values(categoryMap).map((item, index) => {
+  const newList = Object.values(categoryMap).map((item, index) => {
     let size = (minSize + maxSize) / 2
     if (maxCount !== minCount) {
       const ratio = (item.count - minCount) / (maxCount - minCount)
       size = minSize + Math.pow(ratio, 1.2) * (maxSize - minSize)
     }
 
-    let maxTerms = size < 90 ? 1 : (size < 125 ? 2 : 3)
-    const shuffledTerms = [...item.allTerms].sort(() => 0.5 - Math.random())
+    // 🌟 核心要求：至少显示 2 个词条
+    let maxTerms = size < 100 ? 2 : (size < 130 ? 3 : 4)
+    const shuffledItems = [...item.allItems].sort(() => 0.5 - Math.random())
     const config = categoryConfig[item.name] || { icon: '✨', color: '#ffffff' }
 
     return {
-      ...item,
-      size: size,
+      name: item.name,
+      size,
       icon: config.icon,
       color: config.color,
-      previewTerms: shuffledTerms.slice(0, maxTerms),
-      // 为每个气泡生成唯一的随机动画参数，解决瞬移并让浮动更圆滑
+      // 存储对象以便跳转
+      previewItems: shuffledItems.slice(0, Math.max(2, maxTerms)), 
       delay: -(Math.random() * 5), 
-      duration: 4 + Math.random() * 4,
-      ox: index % 2 === 0 ? 10 : -10, // 初始 X 偏移
-      oy: index % 3 === 0 ? 12 : -12 // 初始 Y 偏移
+      duration: 5 + Math.random() * 5,
+      ox: index % 2 === 0 ? 8 : -8,
+      oy: index % 3 === 0 ? 10 : -10
     }
   }).sort(() => 0.5 - Math.random())
-})
 
-// 2. 拖拽逻辑：让气泡“自然向另一边排列”
-const onDragStart = (index) => {
-  dragItemIndex.value = index
+  bubbleCategories.value = newList
+  saveLayout()
+}
+
+const saveLayout = () => {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(bubbleCategories.value))
+}
+
+// 2. 拖拽逻辑增强
+const onDragStart = (e, index) => {
+  draggingIndex.value = index
+  e.dataTransfer.effectAllowed = 'move'
+  
+  // 🌟 解决“方形背景”：自定义拖拽预览图为空，或者稍微延迟修改样式
+  const ghost = e.target.cloneNode(true)
+  ghost.style.opacity = "0" // 让原生的拖拽跟随图变透明
+  document.body.appendChild(ghost)
+  e.dataTransfer.setDragImage(ghost, 0, 0)
+  setTimeout(() => document.body.removeChild(ghost), 0)
 }
 
 const onDragEnter = (index) => {
-  if (dragItemIndex.value === null || dragItemIndex.value === index) return
-  // 交换数组位置，transition-group 会自动处理平滑移动
+  if (draggingIndex.value === null || draggingIndex.value === index) return
+  
+  // 交换位置
   const list = [...bubbleCategories.value]
-  const dragItem = list[dragItemIndex.value]
-  list.splice(dragItemIndex.value, 1)
-  list.splice(index, 0, dragItem)
-  dragItemIndex.value = index
+  const targetItem = list.splice(draggingIndex.value, 1)[0]
+  list.splice(index, 0, targetItem)
+  
+  draggingIndex.value = index
   bubbleCategories.value = list
 }
 
 const onDragEnd = () => {
-  dragItemIndex.value = null
+  draggingIndex.value = null
+  saveLayout() // 松手后持久化位置
 }
 
+// 3. 导航逻辑
 const goToCategory = (name) => {
   router.push(`/category/${name}`)
 }
+
+const goToMeme = (id) => {
+  router.push(`/meme/${id}`)
+}
+
+onMounted(initBubbles)
 </script>
 
 <template>
   <div class="categories-page">
-    <!-- 使用 transition-group 实现拖拽时的自然滑动排列 -->
     <transition-group name="bubble-list" tag="div" class="bubbles-wrapper">
       <div 
         v-for="(cat, index) in bubbleCategories" 
         :key="cat.name" 
         class="bubble-item"
+        :class="{ 'is-ghost': draggingIndex === index }"
         :draggable="true"
-        @dragstart="onDragStart(index)"
+        @dragstart="onDragStart($event, index)"
         @dragenter.prevent="onDragEnter(index)"
         @dragover.prevent
         @dragend="onDragEnd"
@@ -107,7 +132,7 @@ const goToCategory = (name) => {
         :style="{
           width: `${cat.size}px`,
           height: `${cat.size}px`,
-          fontSize: `${Math.max(12, cat.size / 10.5)}px`,
+          fontSize: `${Math.max(12, cat.size / 11)}px`,
           '--ox': `${cat.ox}px`,
           '--oy': `${cat.oy}px`,
           animationDelay: `${cat.delay}s`,
@@ -119,11 +144,12 @@ const goToCategory = (name) => {
           <strong class="cat-name">{{ cat.name }}</strong>
           
           <div class="preview-cloud">
-            <!-- 🌟 词条背景色逻辑：白色则透明，否则同步分类色 -->
-            <span v-for="term in cat.previewTerms" 
-                  :key="term" 
-                  class="preview-tag">       
-              {{ term }}
+            <!-- 🌟 点击词条停止冒泡，直接去词条页 -->
+            <span v-for="item in cat.previewItems" 
+                  :key="item.id" 
+                  class="preview-tag"
+                  @click.stop="goToMeme(item.id)">       
+              {{ item.term }}
             </span>
           </div>
         </div>
@@ -138,6 +164,7 @@ const goToCategory = (name) => {
   min-height: 100vh;
   display: flex;
   justify-content: center;
+  overflow-x: hidden;
 }
 
 .bubbles-wrapper {
@@ -145,62 +172,57 @@ const goToCategory = (name) => {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 25px; /* 间距增大，配合更大的气泡 */
-  max-width: 1200px;
+  gap: 20px;
+  max-width: 1100px;
   padding: 40px 20px;
-  perspective: 1000px;
 }
 
-/* 🌟 核心动画：将初始偏移融入浮动，消除瞬移 */
+/* 🌟 核心动画 */
 @keyframes smoothFloat {
-  0% { transform: translate(var(--ox), var(--oy)); }
+  0%, 100% { transform: translate(var(--ox), var(--oy)); }
   50% { transform: translate(calc(var(--ox) * -1), calc(var(--oy) * -1.2)); }
-  100% { transform: translate(var(--ox), var(--oy)); }
 }
 
 .bubble-item {
   border-radius: 50%;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.07), inset -4px -4px 12px rgba(0,0,0,0.02);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: grab;
   flex-shrink: 0; 
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* 增加弹性动画 */
   animation: smoothFloat infinite ease-in-out;
   overflow: hidden;
   text-align: center;
-  padding: 10px;
+  padding: 12px;
   user-select: none;
-  -webkit-user-drag: element;
-  /* 1. 去掉点击时的灰色高亮框 (iOS & Android Chrome) */
-  -webkit-tap-highlight-color: transparent; 
-
-  /* 2. 禁止弹出系统默认菜单（如复制、查看图像），长按时就不出方框了 */
-  -webkit-touch-callout: none; 
-
-  /* 3. 禁止用户选中气泡内的文字 */
-  user-select: none;
-  -webkit-user-select: none;
-
-  /* 4. 去掉可能的焦点轮廓线 */
-  outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.bubble-item:active { cursor: grabbing; }
+/* 🌟 解决方形背景：让正在拖动的原件变成“浅色阴影”占位符 */
+.is-ghost {
+  opacity: 0.3;
+  background: var(--bg-color) !important;
+  border: 1px dashed var(--border-color);
+  box-shadow: none;
+  transform: scale(0.9) !important;
+  animation: none; /* 占位符不飘动 */
+}
 
-/* 🌟 当数组顺序改变时，未被拖动的元素会平滑滑动 */
+/* 🌟 拖拽时的平滑滑动顺序动画 */
 .bubble-list-move {
-  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.5s cubic-bezier(0.2, 0, 0, 1);
 }
 
-.bubble-item:hover {
-  z-index: 100;
+.bubble-item:hover:not(.is-ghost) {
+  z-index: 10;
   border-color: #FFD700;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-  animation-play-state: paused; /* 悬停时停止浮动，方便点击 */
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+  animation-play-state: paused;
+  transform: scale(1.05) !important;
 }
 
 .bubble-inner {
@@ -208,63 +230,52 @@ const goToCategory = (name) => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  width: 100%;
+  gap: 4px;
 }
 
-.cat-icon { font-size: 1.3em; }
 .cat-name { 
   font-size: 1.1em; 
   color: var(--text-main); 
   font-weight: 800; 
-  white-space: nowrap;
+  margin-bottom: 2px;
 }
 
 .preview-cloud {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 3px;
+  gap: 4px;
 }
 
+/* 词条标签样式 */
 .preview-tag {
   font-size: 0.65em;
-  padding: 2px 6px;
-  border-radius: 8px;
-  white-space: nowrap;
-  max-width: 85px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  transition: all 0.2s;
+  max-width: 80px;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-weight: 600;
-  background-color: #f8f9fa; 
-  /* color: var(--text-secondary);  */
-  border: 1px solid rgba(0,0,0,0.03); 
-  transition: background-color 0.3s ease; 
-}
-/* 当首页选择了“粉色”时 */
-:global(.bg-pink) .preview-tag {
-  background-color: #FFE4E1 !important; /* 与你首页设置的粉色完全一致 */
-  color: #d87093; /* 稍微深一点的粉色文字，保证清晰 */
-  border: 1px solid rgba(0,0,0,0.03);
+  white-space: nowrap;
 }
 
-/* 当首页选择了“绿色”时 */
-:global(.bg-green) .preview-tag {
-  background-color: #C7EDCC !important; /* 与你首页设置的绿色完全一致 */
-  color: #556b2f; /* 稍微深一点的绿色文字 */
-  border: 1px solid rgba(0,0,0,0.03);
+.preview-tag:hover {
+  background-color: #FFD700 !important;
+  color: #333 !important;
+  transform: translateY(-2px);
 }
 
-/* 🌟 夜间模式：设为灰色 */
-:global(html.dark-mode) .preview-tag {
-  background-color: #333333 !important; /* 深灰色 */
-  color: #aaaaaa !important;
-  border: none !important;
-}
+/* 主题颜色适配（同步首页逻辑） */
+:global(.bg-pink) .preview-tag { background-color: #FFE4E1 !important; color: #d87093; }
+:global(.bg-green) .preview-tag { background-color: #C7EDCC !important; color: #556b2f; }
+:global(html.dark-mode) .preview-tag { background-color: #333 !important; color: #aaa; border: none; }
 
-/* 适配移动端 */
 @media (max-width: 768px) {
-  .bubbles-wrapper { gap: 15px; padding: 20px 10px; }
-  .bubble-item { animation-duration: 8s !important; } /* 手机上慢一点更优雅 */
+  .bubbles-wrapper { gap: 12px; }
+  .bubble-item { animation-duration: 10s !important; }
 }
 </style>

@@ -12,6 +12,9 @@ const inputText = ref('')
 const activeSearch = ref('')  
 const searchHistory = ref(JSON.parse(localStorage.getItem('searchHistory') || '[]'))
 const showHistory = ref(false)
+const isRefreshing = ref(false)
+const pullDistance = ref(0)
+let startY = 0
 
 // 🌟 弹窗与表单状态
 const showModal = ref(false)
@@ -56,6 +59,52 @@ const clearHistory = () => {
   searchHistory.value = []
   localStorage.removeItem('searchHistory')
 }
+
+const handleTouchStart = (e) => {
+  if (window.scrollY === 0) { // 只有在顶部时才触发
+    startY = e.touches[0].pageY
+  }
+}
+
+const handleTouchMove = (e) => {
+  const currentY = e.touches[0].pageY
+  const diff = currentY - startY
+  
+  // 只有向下拉，且在顶部时才计算距离
+  if (diff > 0 && window.scrollY === 0) {
+    // 增加阻尼感：拉得越深越费劲 (Math.pow(diff, 0.8))
+    pullDistance.value = Math.min(Math.pow(diff, 0.8) * 2, 80) 
+    
+    // 阻止浏览器默认的下拉回弹（橡皮筋效果）以优化体验
+    if (pullDistance.value > 10) {
+      if (e.cancelable) e.preventDefault()
+    }
+  }
+}
+
+const handleTouchEnd = async () => {
+  if (pullDistance.value >= 60) {
+    isRefreshing.value = true
+    pullDistance.value = 40 // 悬停在刷新状态
+    
+    // 执行你原有的刷新函数
+    if (typeof refreshRandomMemes === 'function') {
+      await refreshRandomMemes()
+    } else {
+      // 如果没有该函数，模拟一个延迟
+      await new Promise(resolve => setTimeout(resolve, 800))
+    }
+    isRefreshing.value = false
+  }
+  pullDistance.value = 0
+}
+
+const refreshStatusText = computed(() => {
+  if (isRefreshing.value) return '正在更新梗库...'
+  if (pullDistance.value > 60) return '松开立即刷新'
+  return '下拉发现新梗'
+})
+
 
 // 在 script setup 顶部定义已阅池（或者从 localStorage 读取实现持久化）
 const viewedIds = ref(JSON.parse(localStorage.getItem('viewedIds') || '[]'))
@@ -187,7 +236,21 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 </script>
 
 <template>
-  <div class="app-container">
+  <div class="app-container"
+    @touchstart="handleTouchStart"
+    @touchmove="handleTouchMove"
+    @touchend="handleTouchEnd"  >
+
+    <div class="pull-down-refresh" :style="{ height: pullDistance + 'px', opacity: pullDistance > 10 ? 1 : 0 }">
+      <div class="refresh-content">
+        <span v-if="!isRefreshing" class="refresh-icon" :style="{ transform: `rotate(${pullDistance * 3}deg)` }">
+          {{ pullDistance > 60 ? '✨' : '👇' }}
+        </span>
+        <span v-else class="refresh-spinner">🌀</span>
+        <span class="refresh-text">{{ refreshStatusText }}</span>
+      </div>
+    </div>
+
     <nav class="navbar">
       <div class="navbar-left">
         <div class="logo">
@@ -318,14 +381,14 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
   background-color: #121212 !important; 
 }
 
-.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100vh; overflow: hidden; background-color: transparent !important; transition: background-color 0.3s; }
+.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; min-height: 100dvh; overflow: hidden; background-color: transparent !important; transition: background-color 0.3s; overflow-x: hidden; overscroll-behavior-y: contain;}
 .navbar { margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; gap: 20px; flex-shrink: 0;}
 .logo { font-size: 18px; font-weight: bold; color: var(--text-main); display: flex;align-items: center;gap: 8px;}
 .spark-logo { width: 1.5em;  height: 1.5em;  object-fit: contain; position: relative;top: 1px;}
 
 .add-btn { background-color: #FFD700; border: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; cursor: pointer; color: #333; }
 
-.nav-actions { display: flex; align-items: center; gap: 10px; }
+.nav-actions { display: flex; align-items: center; gap: 10px; z-index: 100; }
 
 .color-dots { display: flex; gap: 6px; align-items: center; margin-right: 4px; }
 .dot { display: inline-block; width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s, border-color 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
@@ -446,4 +509,42 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 :global(html.dark-mode) .hero {
   filter: brightness(0.8) contrast(1.1);
 }
+
+.pull-down-refresh {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: transparent;
+  transition: height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none; /* 不干扰点击 */
+}
+
+.refresh-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.refresh-icon {
+  font-size: 18px;
+  display: inline-block;
+  transition: transform 0.1s;
+}
+
+.refresh-spinner {
+  font-size: 18px;
+  display: inline-block;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 </style>
