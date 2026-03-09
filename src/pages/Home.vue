@@ -4,6 +4,8 @@ import { useRouter } from 'vue-router'
 import { getMemes, addMeme as localAdd} from '../db.js'
 import { favoriteIds, toggleFavorite, blacklistIds, randomMemes, likedIds, toggleLike } from '../store.js'
 import { categoryConfig } from '../categories' 
+import{pinyin} from 'pinyin-pro'
+
 const router = useRouter()
 const hotMemes = ref([]) // 真正的所有梗的数据源
 
@@ -48,6 +50,44 @@ const handleInput = () => {
   if (inputText.value.trim() === '') {
     activeSearch.value = ''
   }
+}
+
+/**
+ * 核心匹配引擎
+ * @param {Object} meme 梗对象
+ * @param {String} query 搜索关键词
+ */
+const checkMatch = (meme, query) => {
+  // 1. 标准化处理：转小写并去除所有空格
+  const q = query.toLowerCase().replace(/\s+/g, '');
+  if (!q) return false;
+
+  const term = meme.term.toLowerCase().replace(/\s+/g, '');
+  
+  // 2. 直接匹配 (汉字或原词)
+  if (term.includes(q)) return true;
+
+  // 3. 拼音全拼匹配 (例如: xianyanbao)
+  // nonChinese: 'keep' 保持非中文字符(如打call中的call)
+  const fullPinyin = pinyin(meme.term, { 
+    toneType: 'none', 
+    type: 'array',
+    nonChinese: 'keep' 
+  }).join('').toLowerCase().replace(/\s+/g, '');
+  
+  if (fullPinyin.includes(q)) return true;
+
+  // 4. 拼音首字母匹配 (例如: xyb)
+  const initials = pinyin(meme.term, { 
+    pattern: 'first', 
+    toneType: 'none', 
+    type: 'array',
+    nonChinese: 'keep'
+  }).join('').toLowerCase().replace(/\s+/g, '');
+
+  if (initials.includes(q)) return true;
+
+  return false;
 }
 
 const selectHistory = (term) => {

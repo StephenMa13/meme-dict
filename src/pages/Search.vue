@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+// 🌟 核心：引入拼音库
+import { pinyin } from 'pinyin-pro' 
 import { getMemes } from '../db.js'
 import { favoriteIds, toggleFavorite, blacklistIds, likedIds, toggleLike } from '../store.js'
 
@@ -25,6 +27,41 @@ watch(() => route.query.q, (newQ) => {
   inputText.value = newQ || ''
 })
 
+/**
+ * 🌟 核心匹配引擎：支持拼音、首字母、大小写、空格忽略
+ */
+const checkMatch = (meme, query) => {
+  if (!query) return false;
+  // 标准化查询词：转小写，去空格
+  const q = query.toLowerCase().replace(/\s+/g, '');
+  // 标准化目标词
+  const term = meme.term.toLowerCase().replace(/\s+/g, '');
+  
+  // A. 直接匹配
+  if (term.includes(q)) return true;
+
+  try {
+    // B. 全拼匹配 (如: xianyanbao)
+    const fullPinyin = pinyin(meme.term, { 
+      toneType: 'none', 
+      nonChinese: 'keep' 
+    }).toLowerCase().replace(/\s+/g, '');
+    if (fullPinyin.includes(q)) return true;
+
+    // C. 首字母匹配 (如: xyb)
+    const initials = pinyin(meme.term, { 
+      pattern: 'first', 
+      toneType: 'none', 
+      nonChinese: 'keep'
+    }).toLowerCase().replace(/\s+/g, '');
+    if (initials.includes(q)) return true;
+  } catch (e) {
+    return false;
+  }
+
+  return false;
+}
+
 // 3. 执行搜索
 const executeSearch = () => {
   const term = inputText.value.trim()
@@ -39,18 +76,18 @@ const executeSearch = () => {
   showHistory.value = false
 }
 
-// 4. 计算过滤结果：允许搜到黑名单，但将其排在最后
+// 4. 🌟 计算过滤结果：调用 checkMatch 实现拼音搜索
 const filteredResults = computed(() => {
   const q = route.query.q || ''
   if (!q) return []
   
   return allMemes.value
-    .filter(item => item.term.toLowerCase().includes(q.toLowerCase()))
+    .filter(item => checkMatch(item, q)) // 使用拼音匹配函数
     .sort((a, b) => {
       const aIsBlack = blacklistIds.value.includes(a.id)
       const bIsBlack = blacklistIds.value.includes(b.id)
       
-      // 排序逻辑：非黑名单在前 (返回 -1)，黑名单在后 (返回 1)
+      // 排序逻辑：非黑名单在前，黑名单在后
       if (aIsBlack && !bIsBlack) return 1
       if (!aIsBlack && bIsBlack) return -1
       return 0
@@ -100,7 +137,6 @@ onMounted(() => initSearch())
             @click.stop="showHistory = true"
             @keydown.enter="executeSearch"
           />
-          <!-- 🌟 新增：搜索图标按钮 -->
           <button class="search-icon-btn" @click="executeSearch">
             🔍
           </button>
@@ -130,7 +166,6 @@ onMounted(() => initSearch())
       </div>
 
       <div v-else class="card-grid">
-        <!-- 🌟 动态样式：如果是黑名单词条，降低透明度 -->
         <div 
           class="card" 
           v-for="meme in filteredResults" 
@@ -170,7 +205,6 @@ onMounted(() => initSearch())
 .hero { padding: 20px; text-align: center; }
 .search-wrapper { position: relative; max-width: 600px; margin: 0 auto; z-index:1001;}
 
-/* 搜索框容器调整 */
 .search-box { 
   display: flex; 
   align-items: center;
@@ -190,7 +224,6 @@ onMounted(() => initSearch())
   font-size: 16px;
 }
 
-/* 🌟 搜索图标按钮样式 */
 .search-icon-btn {
   background: none;
   border: none;
@@ -209,21 +242,13 @@ onMounted(() => initSearch())
 .hot-list { max-width: 1200px; margin: 0 auto; padding: 20px; }
 .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary,#888); background-color: var(--card-bg) !important;border: 1px solid var(--border-color); border-radius: 16px; margin-top: 20px;box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-/* 卡片布局 */
 .card-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 .card { background: var(--card-bg) !important; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px 16px; transition: transform 0.2s; cursor: pointer; }
 .card:hover { transform: translateY(-2px); }
 
-/* 🌟 黑名单状态样式 */
 .card.is-blacklist {
   opacity: 0.5;
   filter: grayscale(0.8);
-}
-.blacklist-tag {
-  font-size: 10px;
-  color: #999;
-  font-weight: normal;
-  margin-left: 5px;
 }
 
 .meme-info { flex: 1; display: flex; align-items: center; min-width: 0; }
@@ -231,14 +256,12 @@ onMounted(() => initSearch())
 .meme-term { margin: 0; color: var(--text-main); font-size: 16px; font-weight: bold; }
 .card-actions { display: flex; gap: 8px; }
 
-/* 按钮样式保持一致 */
 .small-btn { width: 44px; padding: 6px 0; }
 .action-btn { border: none; border-radius: 10px; cursor: pointer; font-size: 14px; transition: 0.2s; display: flex; align-items: center; justify-content: center;}
 .fav-btn { background: rgba(74, 144, 226, 0.1); color: #4a90e2; }
 .like-btn { background: rgba(255, 143, 0, 0.1); color: #ff8f00; }
 .fav-btn.active { background: #4a90e2; color: white; }
 
-/* 历史记录 */
 .history-dropdown { position: absolute; top: 55px; left: 0; width: 100%; background: var(--card-bg); border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 100; border: 1px solid var(--border-color); }
 .history-header { display: flex; justify-content: space-between; padding: 10px 20px; font-size: 12px; color: #888; border-bottom: 1px solid var(--border-color); }
 .clear-btn { cursor: pointer; }
