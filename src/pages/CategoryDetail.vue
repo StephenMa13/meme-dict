@@ -1,43 +1,104 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { getMemes } from '../db.js'
+import { favoriteIds, toggleFavorite, likedIds, toggleLike, blacklistIds } from '../store.js'
+
+const route = useRoute()
+const router = useRouter()
+
+const categoryName = route.params.name 
+// 🌟 修改：使用 ref 代替 computed，用于锁定初始加载时的顺序
+const displayedMemes = ref([])
+
+// 💡 排序逻辑封装：将原本 computed 里的逻辑提取出来
+const getSortedMemes = () => {
+  const all = getMemes()
+  
+  // 1. 过滤分类
+  const filtered = all.filter(meme => {
+    let cats = meme.category || '未分类'
+    if (!Array.isArray(cats)) cats = [cats]
+    return cats.includes(categoryName)
+  })
+
+  // 2. 权重排序
+  return filtered.sort((a, b) => {
+    const getPriority = (meme) => {
+      const isFav = favoriteIds.value.includes(meme.id)
+      const isLiked = likedIds.value.includes(meme.id)
+      const isBlack = blacklistIds.value.includes(meme.id)
+      if (isBlack) return 0
+      if (isFav && isLiked) return 4
+      if (isFav) return 3
+      if (isLiked) return 2
+      return 1
+    }
+
+    const priorityA = getPriority(a)
+    const priorityB = getPriority(b)
+
+    if (priorityA !== priorityB) {
+      return priorityB - priorityA 
+    } else {
+      return (b.view_count || 0) - (a.view_count || 0)
+    }
+  })
+}
+
+// 🌟 核心修改：仅在进入页面时计算一次顺序
+onMounted(() => {
+  displayedMemes.value = getSortedMemes()
+})
+
+const goToDetail = (id) => {
+  router.push(`/meme/${id}`)
+}
+
+const truncate = (text) => {
+  if (!text) return ''
+  return text.length > 10 ? text.slice(0, 10) + '…' : text
+}
+</script>
+
+
 <template>
   <div class="app-container">
-    <!-- 🌟 修改后的头部：移除了返回按钮，标题下移且放大 -->
     <header class="category-hero">
       <div class="header-content">
         <h1 class="category-display-title"># {{ categoryName }}</h1>
         <div class="category-stats">
-          共 {{ categoryMemes.length }} 个词条
+          共 {{ displayedMemes.length }} 个词条
         </div>
       </div>
     </header>
 
+    <!-- 🌟 修改点：给 main 增加滚动容器控制 -->
     <main class="hot-list">      
-      <!-- 列表为空的状态 -->
-      <div v-if="categoryMemes.length === 0" class="empty-state">
+      <div v-if="displayedMemes.length === 0" class="empty-state">
         该分类下暂时没有词条哦 😊
       </div>
 
-      <!-- 🌟 这里的结构完全复刻首页的 .card-grid 和 .card -->
+      <!-- 🌟 使用 displayedMemes 循环 -->
       <div v-else class="card-grid">
         <div 
           class="card" 
-          v-for="meme in categoryMemes" 
+          v-for="meme in displayedMemes" 
           :key="meme.id" 
           @click="goToDetail(meme.id)"
         >
           <div class="card-top">
             <div class="meme-info">
-              <!-- 使用与首页相同的截断逻辑 -->
               <h3 class="meme-term">{{ truncate(meme.term) }}</h3>
             </div>
             <div class="card-actions">
-              <!-- 收藏按钮 -->
+              <!-- 图标依然保持响应式更新，但 card 本身位置已固定 -->
               <button 
                 class="action-btn fav-btn small-btn" 
                 @click.stop="toggleFavorite(meme.id)"
               >
                 {{ favoriteIds.includes(meme.id) ? '⭐' : '☆' }}
               </button>
-              <!-- 点赞按钮 -->
               <button 
                 class="action-btn like-btn small-btn" 
                 @click.stop="toggleLike(meme.id)"
@@ -52,79 +113,16 @@
   </div>
 </template>
 
-<script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { getMemes } from '../db.js'
-// 导入与首页相同的状态和方法
-import { favoriteIds, toggleFavorite, likedIds, toggleLike, blacklistIds } from '../store.js'
-
-const route = useRoute()
-const router = useRouter()
-
-// 从路由参数获取名字
-const categoryName = route.params.name 
-const allMemes = ref([])
-
-// 页面加载时从数据库获取数据
-onMounted(() => {
-  allMemes.value = getMemes()
-})
-
-// 💡 核心排序逻辑：按用户交互状态进行多级权重排序
-const categoryMemes = computed(() => {
-  return allMemes.value
-    .filter(meme => {
-      // 1. 基本过滤：只保留属于当前分类的
-      let cats = meme.category || '未分类'
-      if (!Array.isArray(cats)) cats = [cats]
-      return cats.includes(categoryName)
-    })
-    .sort((a, b) => {
-      // 2. 定义计算权重的内部函数
-      const getPriority = (meme) => {
-        const isFav = favoriteIds.value.includes(meme.id)
-        const isLiked = likedIds.value.includes(meme.id)
-        const isBlack = blacklistIds.value.includes(meme.id)
-
-        if (isBlack) return 0;          // 最末：点了没意思的（黑名单）
-        if (isFav && isLiked) return 4; // 优先：收藏 + 点赞
-        if (isFav) return 3;            // 其次：只收藏
-        if (isLiked) return 2;          // 再次：只点赞
-        return 1;                       // 普通：都没点
-      }
-
-      const priorityA = getPriority(a)
-      const priorityB = getPriority(b)
-
-      // 3. 排序逻辑
-      if (priorityA !== priorityB) {
-        // 如果权重不同，按权重从大到小排
-        return priorityB - priorityA 
-      } else {
-        // 如果权重相同（比如都是“收藏+点赞”），则按原来的热度(view_count)排
-        return (b.view_count || 0) - (a.view_count || 0)
-      }
-    })
-})
 
 
-const goToDetail = (id) => {
-  router.push(`/meme/${id}`)
-}
 
-// 保持与首页一致的截断函数
-const truncate = (text) => {
-  if (!text) return ''
-  return text.length > 10 ? text.slice(0, 10) + '…' : text
-}
-</script>
+
 
 <style scoped>
 /* 1. 基础布局容器 */
 .app-container { 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-  min-height: 100vh; 
+  height: 100vh; 
   background-color: var(--bg-color); 
   color: var(--text-main);
 }
@@ -153,7 +151,7 @@ const truncate = (text) => {
 }
 
 /* 3. 核心列表样式 - 100% 同步首页 */
-.hot-list { max-width: 1000px; margin: 0 auto; padding: 5px 20px; }
+.hot-list { max-width: 1000px; margin: 0 auto; padding: 5px 20px; box-sizing: border-box; overflow-y: auto; overscroll-behavior-y: contain;}
 
 /* 网格布局同步 */
 .card-grid { 

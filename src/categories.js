@@ -1,4 +1,4 @@
-// src/constants/categories.js
+// src/categories.js
 export const categoryConfig = {
   '萌系': { icon: '🐱', color: '#FFE4E1' },
   '科技': { icon: '🤖', color: '#E0F7FA' },

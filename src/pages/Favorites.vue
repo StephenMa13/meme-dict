@@ -1,3 +1,37 @@
+<script setup>
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { getMemes } from '../db.js' 
+import { favoriteIds, toggleFavorite } from '../store.js' 
+
+const router = useRouter()
+
+const goToDetail = (id) => {
+  router.push(`/Detail/${id}`)
+}
+
+// 🌟 修复版核心逻辑
+const favoriteMemes = computed(() => {
+  // 1. 获取所有梗数据
+  const allMemesFromDB = getMemes() 
+  
+  // 2. 先找出所有在收藏夹里的梗（使用你之前生效的过滤逻辑，兼容性最好）
+  const filtered = allMemesFromDB.filter(meme => {
+    // 兼容数字和字符串的 ID 比较
+    return favoriteIds.value.some(id => String(id) === String(meme.id))
+  })
+
+  // 3. 按照收藏的时间顺序进行排序（后收藏的排在前面）
+  // 逻辑：在 favoriteIds 数组中，索引（Index）越大的代表越晚收藏
+  return filtered.sort((a, b) => {
+    const indexA = favoriteIds.value.findIndex(id => String(id) === String(a.id))
+    const indexB = favoriteIds.value.findIndex(id => String(id) === String(b.id))
+    return indexB - indexA // 降序排列：索引大的在前
+  })
+})
+</script>
+
+
 <template>
   <div class="favorites-page">
     <h2 class="page-title">⭐ 我的收藏夹</h2>
@@ -24,30 +58,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-import { getMemes } from '../db.js' 
-import { favoriteIds, toggleFavorite } from '../store.js' // 引入全局记忆
-
-// ⚠️ 注意：这里需要引入你所有的梗数据！
-import allMemes from '../data/memes.json' 
-
-const router = useRouter()
-
-// 跳转详情页的函数
-const goToDetail = (id) => {
-  router.push(`/meme/${id}`) // ⚠️ 注意：如果你的详情页路由不是 /meme/:id，请换成你真实的路径（比如 /detail/${id}）
-}
-
-// 魔法核心：计算属性。从所有梗里，揪出那些 ID 在收藏列表里的梗
-const favoriteMemes = computed(() => {
-  const allMemesFromDB = getMemes() 
-
-  return allMemesFromDB.filter(meme => favoriteIds.value.includes(meme.id))
-})
-</script>
 
 <style scoped>
 /* 1. 💡 核心修改：移除强制灰色，改为透明，让底层背景透出来 */
