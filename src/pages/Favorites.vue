@@ -7,7 +7,7 @@ import { favoriteIds, toggleFavorite } from '../store.js'
 const router = useRouter()
 
 const goToDetail = (id) => {
-  router.push(`/Detail/${id}`)
+  router.push(`/meme/${id}`)
 }
 
 // 🌟 修复版核心逻辑
