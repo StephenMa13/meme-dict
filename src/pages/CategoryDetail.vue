@@ -122,7 +122,7 @@ const truncate = (text) => {
 /* 1. 基础布局容器 */
 .app-container { 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-  height: 100vh; 
+  height: 100dvh; 
   background-color: var(--bg-color); 
   color: var(--text-main);
 }
@@ -134,6 +134,8 @@ const truncate = (text) => {
   text-align: left;
   max-width: 1000px;
   margin: 0 auto;
+  width: 100%;
+  flex-shrink: calc();
 }
 
 .category-display-title {
@@ -151,7 +153,15 @@ const truncate = (text) => {
 }
 
 /* 3. 核心列表样式 - 100% 同步首页 */
-.hot-list { max-width: 1000px; margin: 0 auto; padding: 5px 20px; box-sizing: border-box; overflow-y: auto; overscroll-behavior-y: contain;}
+.hot-list { 
+  max-width: 1000px; 
+  width: 100%;
+  margin: 0 auto; 
+  padding: 5px 20px 40px; 
+  box-sizing: border-box; 
+  flex: 1;
+  overflow-y: auto; 
+  overscroll-behavior-y: contain;}
 
 /* 网格布局同步 */
 .card-grid { 

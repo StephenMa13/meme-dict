@@ -16,6 +16,8 @@ const isDragging = ref(false)
 let longPressTimer = null
 let touchStartX = 0
 let touchStartY = 0
+let currentTouchX = 0
+let currentTouchY = 0
 let dragOffsetX = 0
 let dragOffsetY = 0
 let dragElement = null
@@ -25,11 +27,6 @@ const isRefreshing = ref(false)
 const pullDistance = ref(0)
 let pullStartY = 0
 let isPulling = false
-
-const refreshBubbles = () => {
-  localStorage.removeItem(STORAGE_KEY)
-  initBubbles()
-}
 
 // ========== 初始化数据 ==========
 const initBubbles = () => {
@@ -98,27 +95,29 @@ const onTouchStart = (e, index) => {
   const touch = e.touches[0]
   touchStartX = touch.clientX
   touchStartY = touch.clientY
+  currentTouchX = touch.clientX
+  currentTouchY = touch.clientY
 
+  const targetElement = e.currentTarget
+  const rect = targetElement.getBoundingClientRect()
   longPressTimer = setTimeout(() => {
-    isDragging.value = true
-    draggingIndex.value = index
-    const rect = e.currentTarget.getBoundingClientRect()
-    dragOffsetX = touch.clientX - rect.left - rect.width / 2
-    dragOffsetY = touch.clientY - rect.top - rect.height / 2
-    
-    if (navigator.vibrate) navigator.vibrate(30)
-
     dragStyle.value = {
-      left: `${touch.clientX - rect.width / 2}px`,
-      top: `${touch.clientY - rect.height / 2}px`,
+      left: `${currentTouchX - rect.width / 2}px`,
+      top: `${currentTouchY - rect.height / 2}px`,
       width: `${rect.width}px`,
       height: `${rect.height}px`,
-    }
+    } 
+    isDragging.value = true
+    draggingIndex.value = index
+    
+    if (navigator.vibrate) navigator.vibrate(30)
   }, 300)
 }
 
 const onTouchMove = (e, index) => {
   const touch = e.touches[0]
+  currentTouchX = touch.clientX
+  currentTouchY = touch.clientY
   const dx = touch.clientX - touchStartX
   const dy = touch.clientY - touchStartY
 
@@ -166,7 +165,7 @@ const onTouchEnd = (e, index) => {
     if (pullDistance.value >= 60) {
       isRefreshing.value = true
       setTimeout(() => {
-        refreshBubbles()
+        refreshBubbleContents
         isRefreshing.value = false
         pullDistance.value = 0
       }, 800)
@@ -240,6 +239,43 @@ const goToCategory = (name) => {
 const goToMeme = (id) => {
   if (isDragging.value) return
   router.push(`/meme/${id}`)
+}
+
+// 🌟 新增：只刷新气泡内的词条，不改变气泡位置和大小
+const refreshBubbleContents = () => {
+  // 1. 获取最新梗库数据
+  const memes = getMemes() || []
+  const categoryMap = {}
+
+  // 2. 重新按分类整理词条
+  memes.forEach(meme => {
+    let cats = meme.category || '其他'
+    if (!Array.isArray(cats)) cats = [cats]
+    cats.forEach(cat => {
+      if (!categoryMap[cat]) categoryMap[cat] = []
+      categoryMap[cat].push({ term: meme.term, id: meme.id })
+    })
+  })
+
+  // 3. 遍历当前屏幕上的气泡，只替换内部的 previewItems
+  bubbleCategories.value = bubbleCategories.value.map(cat => {
+    const allItems = categoryMap[cat.name] || []
+    
+    // 随机打乱该分类下的词条
+    const shuffledItems = [...allItems].sort(() => 0.5 - Math.random())
+    
+    // 保持原来的词条数量显示逻辑 (根据气泡当前大小)
+    let maxTerms = cat.size < 100 ? 2 : (cat.size < 130 ? 3 : 4)
+
+    return {
+      ...cat,
+      // 截取全新的一批随机词条
+      previewItems: shuffledItems.slice(0, Math.max(2, maxTerms))
+    }
+  })
+
+  // 4. 将更新了词条的新状态保存到本地
+  saveLayout()
 }
 </script>
 
@@ -425,11 +461,15 @@ const goToMeme = (id) => {
   background: var(--card-bg);
   border: 2px solid #FFD700;
   box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-  display: flex; align-items: center; justify-content: center;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
   pointer-events: none;
   transform: scale(1.1);
   text-align: center;
   padding: 12px;
+  transition: none;
+  margin: 0 !important;
 }
 
 .bubble-list-move { transition: transform 0.5s cubic-bezier(0.2, 0, 0, 1); }
