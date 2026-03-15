@@ -75,8 +75,8 @@ const favoriteMemes = computed(() => {
   margin-top: 0;
   margin-bottom: 20px;
   color: var(--text-main); /* 改用变量 */
-  font-size: 22px;
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 /* 空状态样式 */

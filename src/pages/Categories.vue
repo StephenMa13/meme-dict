@@ -25,7 +25,7 @@ let dragElement = null
 // ========== 下拉刷新逻辑 ==========
 const isRefreshing = ref(false)
 const pullDistance = ref(0)
-let pullStartY = 0
+let pullStartY = -1
 let isPulling = false
 
 // ========== 初始化数据 ==========
@@ -90,6 +90,45 @@ const saveLayout = () => {
 }
 
 // ========== Touch 拖拽与下拉刷新核心 ==========
+const onPageTouchStart = (e) => {
+  if (window.scrollY <= 0) {
+    pageStartY = e.touches[0].clientY
+  } else {
+    pageStartY = -1
+  }
+}
+
+const onPageTouchMove = (e) => {
+  // 如果正在拖拽气泡，或者不在顶部，则不触发全局下拉
+  if (isDragging.value || pageStartY === -1) return
+
+  const touchY = e.touches[0].clientY
+  const dy = touchY - pageStartY
+
+  if (dy > 0 && window.scrollY <= 0) {
+    isPulling = true
+    pullDistance.value = Math.min(dy * 0.4, 100)
+    if (e.cancelable) e.preventDefault()
+  }
+}
+
+const onPageTouchEnd = () => {
+  if (isPulling) {
+    if (pullDistance.value >= 60) {
+      isRefreshing.value = true
+      pullDistance.value = 60 // 悬停在刷新高度
+      setTimeout(() => {
+        refreshBubbleContents() // 🌟 修复：必须加括号才能调用函数！
+        isRefreshing.value = false
+        pullDistance.value = 0
+      }, 800)
+    } else {
+      pullDistance.value = 0
+    }
+    isPulling = false
+  }
+  pageStartY = -1
+}
 
 const onTouchStart = (e, index) => {
   const touch = e.touches[0]
@@ -125,14 +164,6 @@ const onTouchMove = (e, index) => {
     if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
       clearTimeout(longPressTimer)
     }
-
-    // 下拉刷新检测
-    if (dy > 0 && window.scrollY <= 0 && !isDragging.value) {
-      isPulling = true
-      // 阻尼系数 0.4，最大下拉高度 100
-      pullDistance.value = Math.min(dy * 0.4, 100) 
-      if (e.cancelable) e.preventDefault()
-    }
     return
   }
 
@@ -159,29 +190,11 @@ const onTouchMove = (e, index) => {
 
 const onTouchEnd = (e, index) => {
   clearTimeout(longPressTimer)
-
-  if (isPulling) {
-    // 阈值设为 60，更明显
-    if (pullDistance.value >= 60) {
-      isRefreshing.value = true
-      setTimeout(() => {
-        refreshBubbleContents
-        isRefreshing.value = false
-        pullDistance.value = 0
-      }, 800)
-    } else {
-      pullDistance.value = 0
-    }
-    isPulling = false
-    return
-  }
-
   if (isDragging.value) {
     isDragging.value = false
     draggingIndex.value = null
     dragStyle.value = {}
     saveLayout()
-    return
   }
 }
 
@@ -280,8 +293,10 @@ const refreshBubbleContents = () => {
 </script>
 
 <template>
-  <div class="categories-page">
-
+  <div class="categories-page"
+        @touchstart="onPageTouchStart"
+        @touchmove="onPageTouchMove"
+        @touchend="onPageTouchEnd">
     <!-- 🌟 修改后的下拉刷新指示器 -->
     <div class="refresh-bar" :style="{ height: pullDistance + 'px' }">
       <div class="refresh-content" :style="{ opacity: Math.min(pullDistance / 70, 1) }">
