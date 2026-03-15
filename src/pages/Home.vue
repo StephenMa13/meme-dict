@@ -17,6 +17,7 @@ const showHistory = ref(false)
 const isRefreshing = ref(false)
 const pullDistance = ref(0)
 let startY = 0
+let lastY = 0
 
 // 🌟 弹窗与表单状态
 const showModal = ref(false)
@@ -103,24 +104,44 @@ const clearHistory = () => {
 const scrollContainer = ref(null)
 
 const handleTouchStart = (e) => {
-  const scrollTop = document.querySelector('.hot-list')?.scrollTop || 0;
-  if (scrollTop === 0) {
+  lastY = e.touches[0].pageY // 记录初始位置
+  
+  const scrollDom = document.querySelector('.hot-list')
+  const scrollTop = scrollDom?.scrollTop || 0
+
+  if (scrollTop <= 0) {
     startY = e.touches[0].pageY
   } else {
-    startY = -1; // 标记当前不在顶部，不触发下拉
+    startY = -1 // 标记当前不在顶部，不触发下拉
   }
 }
 
 const handleTouchMove = (e) => {
-  if (startY === -1) return; // 不在顶部，直接返回
-
   const currentY = e.touches[0].pageY
-  const diff = currentY - startY
-  
-  if (diff > 0) {
-    pullDistance.value = Math.min(diff * 0.5, 80)
-    // 阻止浏览器默认行为，防止页面整体被下拉出白底
-    if (pullDistance.value > 10) {
+  const diffY = currentY - lastY // diffY < 0 表示向上滑，> 0 表示向下滑
+  lastY = currentY // 更新实时坐标
+
+  const scrollDom = document.querySelector('.hot-list')
+
+  // 1. 处理顶部的下拉刷新逻辑
+  if (startY !== -1) {
+    const diffFromStart = currentY - startY
+    if (diffFromStart > 0) {
+      pullDistance.value = Math.min(diffFromStart * 0.5, 80)
+      if (pullDistance.value > 10 && e.cancelable) {
+        e.preventDefault() // 阻止浏览器下拉露出顶部白底
+      }
+      return // 如果处于下拉刷新状态，直接返回，跳过后续检测
+    }
+  }
+
+  // 2. 🌟 核心：处理底部的越界上滑（防止露出底部白底）
+  if (scrollDom) {
+    // 判断是否已经滚动到了底部（容差 1px 避免精度问题）
+    const isAtBottom = scrollDom.scrollHeight - scrollDom.scrollTop <= scrollDom.clientHeight + 1
+
+    // 如果在底部，且用户还在继续向上滑动，立刻拦截！
+    if (isAtBottom && diffY < 0) {
       if (e.cancelable) e.preventDefault()
     }
   }
@@ -418,6 +439,13 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 :global(html) {
   transition: background-color 0.4s ease;
 }
+:global(html), :global(body) {
+  overscroll-behavior: none; /* 核心：彻底禁用浏览器的橡皮筋回弹效果 */
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 :global(.bg-pink) { background-color: #FFE4E1 !important; }
 :global(.bg-green) { background-color: #C7EDCC !important; }
 
@@ -425,7 +453,7 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
   background-color: #121212 !important; 
 }
 
-.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100dvh !important; overflow: hidden !important; background-color: transparent !important; transition: background-color 0.3s; overflow-x: hidden; overscroll-behavior-y: contain; padding-bottom: 80px;  box-sizing: border-box; flex-direction: column; display: flex;}
+.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100dvh !important; overflow: hidden !important; background-color: transparent !important; transition: background-color 0.3s; overflow-x: hidden; overscroll-behavior-y: contain; padding-bottom: 80px;  box-sizing: border-box; flex-direction: column;}
 .navbar { margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; gap: 20px; flex-shrink: 0;}
 .logo { font-size: 18px; font-weight: bold; color: var(--text-main); display: flex;align-items: center;gap: 4px;}
 .spark-logo { width: 2.2em;  height: 2.2em;  object-fit: contain; position: relative;top: 1px;}
@@ -480,7 +508,7 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 .history-list li { padding: 14px 20px; font-size: 15px; color: var(--text-main); cursor: pointer; transition: background-color 0.2s; }
 .history-list li:hover { background-color: var(--bg-color); }
 
-.hot-list { flex: 1; margin: 0 auto; padding: 10px 20px; flex-direction: column; display: flex; box-sizing: border-box;overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding: 10px 20px;}
+.hot-list { flex: 1; margin: 0 auto; padding: 10px 20px; flex-direction: column; display: flex; box-sizing: border-box;overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-y: none; padding: 10px 20px;}
 .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-shrink: 0;}
 .section-title { font-size: 18px; font-weight: bold; margin: 0; color: var(--text-main); }
 .section-controls { display: flex; gap: 8px; align-items: center; }
