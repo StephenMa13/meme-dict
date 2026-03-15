@@ -100,22 +100,26 @@ const clearHistory = () => {
   localStorage.removeItem('searchHistory')
 }
 
+const scrollContainer = ref(null)
+
 const handleTouchStart = (e) => {
-  if (window.scrollY === 0) { // 只有在顶部时才触发
+  const scrollTop = document.querySelector('.hot-list')?.scrollTop || 0;
+  if (scrollTop === 0) {
     startY = e.touches[0].pageY
+  } else {
+    startY = -1; // 标记当前不在顶部，不触发下拉
   }
 }
 
 const handleTouchMove = (e) => {
+  if (startY === -1) return; // 不在顶部，直接返回
+
   const currentY = e.touches[0].pageY
   const diff = currentY - startY
   
-  // 只有向下拉，且在顶部时才计算距离
-  if (diff > 0 && window.scrollY === 0) {
-    // 增加阻尼感：拉得越深越费劲 (Math.pow(diff, 0.8))
-    pullDistance.value = Math.min(diff*0.5, 80) 
-    
-    // 阻止浏览器默认的下拉回弹（橡皮筋效果）以优化体验
+  if (diff > 0) {
+    pullDistance.value = Math.min(diff * 0.5, 80)
+    // 阻止浏览器默认行为，防止页面整体被下拉出白底
     if (pullDistance.value > 10) {
       if (e.cancelable) e.preventDefault()
     }
@@ -301,9 +305,9 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
       
       <div class="nav-actions">
         <div class="color-dots" v-show="!isDark">
-          <span class="dot pink" :class="{ active: currentBg === 'pink' }" @click="setBgColor('pink')" title="猛男落泪粉"></span>
-          <span class="dot green" :class="{ active: currentBg === 'green' }" @click="setBgColor('green')" title="护眼绿豆沙"></span>
-          <span class="dot default" :class="{ active: currentBg === 'default' }" @click="setBgColor('default')" title="默认白"></span>
+          <span class="dot pink" :class="{ active: currentBg === 'pink' }" @click.stop="setBgColor('pink')" title="猛男落泪粉"></span>
+          <span class="dot green" :class="{ active: currentBg === 'green' }" @click.stop="setBgColor('green')" title="护眼绿豆沙"></span>
+          <span class="dot default" :class="{ active: currentBg === 'default' }" @click.stop="setBgColor('default')" title="默认白"></span>
         </div>
 
         <button class="theme-toggle-btn" @click="toggleTheme">
@@ -347,7 +351,7 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
       </div>
     </header>
 
-    <main class="hot-list">
+    <main class="hot-list" ref="scrollContainer">
       <div class="section-header">
         <h2 class="section-title">{{ activeSearch ? `🔍 搜索结果` : '🎲 猜你想看' }}</h2>
         <div class="section-controls">
@@ -421,28 +425,47 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
   background-color: #121212 !important; 
 }
 
-.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100dvh !important; overflow: hidden !important; background-color: transparent !important; transition: background-color 0.3s; overflow-x: hidden; overscroll-behavior-y: contain; flex-direction: column;  padding-bottom: 80px;  box-sizing: border-box;}
+.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100dvh !important; overflow: hidden !important; background-color: transparent !important; transition: background-color 0.3s; overflow-x: hidden; overscroll-behavior-y: contain; padding-bottom: 80px;  box-sizing: border-box; flex-direction: column; display: flex;}
 .navbar { margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; gap: 20px; flex-shrink: 0;}
-.logo { font-size: 18px; font-weight: bold; color: var(--text-main); display: flex;align-items: center;gap: 8px;}
-.spark-logo { width: 1.5em;  height: 1.5em;  object-fit: contain; position: relative;top: 1px;}
-.navbar, .hero, .section-header {
-  flex-shrink: 0;
-}
-.add-btn { background-color: #FFD700; border: none; padding: 6px 14px; border-radius: 20px; font-weight: bold; cursor: pointer; color: #333; }
+.logo { font-size: 18px; font-weight: bold; color: var(--text-main); display: flex;align-items: center;gap: 4px;}
+.spark-logo { width: 2.2em;  height: 2.2em;  object-fit: contain; position: relative;top: 1px;}
 
-.nav-actions { display: flex; align-items: center; gap: 10px; z-index: 100; }
+.add-btn { background-color: #FFD700; border: none; padding: 6px 8px; border-radius: 20px; font-weight: bold; cursor: pointer; color: #333; -webkit-tap-highlight-color: transparent;}
 
-.color-dots { display: flex; gap: 6px; align-items: center; margin-right: 4px; }
-.dot { display: inline-block; width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s, border-color 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.nav-actions { display: flex; align-items: center; gap: 8px; z-index: 100; }
+
+.color-dots { display: flex; gap: 8px; align-items: center; margin-right: 4px; }
+.dot { display: inline-block; width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: all 0.2s ease, border-color 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); -webkit-tap-highlight-color: transparent;}
 .dot:hover { transform: scale(1.2); }
 .dot.active { border-color: var(--text-main); transform: scale(1.15); }
 .dot.pink { background-color: #ffb6c1; }
 .dot.green { background-color: #8fbc8f; }
-.dot.default { background-color: #f5f5f5; border: 1px solid #ddd; }
+.dot.default { background-color: #f5f5f5; }
 
-.theme-toggle-btn { background-color: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
-.theme-toggle-btn:hover { background-color: var(--bg-color); }
+.theme-toggle-btn { background-color: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 6px 8px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; transition: all 0.3s; -webkit-tap-highlight-color: transparent; }
+.theme-toggle-btn:active, .add-btn:active {
+  background-color: var(--bg-color) !important;
+  transform: scale(0.9);
+}
+.theme-toggle-btn, .add-btn {
+  font-size: 13px;
+  line-height: 1;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg) !important; 
+  color: var(--text-main);
+  outline: none; 
+}
 
+.dot, .theme-toggle-btn, .add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent; /* 移除移动端点击高亮蓝框 */
+}
 .hero { padding: 10px 20px; text-align: center; margin-bottom: 5px; flex-shrink: 0; }
 
 .search-wrapper { position: relative; max-width: 600px; margin: 0 auto; width: 100%; }
@@ -457,7 +480,7 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 .history-list li { padding: 14px 20px; font-size: 15px; color: var(--text-main); cursor: pointer; transition: background-color 0.2s; }
 .history-list li:hover { background-color: var(--bg-color); }
 
-.hot-list { margin: 0 auto; padding: 10px 20px; flex-direction: column; display: flex; box-sizing: border-box;}
+.hot-list { flex: 1; margin: 0 auto; padding: 10px 20px; flex-direction: column; display: flex; box-sizing: border-box;overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding: 10px 20px;}
 .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-shrink: 0;}
 .section-title { font-size: 18px; font-weight: bold; margin: 0; color: var(--text-main); }
 .section-controls { display: flex; gap: 8px; align-items: center; }
@@ -477,9 +500,13 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 }
 
 .card-grid { display: grid; grid-template-columns: 1fr; gap: 10px; align-content: start; }
-.card { background: var(--card-bg) !important; border: 1px solid var(--border-color); border-radius: 8px; padding: 8px 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); cursor: pointer; color: var(--text-main); }
+.card { background: var(--card-bg) !important; border: 1px solid var(--border-color); border-radius: 8px; padding: 8px 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); cursor: pointer; color: var(--text-main);-webkit-tap-highlight-color: transparent; user-select: none; outline: none; }
 .card-top { width:100%; display: flex; align-items: center; gap: 10px; justify-content: space-between; }
 .card-actions { display: flex; gap: 8px; }
+.card:active, .card:focus {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
 
 .meme-info { flex: 1; display: flex; align-items: center; }
 .meme-term { font-size: 14px; font-weight: 700; margin: 0 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-main); }
