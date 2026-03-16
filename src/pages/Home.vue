@@ -441,8 +441,6 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 }
 :global(html), :global(body) {
   overscroll-behavior: none; /* 核心：彻底禁用浏览器的橡皮筋回弹效果 */
-  overflow: hidden;
-  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -453,7 +451,7 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
   background-color: #121212 !important; 
 }
 
-.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100dvh !important; overflow: hidden !important; background-color: transparent !important; transition: background-color 0.3s; overflow-x: hidden; overscroll-behavior-y: contain; padding-bottom: 80px;  box-sizing: border-box; flex-direction: column;}
+.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100vh !important; overflow: hidden !important; background-color: transparent !important; transition: background-color 0.3s; overflow-x: hidden; overscroll-behavior-y: contain; padding-bottom: 80px;  box-sizing: border-box; flex-direction: column;}
 .navbar { margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; gap: 20px; flex-shrink: 0;}
 .logo { font-size: 18px; font-weight: bold; color: var(--text-main); display: flex;align-items: center;gap: 4px;}
 .spark-logo { width: 2.2em;  height: 2.2em;  object-fit: contain; position: relative;top: 1px;}

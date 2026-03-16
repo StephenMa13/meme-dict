@@ -109,6 +109,8 @@ const onPageTouchMove = (e) => {
     isPulling = true
     pullDistance.value = Math.min(dy * 0.4, 100)
     if (e.cancelable) e.preventDefault()
+  }else{
+    isPulling = false
   }
 }
 
@@ -382,6 +384,7 @@ const refreshBubbleContents = () => {
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
+  overflow-y: auto;
   position: relative;
   /* 禁止系统默认刷新动画以便我们自定义 */
   overscroll-behavior-y: contain; 
@@ -413,7 +416,7 @@ const refreshBubbleContents = () => {
 
 .bubbles-loader { display: flex; flex-direction: column; align-items: center; }
 .bubble-pop { font-size: 30px; animation: bubbleBounce 0.8s infinite ease-in-out; }
-.loading-text { font-size: 11px; font-weight: bold; color: var(--text-main); }
+.loading-text { font-size: 11px; font-weight: bold; color: var(--text-main); margin-top: 50px;}
 
 @keyframes bubbleBounce {
   0%, 100% { transform: scale(1) translateY(0); opacity: 0.8; }

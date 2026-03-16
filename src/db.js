@@ -1,7 +1,7 @@
 // 引入我们的出厂词典
 import defaultMemes from './data/memes.json'
 
-const DB_KEY = 'my_offline_memes_v4' // 本地硬盘的文件夹名字
+const DB_KEY = 'my_offline_memes_v6' // 本地硬盘的文件夹名字
 
 // 1. 获取所有梗
 export const getMemes = () => {

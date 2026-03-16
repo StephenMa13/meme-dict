@@ -125,6 +125,10 @@ const truncate = (text) => {
   height: 100dvh; 
   background-color: var(--bg-color); 
   color: var(--text-main);
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  flex-direction: column;
+
 }
 
 /* 2. 大标题头部区域 */
