@@ -92,18 +92,18 @@ const saveLayout = () => {
 // ========== Touch 拖拽与下拉刷新核心 ==========
 const onPageTouchStart = (e) => {
   if (window.scrollY <= 0) {
-    pageStartY = e.touches[0].clientY
+    pullStartY = e.touches[0].clientY
   } else {
-    pageStartY = -1
+    pullStartY = -1
   }
 }
 
 const onPageTouchMove = (e) => {
   // 如果正在拖拽气泡，或者不在顶部，则不触发全局下拉
-  if (isDragging.value || pageStartY === -1) return
+  if (isDragging.value || pullStartY === -1) return
 
   const touchY = e.touches[0].clientY
-  const dy = touchY - pageStartY
+  const dy = touchY - pullStartY
 
   if (dy > 0 && window.scrollY <= 0) {
     isPulling = true
@@ -127,7 +127,7 @@ const onPageTouchEnd = () => {
     }
     isPulling = false
   }
-  pageStartY = -1
+  pullStartY = -1
 }
 
 const onTouchStart = (e, index) => {

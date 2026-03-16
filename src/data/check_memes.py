@@ -1,61 +1,65 @@
 import json
 import re
 
-def clean_and_reindex_memes(input_file="memes.json", output_file="memes_cleaned.json"):
+def ultimate_clean_memes(input_file="memes.json", output_file="memes_final.json"):
     try:
         with open(input_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
-        print(f"📥 成功加载数据，共 {len(data)} 条。")
     except Exception as e:
         print(f"❌ 读取文件失败: {e}")
         return
 
-    unique_data = []
-    seen_fingerprints = {} # 记录特征值
+    # 1. 结构容错：展平嵌套列表 (吸收第二段代码的优点)
+    flat_data = []
+    for item in data:
+        if isinstance(item, list):
+            flat_data.extend(item)
+        elif isinstance(item, dict):
+            flat_data.append(item)
+            
+    print(f"📥 成功读取并展平数据，当前共有 {len(flat_data)} 条初始数据。")
 
+    # 2. 提取指纹函数 (吸收第一段代码的优点)
     def get_fingerprint(text):
-        """提取词条特征：转小写、去除空格、保留中英数"""
         if not text: return ""
         text = str(text).lower().strip()
-        # 只保留字母、数字、汉字
         chars = re.findall(r'[a-z0-9\u4e00-\u9fa5]', text)
         return "".join(chars)
 
-    # 1. 第一步：去重
-    for item in data:
+    # 3. 核心清洗：去重 (吸收第一段代码的优点)
+    unique_data = []
+    seen_fingerprints = set() # 使用 set 提升查找效率
+
+    for item in flat_data:
+        if not isinstance(item, dict):
+            continue
+            
         original_term = item.get('term', '').strip()
         fingerprint = get_fingerprint(original_term)
 
-        if not fingerprint:
-            continue
-
-        if fingerprint in seen_fingerprints:
-            # 如果已经存在该词条，跳过（不加入 unique_data）
+        if not fingerprint or fingerprint in seen_fingerprints:
             continue
         
-        seen_fingerprints[fingerprint] = original_term
+        seen_fingerprints.add(fingerprint)
         unique_data.append(item)
 
-    # 2. 第二步：重新排序并重写 ID (核心修改)
-    # 按照原来的顺序（或者你可以自定义排序逻辑）重新分配 ID
-    for index, item in enumerate(unique_data):
-        item['id'] = index + 1  # 让 ID 从 1 开始连续排列
+    # 4. 重新分配连续的升序 ID
+    for index, obj in enumerate(unique_data, start=1):
+        obj['id'] = index
 
-    # 3. 输出报告
+    # 5. 保存结果
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump(unique_data, f, ensure_ascii=False, indent=2)
+
+    # 6. 输出详细报告 (修复了第一段代码的笔误)
     print("\n" + "="*40)
-    print(f"✅ 处理完成：")
-    print(f"  - 原始总数: {len(data)}")
-    print(f"  - 剩余独立词条: {len(unique_data)}")
-    print(f"  - 剔除重复数量: {len(data) - len(unique_data)}")2
+    print(f"✅ 处理完成！")
+    print(f"  - 展平后总数: {len(flat_data)}")
+    print(f"  - 剔除重复数: {len(flat_data) - len(unique_data)}")
+    print(f"  - 最终有效词条: {len(unique_data)}")
     print(f"  - ID 状态: 已重置为 1 到 {len(unique_data)} 的连续整数")
     print("="*40)
-
-    # 4. 保存结果
-    with open(output_file, 'w', encoding='utf-8') as f:
-        # indent=2 让 JSON 格式美观，ensure_ascii=False 保证中文不乱码
-        json.dump(unique_data, f, ensure_ascii=False, indent=2)
-    
-    print(f"\n💾 干净且有序的数据已保存至: {output_file}")
+    print(f"💾 干净、无重、有序的数据已保存至: {output_file}")
 
 if __name__ == "__main__":
-    clean_and_reindex_memes()
+    ultimate_clean_memes()
