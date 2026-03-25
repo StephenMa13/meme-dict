@@ -125,10 +125,14 @@ const truncate = (text) => {
   height: 100dvh; 
   background-color: var(--bg-color); 
   color: var(--text-main);
-  overflow-x: hidden;
-  overscroll-behavior-y: contain;
+  
+  /* 🌟 修复点 1：补全 display: flex 让上下布局生效 */
+  display: flex;
   flex-direction: column;
-
+  
+  /* 🌟 修复点 2：将外层容器的垂直溢出隐藏，确保只有 main 区域独立滚动 */
+  overflow: hidden; 
+  overscroll-behavior-y: contain;
 }
 
 /* 2. 大标题头部区域 */
@@ -139,7 +143,9 @@ const truncate = (text) => {
   max-width: 1000px;
   margin: 0 auto;
   width: 100%;
-  flex-shrink: calc();
+  
+  /* 🌟 修复点 3：修复语法错误，确保头部不会被压缩 */
+  flex-shrink: 0; 
 }
 
 .category-display-title {
@@ -163,9 +169,12 @@ const truncate = (text) => {
   margin: 0 auto; 
   padding: 5px 20px 40px; 
   box-sizing: border-box; 
+  
+  /* 🌟 修复点 4：自动撑满剩余空间，并开启内部独立滚动 */
   flex: 1;
   overflow-y: auto; 
-  overscroll-behavior-y: contain;}
+  overscroll-behavior-y: contain;
+}
 
 /* 网格布局同步 */
 .card-grid { 
@@ -178,8 +187,8 @@ const truncate = (text) => {
 .card { 
   background: var(--card-bg) !important; 
   border: 1px solid var(--border-color); 
-  border-radius: 8px; /* 圆角变小 */
-  padding: 8px 10px; /* 内边距变紧凑 */
+  border-radius: 8px; 
+  padding: 8px 10px; 
   box-shadow: 0 2px 4px rgba(0,0,0,0.03); 
   cursor: pointer; 
   color: var(--text-main);
@@ -198,12 +207,12 @@ const truncate = (text) => {
   flex: 1; 
   display: flex; 
   align-items: center; 
-  min-width: 0; /* 必须加这个才能让省略号生效 */
+  min-width: 0; 
 }
 
 /* 词条文字样式同步 */
 .meme-term { 
-  font-size: 14px; /* 字体变小 */
+  font-size: 14px; 
   font-weight: 700; 
   margin: 0 !important; 
   white-space: nowrap; 
@@ -216,7 +225,7 @@ const truncate = (text) => {
 
 /* 按钮样式同步 */
 .small-btn { 
-  width: 70px; /* 按钮宽度同步 */
+  width: 70px; 
   padding: 6px 8px; 
   font-size: 12px; 
 }

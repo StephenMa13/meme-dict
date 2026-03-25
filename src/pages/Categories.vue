@@ -18,9 +18,6 @@ let touchStartX = 0
 let touchStartY = 0
 let currentTouchX = 0
 let currentTouchY = 0
-let dragOffsetX = 0
-let dragOffsetY = 0
-let dragElement = null
 
 // ========== 下拉刷新逻辑 ==========
 const isRefreshing = ref(false)
@@ -28,12 +25,17 @@ const pullDistance = ref(0)
 let pullStartY = -1
 let isPulling = false
 
+const allowedCategories = new Set(Object.keys(categoryConfig))
 // ========== 初始化数据 ==========
 const initBubbles = () => {
   const cached = localStorage.getItem(STORAGE_KEY)
   if (cached) {
-    bubbleCategories.value = JSON.parse(cached)
-    return
+    const parsed = JSON.parse(cached)
+    const filtered = parsed.filter(cat => allowedCategories.has(cat.name))
+    if(filtered.length > 0){
+      bubbleCategories.value = filtered
+      return
+    }
   }
 
   const memes = getMemes() || []
@@ -43,6 +45,7 @@ const initBubbles = () => {
     let cats = meme.category || '其他'
     if (!Array.isArray(cats)) cats = [cats]
     cats.forEach(cat => {
+      if(!allowedCategories.has(cat)) return
       if (!categoryMap[cat]) {
         categoryMap[cat] = { name: cat, count: 0, allItems: [] }
       }
@@ -51,6 +54,11 @@ const initBubbles = () => {
     })
   })
 
+  Object.keys(categoryConfig).forEach(catName => {
+     if (!categoryMap[catName]) {
+      categoryMap[catName] = { name: catName, count: 0, allItems: [] }
+    }
+  })
   const counts = Object.values(categoryMap).map(c => c.count)
   const maxCount = Math.max(...counts) || 1
   const minCount = Math.min(...counts) || 0
@@ -267,13 +275,16 @@ const refreshBubbleContents = () => {
     let cats = meme.category || '其他'
     if (!Array.isArray(cats)) cats = [cats]
     cats.forEach(cat => {
+      if (!allowedCategories.has(cat)) return
       if (!categoryMap[cat]) categoryMap[cat] = []
       categoryMap[cat].push({ term: meme.term, id: meme.id })
     })
   })
 
   // 3. 遍历当前屏幕上的气泡，只替换内部的 previewItems
-  bubbleCategories.value = bubbleCategories.value.map(cat => {
+  bubbleCategories.value = bubbleCategories.value
+  .filter(cat => allowedCategories.has(cat.name))
+  .map(cat => {
     const allItems = categoryMap[cat.name] || []
     
     // 随机打乱该分类下的词条

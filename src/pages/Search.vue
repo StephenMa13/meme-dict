@@ -30,36 +30,46 @@ watch(() => route.query.q, (newQ) => {
 /**
  * 🌟 核心匹配引擎：支持拼音、首字母、大小写、空格忽略
  */
-const checkMatch = (meme, query) => {
-  if (!query) return false;
-  // 标准化查询词：转小写，去空格
+const getMatchScore = (meme, query) => {
+  if (!query) return 0;
+  
   const q = query.toLowerCase().replace(/\s+/g, '');
-  // 标准化目标词
   const term = meme.term.toLowerCase().replace(/\s+/g, '');
   
-  // A. 直接匹配
-  if (term.includes(q)) return true;
+  // 1. 最高优先级：完全匹配 (100分)
+  if (term === q) return 100;
+  
+  // 2. 极高优先级：原词以搜索词开头 (90分)
+  // 这满足了“搜字优先展示首字包含的词”、“搜英文字母优先展示英文词条”
+  if (term.startsWith(q)) return 90;
+  
+  // 3. 高优先级：原词包含搜索词 (80分)
+  if (term.includes(q)) return 80;
 
   try {
-    // B. 全拼匹配 (如: xianyanbao)
-    const fullPinyin = pinyin(meme.term, { 
-      toneType: 'none', 
-      nonChinese: 'keep' 
-    }).toLowerCase().replace(/\s+/g, '');
-    if (fullPinyin.includes(q)) return true;
+    const fullPinyin = pinyin(meme.term, { toneType: 'none', nonChinese: 'keep' }).toLowerCase().replace(/\s+/g, '');
+    const initials = pinyin(meme.term, { pattern: 'first', toneType: 'none', nonChinese: 'keep' }).toLowerCase().replace(/\s+/g, '');
 
-    // C. 首字母匹配 (如: xyb)
-    const initials = pinyin(meme.term, { 
-      pattern: 'first', 
-      toneType: 'none', 
-      nonChinese: 'keep'
-    }).toLowerCase().replace(/\s+/g, '');
-    if (initials.includes(q)) return true;
+    // 4. 中高优先级：全拼完全匹配 (70分) 
+    if (fullPinyin === q) return 70;
+    
+    // 5. 中优先级：全拼以搜索词开头 (60分)
+    if (fullPinyin.startsWith(q)) return 60;
+    
+    // 6. 中低优先级：首字母完全匹配 (如搜"xyb"匹配"显眼包") (50分)
+    if (initials === q) return 50;
+    
+    // 7. 低优先级：首字母以搜索词开头 (如搜"xy"匹配"显眼包") (40分)
+    if (initials.startsWith(q)) return 40;
+    
+    // 8. 极低优先级：全拼或首字母包含该片段 (30分)
+    if (fullPinyin.includes(q) || initials.includes(q)) return 30;
+    
   } catch (e) {
-    return false;
+    return 0;
   }
 
-  return false;
+  return 0; // 都不匹配则为0
 }
 
 // 3. 执行搜索
@@ -76,22 +86,36 @@ const executeSearch = () => {
   showHistory.value = false
 }
 
-// 4. 🌟 计算过滤结果：调用 checkMatch 实现拼音搜索
+// 4. 🌟 计算过滤结果：调用 getMatchScore 实现拼音搜索
 const filteredResults = computed(() => {
   const q = route.query.q || ''
   if (!q) return []
   
-  return allMemes.value
-    .filter(item => checkMatch(item, q)) // 使用拼音匹配函数
-    .sort((a, b) => {
-      const aIsBlack = blacklistIds.value.includes(a.id)
-      const bIsBlack = blacklistIds.value.includes(b.id)
-      
-      // 排序逻辑：非黑名单在前，黑名单在后
-      if (aIsBlack && !bIsBlack) return 1
-      if (!aIsBlack && bIsBlack) return -1
-      return 0
-    })
+  // 第一步：过滤并打分
+  const matchedMemes = allMemes.value
+    .map(item => ({ item, score: getMatchScore(item, q) }))
+    .filter(obj => obj.score > 0) // 只保留有分数的项
+
+  // 第二步：排序
+  matchedMemes.sort((a, b) => {
+    const aIsBlack = blacklistIds.value.includes(a.item.id)
+    const bIsBlack = blacklistIds.value.includes(b.item.id)
+    
+    // 排序优先级 1：黑名单永远沉底
+    if (aIsBlack && !bIsBlack) return 1
+    if (!aIsBlack && bIsBlack) return -1
+    
+    // 排序优先级 2：按照我们计算的相关度分数从高到低排
+    if (a.score !== b.score) {
+      return b.score - a.score
+    }
+
+    // 排序优先级 3：如果分数一样，字数越短的词条越靠前（通常意味着更精准）
+    return a.item.term.length - b.item.term.length
+  })
+
+  // 第三步：提取出原本的 item 对象返回给模板
+  return matchedMemes.map(obj => obj.item)
 })
 
 const selectHistory = (term) => {
