@@ -88,7 +88,7 @@ onMounted(() => {
           <p class="summary-text">{{ meme.summary }}</p>
           
           <h3>🕵️‍♂️ 深度科普</h3>
-          <p class="details-text" v-html="meme.details"></p>
+          <div class="details-text" v-html="meme.details"></div>
         </div>
 
         <!-- 操作按钮：纯图标、固定宽度、不位移 -->
@@ -217,8 +217,19 @@ onMounted(() => {
 .dislike-icon {
   opacity: 0.3; /* 初始更浅一些 */
 }
+
 .active-dislike {
   opacity: 1 !important;
   filter: grayscale(0); /* 如果有需要可以加点颜色 */
+}
+
+/* 🌟 针对 v-html 内部渲染的动图/图片进行专属控制 */
+.details-text :deep(img) {
+  display: block;          /* 让图片独占一行，不跟文字挤在一起 */
+  max-width: 100%;         /* 限制最大宽度，绝对不撑破你的卡片 */
+  height: auto;            /* 高度自动等比例缩放，不会变形 */
+  margin: 16px auto;       /* 上下留出16px呼吸感间距，左右自动居中 */
+  border-radius: 12px;     /* 配合你卡片的圆角风格 */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* 加一点悬浮阴影，质感拉满 */
 }
 </style>

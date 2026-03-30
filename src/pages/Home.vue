@@ -402,6 +402,11 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
           </div>
         </div>
       </div>
+
+      <footer class="page-footer">
+        <p>温馨提示：适度玩梗，理智吃瓜</p>
+        <p>本站内容均来自网络收集或用户贡献，若内容有误或存在侵权，欢迎联系提出修改</p>
+      </footer>
     </main>
 
     <div v-if="showModal" class="modal-overlay">
@@ -638,6 +643,25 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
   animation: spin 0.8s linear infinite;
 }
 
+.page-footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 20px 10px 10px;
+  opacity: 0.6;
+  flex-shrink: 0;
+} 
+
+.page-footer p {
+  margin: 4px 0;
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 4px 0;
+}
+
+@media (max-width: 768px) {
+  .page-footer { padding-bottom: 20px; }
+}
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

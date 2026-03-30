@@ -77,6 +77,7 @@ const favoriteMemes = computed(() => {
   color: var(--text-main); /* 改用变量 */
   font-size: 18px;
   font-weight: 600;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* 空状态样式 */
@@ -114,10 +115,12 @@ const favoriteMemes = computed(() => {
   max-width: 92%;  
   transition:transform 0.1s, box-shadow 0.1s;
   box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .card:active {
   transform: scale(0.98);
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* 强制左侧（标题）横向排版 */
