@@ -364,7 +364,8 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
           <ul class="history-list">
             <li v-for="item in searchHistory" 
                 :key="item" 
-                @mousedown.prevent="selectHistory(item)">
+                @mousedown.prevent="selectHistory(item)"
+                @touchstart.prevent="selectHistory(item)">
               🕒 {{ item }}
             </li>
           </ul>
@@ -393,10 +394,10 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
             </div>
             <div class="card-actions">
               <button class="action-btn fav-btn small-btn" :class="{ 'active': favoriteIds.includes(meme.id) }" @click.stop="toggleFavorite(meme.id)">
-                {{ favoriteIds.includes(meme.id) ? '⭐ ' : '☆ ' }}
+                {{ favoriteIds.includes(meme.id) ? '⭐' : '☆' }}
               </button>
               <button class="action-btn like-btn small-btn" @click.stop="toggleLike(meme.id)">
-                {{ likedIds.includes(meme.id) ? '❤️ ' : '🤍 ' }}
+                {{ likedIds.includes(meme.id) ? '❤️' : '🤍' }}
               </button>            
             </div>
           </div>
@@ -456,9 +457,32 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
   background-color: #121212 !important; 
 }
 
-.app-container { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100vh !important; overflow: hidden !important; background-color: transparent !important; transition: background-color 0.3s; overflow-x: hidden; overscroll-behavior-y: contain; padding-bottom: 80px;  box-sizing: border-box; flex-direction: column;}
-.navbar { margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; gap: 20px; flex-shrink: 0;}
-.logo { font-size: 18px; font-weight: bold; color: var(--text-main); display: flex;align-items: center;gap: 4px;}
+.app-container { 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+  height: 100vh !important; 
+  overflow: hidden !important; 
+  background-color: transparent !important; 
+  transition: background-color 0.3s; 
+  overflow-x: hidden; 
+  overscroll-behavior-y: contain; 
+  /* 👇 核心：动态加上底部的安全距离 */
+  padding-bottom: max(80px, calc(env(safe-area-inset-bottom) + 80px)); 
+  box-sizing: border-box; 
+  flex-direction: column;
+}
+.navbar { 
+  margin: 0 auto; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  /* 👇 核心：动态给顶部、左侧、右侧留出安全区 */
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-bottom: 10px;
+  padding-left: max(20px, env(safe-area-inset-left));
+  padding-right: max(20px, env(safe-area-inset-right));
+  gap: 20px; 
+  flex-shrink: 0;
+}.logo { font-size: 18px; font-weight: bold; color: var(--text-main); display: flex;align-items: center;gap: 4px;}
 .spark-logo { width: 2.2em;  height: 2.2em;  object-fit: contain; position: relative;top: 1px;}
 
 .add-btn { background-color: #FFD700; border: none; padding: 6px 8px; border-radius: 20px; font-weight: bold; cursor: pointer; color: #333; -webkit-tap-highlight-color: transparent;}
@@ -541,9 +565,9 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 
 .meme-info { flex: 1; display: flex; align-items: center; }
 .meme-term { font-size: 14px; font-weight: 700; margin: 0 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-main); }
-.small-btn { width: 70px; padding: 6px 8px; font-size: 12px; }
+.small-btn { width: 70px; height: 28px; font-size: 14px; padding:0;}
 
-.action-btn { border: none; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; width: auto; flex-shrink: 0; transition: all 0.2s; }
+.action-btn { border: none; padding: 0px 10px; border-radius: 8px; font-size: 11px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; width: auto; flex-shrink: 0; transition: all 0.2s; box-sizing: border-box;}
 .fav-btn { background-color: rgba(74, 144, 226, 0.1); color: #4a90e2; }
 .like-btn { background-color: rgba(255, 143, 0, 0.1); color: #ff8f00; }
 
@@ -555,15 +579,13 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
   .card-grid { grid-template-columns: repeat(3, 1fr); } 
   .hot-list { max-width: 1000px; } 
 }
-@media (max-height: 600px) {
-  .hero { display: none; } /* 屏幕太矮时隐藏搜索区，保证词条显示 */
-}
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(3px); display: flex; justify-content: center; align-items: center; z-index: 2000; }
 .modal-content { 
   background: var(--card-bg); 
   width: 90%; 
   max-width: 480px; 
   padding: 24px; 
+  padding-bottom: max(24px, calc(env(safe-area-inset-bottom)+10px)); /* 给底部留出安全距离 */
   border-radius: 16px; 
   box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
   display: flex; 

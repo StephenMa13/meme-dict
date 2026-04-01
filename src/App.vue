@@ -3,10 +3,50 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router' // 1. 引入路由
 import { App } from '@capacitor/app'   // 2. 引入 Capacitor App 插件
 import { StatusBar, Style } from '@capacitor/status-bar';
+import { Browser } from '@capacitor/browser';
 
 // 💡 响应式变量，记录当前选中的背景颜色
 const router = useRouter()
 const currentBg = ref('default')
+
+// 🌟 新增：智能版本号对比函数 (如果 remote > local 返回 true)
+const isNewerVersion = (remote, local) => {
+  const v1 = remote.split('.').map(Number); // 把 "1.0.2" 变成 [1, 0, 2]
+  const v2 = local.split('.').map(Number);
+  
+  for (let i = 0; i < Math.max(v1.length, v2.length); i++) {
+    const num1 = v1[i] || 0;
+    const num2 = v2[i] || 0;
+    if (num1 > num2) return true;  // 网上版本更大，需要更新
+    if (num1 < num2) return false; // 本地版本更大（比如你在测试新版），不需要更新
+  }
+  return false; // 一模一样，不需要更新
+}
+
+// 🌟 新增：检查更新的函数
+const checkForUpdate = async () => {
+  try {
+    // 1. 获取当前 App 的版本信息 (比如 1.0.0)
+    const info = await App.getInfo();
+    const currentVersion = info.version; 
+    
+    // 2. 去网上抓取最新的版本信息 (替换为你自己的真实 JSON 链接)
+    const response = await fetch('https://gist.githubusercontent.com/StephenMa13/85b282b784a0a38333d1a8b36c5ed690/raw/version.json?t=' + new Date().getTime()); // 加时间戳防止缓存
+    const onlineData = await response.json();
+    
+    // 3. 比较版本号 (最简单的字符串比较，如果是 1.0.1 > 1.0.0 就会触发)
+    if (isNewerVersion(onlineData.latestVersion, currentVersion)) {
+      updateInfo.value = {
+        version: onlineData.latestVersion,
+        message: onlineData.message,
+        url: onlineData.downloadUrl
+      }
+      showUpdateModal.value = true
+    }
+  } catch (error) {
+    console.log('检查更新失败，可能没联网', error);
+  }
+}
 
 // 💡 切换背景颜色的z方法
 const setBgColor = async (color) => {
@@ -68,6 +108,7 @@ onMounted(() => {
       App.exitApp()
     }
   })
+  checkForUpdate(); // 应用启动时检查更新
 })
 </script>
 
