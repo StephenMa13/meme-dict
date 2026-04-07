@@ -68,6 +68,7 @@ const favoriteMemes = computed(() => {
   padding: 20px;
   padding-bottom: 80px; 
   box-sizing: border-box;
+  padding-top: calc(16px + env(safe-area-inset-top)); /* 手机安全距离 + 一点呼吸空间 */
 }
 
 /* 标题样式：适配夜间模式变量 */

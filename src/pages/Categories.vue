@@ -399,6 +399,7 @@ const refreshBubbleContents = () => {
   position: relative;
   /* 禁止系统默认刷新动画以便我们自定义 */
   overscroll-behavior-y: contain; 
+  padding-top: calc(16px + env(safe-area-inset-top));
 }
 
 /* 🌟 下拉刷新样式：更明显、更靠下 */
