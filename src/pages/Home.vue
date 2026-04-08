@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted,computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { getMemes, addMeme as localAdd} from '../db.js'
 import { favoriteIds, toggleFavorite, blacklistIds, randomMemes, likedIds, toggleLike } from '../store.js'
@@ -277,7 +277,14 @@ const loadThemeAndData = () => {
   }
 }
 
-onMounted(() => loadThemeAndData())
+onMounted(() => {
+  loadThemeAndData()
+  document.addEventListener('click', closeMenuOnOutsideClick)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', closeMenuOnOutsideClick)
+})
 
 // 7. 交互动作
 const submitMeme = () => {
@@ -298,6 +305,21 @@ const truncate = (text) => {
 }
 
 const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
+
+const isColorMenuExpanded = ref(false)
+const colorMenuRef = ref(null)
+const toggleColorMenu = () => {
+  isColorMenuExpanded.value = !isColorMenuExpanded.value
+}
+const changeColor = (color) => {
+  setBgColor(color)
+  isColorMenuExpanded.value = false
+}
+const closeMenuOnOutsideClick = (e) => {
+  if(isColorMenuExpanded.value && colorMenuRef.value && !colorMenuRef.value.contains(e.target)){
+    isColorMenuExpanded.value = false;
+  }
+}
 </script>
 
 <template>
@@ -325,12 +347,15 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
       </div>
       
       <div class="nav-actions">
-        <div class="color-dots" v-show="!isDark">
-          <span class="dot pink" :class="{ active: currentBg === 'pink' }" @click.stop="setBgColor('pink')" title="猛男落泪粉"></span>
-          <span class="dot green" :class="{ active: currentBg === 'green' }" @click.stop="setBgColor('green')" title="护眼绿豆沙"></span>
-          <span class="dot default" :class="{ active: currentBg === 'default' }" @click.stop="setBgColor('default')" title="默认白"></span>
-        </div>
+        <div class="color-picker-container" v-show="!isDark" ref="colorMenuRef">
+          <div class="options-wrapper" :class="{ 'is-expanded': isColorMenuExpanded }">
+            <span v-if="currentBg !== 'pink'" class="dot pink" @click.stop="changeColor('pink')" title="猛男落泪粉"></span>
+            <span v-if="currentBg !== 'green'" class="dot green" @click.stop="changeColor('green')" title="护眼绿豆沙"></span>
+            <span v-if="currentBg !== 'default'" class="dot default" @click.stop="changeColor('default')" title="默认白"></span>
+          </div>
 
+          <span class="dot main-dot" :class="currentBg" @click.stop="toggleColorMenu"></span>
+        </div>
         <button class="theme-toggle-btn" @click="toggleTheme">
           {{ isDark ? '🌙 ' : '☀️ ' }}
         </button>
@@ -504,10 +529,54 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 .add-btn { background-color: #FFD700; border: none; padding: 6px 8px; border-radius: 20px; font-weight: bold; cursor: pointer; color: #333; -webkit-tap-highlight-color: transparent;}
 
 .nav-actions { display: flex; align-items: center; gap: 8px; z-index: 100; }
+.color-picker-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
-.color-dots { display: flex; gap: 8px; align-items: center; margin-right: 4px; }
-.dot { display: inline-block; width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: all 0.2s ease, border-color 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); -webkit-tap-highlight-color: transparent;}
-.dot:hover { transform: scale(1.2); }
+/* 主按钮样式稍微凸显一点 */
+.main-dot {
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.15);
+  border: 2px solid #fff; /* 加一圈白边会更好看 */
+  transition: transform 0.2s ease;
+}
+
+.main-dot:active {
+  transform: scale(0.9);
+}
+.options-wrapper {
+  position: absolute;
+  /* 假设向左弹出，靠在主按钮左侧 */
+  right: 100%;
+  margin-right: 8px;
+  display: flex;
+  gap: 8px;
+  
+  /* 初始状态：透明、缩小、向右偏移藏在主按钮后、禁用点击 */
+  opacity: 0;
+  transform: translateX(15px) scale(0.5);
+  pointer-events: none;
+  
+  /* 弹性顺滑的动画曲线 */
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 5;
+}
+
+/* 展开状态 */
+.options-wrapper.is-expanded {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  pointer-events: auto; /* 恢复点击 */
+}
+.dot { display: inline-block; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: all 0.2s ease, border-color 0.2s; box-shadow: 0 0 0 1px rgba(0,0,0,0.15); -webkit-tap-highlight-color: transparent;vertical-align: middle;}
+.options-wrapper .dot:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 1.5px rgba(0, 0, 0, 0.3);
+}
 .dot.active { border-color: var(--text-main); transform: scale(1.15); }
 .dot.pink { background-color: #ffb6c1; }
 .dot.green { background-color: #8fbc8f; }
@@ -516,15 +585,21 @@ const categoryList = Object.keys(categoryConfig).filter(key => key !== '默认')
 .theme-toggle-btn { background-color: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 6px 8px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; transition: all 0.3s; -webkit-tap-highlight-color: transparent; }
 .theme-toggle-btn:active, .add-btn:active {
   background-color: var(--bg-color) !important;
-  transform: scale(0.9);
+  transform: scale(0.85);
 }
 .theme-toggle-btn, .add-btn {
-  font-size: 13px;
+  width: 28px; 
+  height: 28px;
+  border-radius: 50%;   
+  padding: 0; 
+  margin: 0;
+  font-size: 14px; 
   line-height: 1;
-  border: 1px solid var(--border-color);
-  background-color: var(--card-bg) !important; 
+  background-color: var(--card-bg) !important;
   color: var(--text-main);
-  outline: none; 
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05); 
+  outline: none;
 }
 
 .dot, .theme-toggle-btn, .add-btn {
