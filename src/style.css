@@ -11,21 +11,22 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* 自定义颜色变量 */
   --bg-color: #f5f6fa;       /* 整体淡灰背景 */
-  --card-bg: #ffffff;        /* 卡片纯白背景 */
+  --card-bg: #ffffff;        /* 卡片/弹窗纯白背景 */
   --text-main: #333333;      /* 主要文字颜色 */
-  --nav-bg: #ffffff;         /* 导航栏背景 */
+  --nav-bg: #ffffff;         /* 底部导航栏背景 */
   --border-color: #e4e6eb;   /* 边框和分割线 */
+  --text-secondary: #888888; /* 次要文字颜色 */
 }
 
-/* 2. 夜间模式的颜色（当 html 标签加上 dark-mode 类时生效） */
+/* 2. 夜间模式的颜色 */
 html.dark-mode {
-  --bg-color: #121212;       /* 深黑背景 */
-  --card-bg: #1E1E1E;        /* 深灰卡片 */
-  --text-main: #FFFFFF;      /* 💡 核心修改：将文字改成了纯白色 */
-  --nav-bg: #1E1E1E;         /* 深色导航栏 */
-  --border-color: #2C2C2C;   /* 暗色边框 */
+  --bg-color: #121212;       
+  --card-bg: #1E1E1E;        
+  --text-main: #FFFFFF;      
+  --nav-bg: #1E1E1E;         
+  --border-color: #2C2C2C;   
+  --text-secondary: #AAAAAA; 
 }
 
 /* =========================================
@@ -33,13 +34,14 @@ html.dark-mode {
    ========================================= */
 body {
   margin: 0;
+  padding: 0; /* 👈 从 App.vue 合并过来 */
   display: flex;
   min-width: 320px;
   min-height: 100vh;
-  /* 👇 使用变量，并加上丝滑的过渡动画 */
-  background-color: var(--bg-color);
+  background: var(--bg-color);
   color: var(--text-main);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  /* 👇 合并了 App.vue 里的背景过渡动画 */
+  transition: background 0.4s ease, color 0.4s ease; 
 }
 
 a {
@@ -60,6 +62,126 @@ button {
 }
 
 /* =========================================
+   📱 App 主体布局 (原 App.vue)
+   ========================================= */
+.main-content {
+  padding-bottom: calc(60px + env(safe-area-inset-bottom));
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* 底部导航栏 */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  /* 🌟 核心优化：使用变量，自动适配日夜模式 */
+  background-color: var(--nav-bg); 
+  border-top: 1px solid var(--border-color); 
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 9999;
+  padding: 10px 0 calc(10px + env(safe-area-inset-bottom)) 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  /* 🌟 使用次要文字变量 */
+  color: var(--text-secondary); 
+  font-size: 12px;
+  transition: all 0.3s ease;
+  flex: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item .icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.router-link-active {
+  color: #ff4757;
+  transform: scale(1.15);
+}
+
+/* =========================================
+   🌟 更新弹窗样式 (原 App.vue)
+   ========================================= */
+.update-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.update-modal {
+  /* 🌟 核心优化：使用卡片背景变量，日夜模式自动切换 */
+  background: var(--card-bg); 
+  border-radius: 16px;
+  padding: 28px 24px;
+  width: 85%;
+  max-width: 340px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.update-modal h3 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  color: var(--text-main); /* 🌟 使用变量 */
+}
+
+.update-modal p {
+  margin: 0 0 24px;
+  font-size: 14px;
+  color: var(--text-secondary); /* 🌟 使用变量 */
+  line-height: 1.6;
+}
+
+.update-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn-skip {
+  flex: 1;
+  padding: 10px 0;
+  border: 1px solid var(--border-color); /* 🌟 使用变量 */
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-secondary); /* 🌟 使用变量 */
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-update {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff4757, #ff6b81);
+  color: #fff; /* 按钮文字固定白色即可 */
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* =========================================
    📦 全局卡片样式 
    ========================================= */
 .card-grid { 
@@ -69,7 +191,6 @@ button {
 }
 
 .card { 
-  /* 👇 使用变量代替写死的颜色 */
   background: var(--card-bg) !important; 
   color: var(--text-main); 
   border-radius: 12px; 
@@ -79,7 +200,7 @@ button {
   align-items: center; 
   box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
   cursor: pointer; 
-  transition: all 0.3s ease; /* 加上过渡 */
+  transition: all 0.3s ease; 
 }
 
 .card:hover { 

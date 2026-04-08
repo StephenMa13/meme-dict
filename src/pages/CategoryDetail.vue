@@ -123,7 +123,7 @@ const truncate = (text) => {
 .app-container { 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
   height: 100dvh; 
-  background-color: var(--bg-color); 
+  background-color: transparent; 
   color: var(--text-main);
   
   /* 🌟 修复点 1：补全 display: flex 让上下布局生效 */
@@ -138,7 +138,7 @@ const truncate = (text) => {
 /* 2. 大标题头部区域 */
 .category-hero {
   padding: 20px 25px 15px; 
-  background: linear-gradient(180deg, var(--card-bg) 0%, var(--bg-color) 100%);
+  background: linear-gradient(180deg, var(--card-bg) 0%, transparent 100%);
   text-align: left;
   max-width: 1000px;
   margin: 0 auto;

@@ -361,6 +361,7 @@ const refreshBubbleContents = () => {
               v-for="item in cat.previewItems"
               :key="item.id"
               class="preview-tag"
+              :style="{ backgroundColor: cat.color + '30', borderColor: cat.color + '60', color: cat.color, filter: 'brightness(0.7)', fontWeight: '800' }"
               @click.stop="goToMeme(item.id)"
             >
               {{ item.term }}
@@ -509,10 +510,18 @@ const refreshBubbleContents = () => {
 .preview-cloud { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
 
 .preview-tag {
-  font-size: 0.65em; padding: 2px 8px; border-radius: 10px;
-  background-color: var(--bg-color); border: 1px solid var(--border-color);
-  color: var(--text-secondary); transition: all 0.2s;
-  max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: 0.65em; 
+  padding: 3px 8px; 
+  border-radius: 10px;
+  /* 背景和边框颜色通过内联样式动态设置 */
+  transition: all 0.2s;
+  max-width: 80px; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  white-space: nowrap;
+  border: 0.5px solid rgba(0,0,0,0.1); /* 使用极淡的黑色做边框线即可 */
+  font-weight: 600; /* 加粗文字 */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* 增加轻微阴影提升质感 */
 }
 
 @media (max-width: 768px) {

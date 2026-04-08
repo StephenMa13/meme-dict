@@ -30,28 +30,55 @@ const isNewerVersion = (remote, local) => {
 
 const checkForUpdate = async () => {
   try {
-    const info = await App.getInfo()
-    const currentVersion = info.version
+    let currentVersion = "1.0.3";
+
+    if (Capacitor.isNativePlatform()) {
+      const info = await App.getInfo();
+      currentVersion = info.version; 
+    } else {
+      console.log("🌐 电脑浏览器环境，模拟版本号：", currentVersion);
+    }
 
     const response = await fetch(
       'https://gist.githubusercontent.com/StephenMa13/85b282b784a0a38333d1a8b36c5ed690/raw/version.json?t=' +
         new Date().getTime()
-    )
-    const onlineData = await response.json()
+    );
+    
+    const onlineData = await response.json();
 
+    console.log("=== 更新排查 ===");
+    console.log("线上最新版本号：", onlineData.latestVersion, " | 本地版本号：", currentVersion);
+
+    // 3. 开始判断
     if (isNewerVersion(onlineData.latestVersion, currentVersion)) {
+      
+      // 🌟 核心修改 1：检查本地有没有存过“被用户无情跳过”的版本号
+      const ignoredVersion = localStorage.getItem('ignored_version');
+      
+      // 如果最新版本和用户之前跳过的版本一样，就直接 return，不再往下执行弹窗！
+      if (onlineData.latestVersion === ignoredVersion) {
+        console.log("🤫 用户之前已跳过此版本，不再弹窗打扰");
+        return; 
+      }
+
       updateInfo.value = {
         version: onlineData.latestVersion,
         message: onlineData.message,
         url: onlineData.downloadUrl
-      }
-      showUpdateModal.value = true
+      };
+      showUpdateModal.value = true;
     }
   } catch (error) {
-    console.log('检查更新失败，可能没联网', error)
+    console.log('检查更新失败：', error);
   }
 }
 
+// 🌟 核心修改 2：新增“跳过更新”专属函数
+const skipUpdate = () => {
+  showUpdateModal.value = false;
+  // 把当前这个最新版本号存进浏览器的“记忆”里
+  localStorage.setItem('ignored_version', updateInfo.value.version);
+}
 // 🌟 新增：点击"立即更新"按钮的处理
 const goUpdate = async () => {
   if (updateInfo.value.url) {
@@ -155,12 +182,12 @@ onMounted(async () => {
 
   <!-- 🌟 修复：更新弹窗 UI（之前缺失） -->
   <Teleport to="body">
-    <div v-if="showUpdateModal" class="update-overlay" @click.self="showUpdateModal = false">
+    <div v-if="showUpdateModal" class="update-overlay" @click.self="skipUpdate">
       <div class="update-modal">
         <h3>🎉 发现新版本 v{{ updateInfo.version }}</h3>
         <p>{{ updateInfo.message || '修复了一些问题，提升了体验~' }}</p>
         <div class="update-actions">
-          <button class="btn-skip" @click="showUpdateModal = false">下次再说</button>
+          <button class="btn-skip" @click="skipUpdate">下次再说</button>
           <button class="btn-update" @click="goUpdate">立即更新</button>
         </div>
       </div>
@@ -169,21 +196,17 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-:global(body) {
-  transition: background-color 0.4s ease;
-  margin: 0;
-  padding: 0;
-}
 /* ==================== 
    主体布局
    ==================== */
 .main-content {
-  padding-top: env(safe-area-inset-top);
+  padding-top: calc(env(safe-area-inset-top) - 10px);
   padding-bottom: calc(60px + env(safe-area-inset-bottom));
   min-height: 100vh;
   box-sizing: border-box;
 }
 
+/* 🌟 底栏样式恢复 */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -199,14 +222,9 @@ onMounted(async () => {
   justify-content: space-around;
   align-items: center;
   z-index: 9999;
-  border-top: 1px solid var(--border-color, #eee);
+  border-top: 1px solid var(--border-color); /* 使用变量自动变色 */
   padding: 10px 0 calc(10px + env(safe-area-inset-bottom)) 0;
-  transition: background-color 0.3s ease;
-}
-
-:global(.dark-mode) .bottom-nav {
-  background-color: #1E1E1E;
-  border-top-color: #333;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .nav-item {
@@ -214,7 +232,7 @@ onMounted(async () => {
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: #888;
+  color: var(--text-secondary); /* 使用变量 */
   font-size: 12px;
   transition: all 0.3s ease;
   flex: 1;
@@ -232,7 +250,7 @@ onMounted(async () => {
 }
 
 /* ==================== 
-   🌟 更新弹窗样式
+   🌟 更新弹窗样式恢复
    ==================== */
 .update-overlay {
   position: fixed;
@@ -245,7 +263,7 @@ onMounted(async () => {
 }
 
 .update-modal {
-  background: #fff;
+  background: var(--card-bg); /* 使用变量自动变色 */
   border-radius: 16px;
   padding: 28px 24px;
   width: 85%;
@@ -257,13 +275,13 @@ onMounted(async () => {
 .update-modal h3 {
   margin: 0 0 12px;
   font-size: 18px;
-  color: #333;
+  color: var(--text-main); /* 使用变量 */
 }
 
 .update-modal p {
   margin: 0 0 24px;
   font-size: 14px;
-  color: #666;
+  color: var(--text-secondary); /* 使用变量 */
   line-height: 1.6;
 }
 
@@ -276,10 +294,10 @@ onMounted(async () => {
 .btn-skip {
   flex: 1;
   padding: 10px 0;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color); /* 使用变量 */
   border-radius: 10px;
-  background: #fff;
-  color: #888;
+  background: transparent;
+  color: var(--text-secondary); /* 使用变量 */
   font-size: 14px;
   cursor: pointer;
 }
@@ -294,15 +312,5 @@ onMounted(async () => {
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
-}
-
-:global(.dark-mode) .update-modal {
-  background: #2a2a2a;
-}
-:global(.dark-mode) .update-modal h3 {
-  color: #fff;
-}
-:global(.dark-mode) .update-modal p {
-  color: #aaa;
 }
 </style>
