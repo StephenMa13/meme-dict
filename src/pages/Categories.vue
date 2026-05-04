@@ -12,8 +12,11 @@ const STORAGE_KEY = 'meme_bubble_layout_v1'
 const draggingIndex = ref(null)
 const dragStyle = ref({})        
 const isDragging = ref(false)
+const isExplodeReady = ref(false) // 是否进入准备爆炸的“狂暴模式”
+const explosionData = ref({ show: false, x: 0, y: 0 }) // 控制爆炸特效的位置和显示
 
 let longPressTimer = null
+let explodeTimer = null
 let touchStartX = 0
 let touchStartY = 0
 let currentTouchX = 0
@@ -161,6 +164,13 @@ const onTouchStart = (e, index) => {
     
     if (navigator.vibrate) navigator.vibrate(30)
   }, 300)
+
+  explodeTimer = setTimeout(() => {
+    if (isDragging.value) {
+      isExplodeReady.value = true
+      if (navigator.vibrate) navigator.vibrate([50, 50, 50]) // 连续震动提示
+    }
+  }, 3000)
 }
 
 const onTouchMove = (e, index) => {
@@ -173,12 +183,20 @@ const onTouchMove = (e, index) => {
   if (!isDragging.value) {
     if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
       clearTimeout(longPressTimer)
+      clearTimeout(explodeTimer)
     }
     return
   }
 
   // 正在拖拽
   if (e.cancelable) e.preventDefault()
+
+  // 🌟 核心引爆逻辑：如果是狂暴模式，且手指向上滑动超过 100px
+  if (isExplodeReady.value && dy < -100) {
+    triggerExplosion(touch.clientX, touch.clientY)
+    return // 引爆后立刻终止后续拖拽行为
+  }
+
   const cat = bubbleCategories.value[draggingIndex.value]
   const size = cat ? cat.size : 100
 
@@ -189,7 +207,7 @@ const onTouchMove = (e, index) => {
   }
 
   const targetIndex = getIndexAtPoint(touch.clientX, touch.clientY)
-  if (targetIndex !== null && targetIndex !== draggingIndex.value) {
+  if (targetIndex !== null && targetIndex !== draggingIndex.value && !isExplodeReady.value) {
     const list = [...bubbleCategories.value]
     const item = list.splice(draggingIndex.value, 1)[0]
     list.splice(targetIndex, 0, item)
@@ -200,12 +218,36 @@ const onTouchMove = (e, index) => {
 
 const onTouchEnd = (e, index) => {
   clearTimeout(longPressTimer)
+  clearTimeout(explodeTimer)
+  isExplodeReady.value = false
+
   if (isDragging.value) {
     isDragging.value = false
     draggingIndex.value = null
     dragStyle.value = {}
     saveLayout()
   }
+}
+
+const triggerExplosion = (x, y) => {
+  // 1. 清除拖拽状态
+  clearTimeout(explodeTimer)
+  isDragging.value = false
+  isExplodeReady.value = false
+  draggingIndex.value = null
+  dragStyle.value = {}
+  
+  // 2. 触发爆炸特效和手机长震动
+  if (navigator.vibrate) navigator.vibrate(200)
+  explosionData.value = { show: true, x, y }
+  
+  setTimeout(() => {
+    explosionData.value.show = false
+  }, 600) // 动画结束后隐藏粒子特效
+
+  // 3. 数组乱序：直接把气泡数组打乱，Vue 的 transition-group 会自动生成飞天重排动画
+  bubbleCategories.value = [...bubbleCategories.value].sort(() => 0.5 - Math.random())
+  saveLayout()
 }
 
 const getIndexAtPoint = (x, y) => {
@@ -375,6 +417,7 @@ const refreshBubbleContents = () => {
     <div
       v-if="isDragging && draggingIndex !== null"
       class="drag-clone"
+      :class="{ 'is-exploding': isExplodeReady }"
       :style="{
         ...dragStyle,
         fontSize: `${Math.max(12, bubbleCategories[draggingIndex]?.size / 11)}px`
@@ -384,6 +427,13 @@ const refreshBubbleContents = () => {
         <span class="cat-icon">{{ bubbleCategories[draggingIndex]?.icon }}</span>
         <strong class="cat-name">{{ bubbleCategories[draggingIndex]?.name }}</strong>
       </div>
+    </div>
+    <div 
+      v-if="explosionData.show" 
+      class="boom-effect"
+      :style="{ left: explosionData.x + 'px', top: explosionData.y + 'px' }"
+    >
+      💥
     </div>
   </div>
 </template>
@@ -527,5 +577,48 @@ const refreshBubbleContents = () => {
 @media (max-width: 768px) {
   .bubbles-wrapper { gap: 12px; }
   .bubble-item { animation-duration: 10s !important; }
+}
+/* ==================== 
+   🌟 狂暴模式与爆炸特效
+   ==================== */
+/* 3秒后的引爆准备状态：发红、发光且剧烈抖动 */
+.is-exploding {
+  border-color: #ff4757 !important;
+  box-shadow: 0 0 40px rgba(255, 71, 87, 0.6) !important;
+  animation: explodeShake 0.3s infinite ease-in-out !important;
+  filter: hue-rotate(-20deg) saturate(1.5);
+}
+
+@keyframes explodeShake {
+  0% { transform: scale(1.1) rotate(0deg); }
+  25% { transform: scale(1.15) rotate(-5deg); }
+  50% { transform: scale(1.1) rotate(0deg); }
+  75% { transform: scale(1.15) rotate(5deg); }
+  100% { transform: scale(1.1) rotate(0deg); }
+}
+
+/* 爆炸瞬间的 Emoji 粒子特效 */
+.boom-effect {
+  position: fixed;
+  font-size: 80px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 100000;
+  animation: boomBlast 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes boomBlast {
+  0% { 
+    transform: translate(-50%, -50%) scale(0.2); 
+    opacity: 1; 
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(2.5); 
+    opacity: 1; 
+  }
+  100% { 
+    transform: translate(-50%, -50%) scale(3); 
+    opacity: 0; 
+  }
 }
 </style>

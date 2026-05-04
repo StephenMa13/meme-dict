@@ -179,8 +179,8 @@ const calculateDisplayCount = () => {
   const vh = window.innerHeight;
   const isMobile = window.innerWidth < 768;
   
-  // 减去导航栏(约60px)和搜索区域(约140px)和标题(约50px)
-  const availableHeight = vh - 330; 
+  // 减去导航栏(约50px)和搜索区域(约130px)和标题(约50px)
+  const availableHeight = vh - 315;
   const cardHeight = 54; // 紧凑型卡片高度（含gap）
   
   const rows = Math.floor(availableHeight / cardHeight);
@@ -515,8 +515,8 @@ const closeMenuOnOutsideClick = (e) => {
   justify-content: space-between; 
   align-items: center; 
   /* 👇 核心：动态给顶部、左侧、右侧留出安全区 */
-  padding-top: max(10px, env(safe-area-inset-top));
-  padding-bottom: 10px;
+  padding-top: max(5px, env(safe-area-inset-top));
+  padding-bottom: 5px;
   padding-left: max(20px, env(safe-area-inset-left));
   padding-right: max(20px, env(safe-area-inset-right));
   gap: 20px; 
@@ -613,7 +613,7 @@ const closeMenuOnOutsideClick = (e) => {
   -webkit-tap-highlight-color: transparent; /* 移除移动端点击高亮蓝框 */
 }
 
-.hero { padding: 10px 20px; text-align: center; margin-bottom: 5px; flex-shrink: 0; }
+.hero { padding: 5px 20px; text-align: center; margin-bottom: 5px; flex-shrink: 0; }
 
 .search-wrapper { position: relative; max-width: 600px; margin: 0 auto; width: 100%; }
 .search-box { display: flex; background: var(--card-bg, #ffffff); border-radius: 30px; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; border: 1px solid var(--border-color); }

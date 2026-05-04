@@ -3,6 +3,7 @@
   "appName": "梗查查",
   "webDir": "dist",
   "server": {
+    "url": "https://memedictionary.cn",
     "androidScheme": "https"
   },
   "cordova": {

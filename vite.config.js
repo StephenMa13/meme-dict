@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  base: './', // ⭐️ 重要！确保 PWA 在任何路径下都能正确加载资源
   plugins: [
     vue(),
     VitePWA({
