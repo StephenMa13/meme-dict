@@ -8,13 +8,52 @@ const router = useRouter()
 const bubbleCategories = ref([])
 const STORAGE_KEY = 'meme_bubble_layout_v1'
 
+// 重置布局的函数
+const resetLayout = () => {
+  localStorage.removeItem(STORAGE_KEY)
+  initBubbles()
+  saveLayout()
+  alert('气泡已恢复')
+}
+
+// 长按重置相关变量
+let resetLongPressTimer = null
+let isTouchingEmptyArea = false
+
+const isTouchOnBubble = (e) => {
+  const target = e.target.closest('.bubble-item')
+  return target !== null
+}
+
+const handleTouchStart = (e) => {
+  onPageTouchStart(e)
+  if (isTouchOnBubble(e)) {
+    if (resetLongPressTimer) clearTimeout(resetLongPressTimer)
+    return
+  }
+  resetLongPressTimer = setTimeout(() => {
+    resetLayout()
+    resetLongPressTimer = null
+  }, 5000)
+}
+
+const handleTouchEnd = (e) => {
+  onPageTouchEnd(e)
+  if (resetLongPressTimer) {
+    clearTimeout(resetLongPressTimer)
+    resetLongPressTimer = null
+  }
+}
+
 // ========== 拖拽状态 ==========
 const draggingIndex = ref(null)
 const dragStyle = ref({})        
 const isDragging = ref(false)
-const isExplodeReady = ref(false) // 是否进入准备爆炸的“狂暴模式”
-const explosionData = ref({ show: false, x: 0, y: 0 }) // 控制爆炸特效的位置和显示
+const isExplodeReady = ref(false)
 
+// ---------- 爆炸粒子特效 ----------
+const particles = ref([])
+let particleTimer = null
 let longPressTimer = null
 let explodeTimer = null
 let touchStartX = 0
@@ -29,13 +68,19 @@ let pullStartY = -1
 let isPulling = false
 
 const allowedCategories = new Set(Object.keys(categoryConfig))
+
 // ========== 初始化数据 ==========
 const initBubbles = () => {
+  // 🌟 修复语法错误
+  const savedVersion = localStorage.getItem(STORAGE_KEY + '_version') 
   const cached = localStorage.getItem(STORAGE_KEY)
+  
   if (cached) {
     const parsed = JSON.parse(cached)
     const filtered = parsed.filter(cat => allowedCategories.has(cat.name))
-    if(filtered.length > 0){
+    
+    // 🌟 数据自愈机制：如果发现缓存里的气泡数量比配置里的少（意味着有丢失），直接废弃缓存重新生成！
+    if(filtered.length >= allowedCategories.size && filtered.length > 0){
       bubbleCategories.value = filtered
       return
     }
@@ -62,6 +107,7 @@ const initBubbles = () => {
       categoryMap[catName] = { name: catName, count: 0, allItems: [] }
     }
   })
+  
   const counts = Object.values(categoryMap).map(c => c.count)
   const maxCount = Math.max(...counts) || 1
   const minCount = Math.min(...counts) || 0
@@ -100,7 +146,6 @@ const saveLayout = () => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(bubbleCategories.value))
 }
 
-// ========== Touch 拖拽与下拉刷新核心 ==========
 const onPageTouchStart = (e) => {
   if (window.scrollY <= 0) {
     pullStartY = e.touches[0].clientY
@@ -110,9 +155,7 @@ const onPageTouchStart = (e) => {
 }
 
 const onPageTouchMove = (e) => {
-  // 如果正在拖拽气泡，或者不在顶部，则不触发全局下拉
   if (isDragging.value || pullStartY === -1) return
-
   const touchY = e.touches[0].clientY
   const dy = touchY - pullStartY
 
@@ -129,9 +172,9 @@ const onPageTouchEnd = () => {
   if (isPulling) {
     if (pullDistance.value >= 60) {
       isRefreshing.value = true
-      pullDistance.value = 60 // 悬停在刷新高度
+      pullDistance.value = 60 
       setTimeout(() => {
-        refreshBubbleContents() // 🌟 修复：必须加括号才能调用函数！
+        refreshBubbleContents() 
         isRefreshing.value = false
         pullDistance.value = 0
       }, 800)
@@ -141,6 +184,90 @@ const onPageTouchEnd = () => {
     isPulling = false
   }
   pullStartY = -1
+}
+
+// ---------- 🌟 全新模拟真实气泡爆炸 ----------
+const createExplosion = (x, y, bubbleColor) => {
+  const newParticles = []
+  const particleCount = 20 // 减少数量，增加体积，更像气泡
+  const baseColor = (bubbleColor && bubbleColor !== '#ffffff') ? bubbleColor : '#FF6600'
+  
+  for (let i = 0; i < particleCount; i++) {
+    const angle = Math.random() * Math.PI * 2
+    const speed = 2 + Math.random() * 6 // 飞溅速度
+    newParticles.push({
+      id: Date.now() + i + Math.random(),
+      x: x,
+      y: y,
+      size: 10 + Math.random() * 15, // 气泡大小
+      color: baseColor,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      opacity: 1,
+      life: 1
+    })
+  }
+  particles.value = newParticles
+
+  let startTime = null
+  const animate = (now) => {
+    if (!startTime) startTime = now
+    const elapsed = now - startTime
+    const duration = 800 // 动画持续0.8秒
+    let updated = [...particles.value]
+    let allDead = true
+    
+    updated = updated.map(p => {
+      let life = 1 - elapsed / duration
+      if (life <= 0) return null
+      allDead = false
+      return {
+        ...p,
+        x: p.x + p.vx * 6,   
+        y: p.y + p.vy * 6 - 2, // 轻微向上漂浮
+        size: p.size * 1.05,   // 气泡破裂前稍微变大
+        opacity: life * 1.2,
+        life: life
+      }
+    }).filter(p => p !== null)
+    
+    particles.value = updated
+    if (!allDead && elapsed < duration) {
+      requestAnimationFrame(animate)
+    } else {
+      particles.value = []
+    }
+  }
+  requestAnimationFrame(animate)
+}
+
+// 🌟 爆炸逻辑重写：沉底而不消失
+const triggerExplosion = (x, y, draggedIndex, bubbleColor) => {
+  clearTimeout(explodeTimer)
+  clearTimeout(longPressTimer)
+  
+  // 1. 抓取出当前爆炸的那个气泡
+  const list = [...bubbleCategories.value]
+  const explodedItem = list.splice(draggedIndex, 1)[0]
+  
+  // 2. 状态重置，防止生成幽灵气泡
+  isDragging.value = false
+  isExplodeReady.value = false
+  draggingIndex.value = null
+  dragStyle.value = {}
+
+  if (navigator.vibrate) navigator.vibrate([200, 50, 100])
+  createExplosion(x, y, bubbleColor)
+
+  // 3. 将剩下的气泡打乱
+  list.sort(() => 0.5 - Math.random())
+  
+  // 4. 把刚刚爆炸的气泡放到最后面（沉底）
+  list.push(explodedItem)
+
+  // 5. 更新并保存
+  bubbleCategories.value = list
+  saveLayout()
 }
 
 const onTouchStart = (e, index) => {
@@ -168,7 +295,7 @@ const onTouchStart = (e, index) => {
   explodeTimer = setTimeout(() => {
     if (isDragging.value) {
       isExplodeReady.value = true
-      if (navigator.vibrate) navigator.vibrate([50, 50, 50]) // 连续震动提示
+      if (navigator.vibrate) navigator.vibrate([50, 50, 50])
     }
   }, 3000)
 }
@@ -188,13 +315,14 @@ const onTouchMove = (e, index) => {
     return
   }
 
-  // 正在拖拽
   if (e.cancelable) e.preventDefault()
 
-  // 🌟 核心引爆逻辑：如果是狂暴模式，且手指向上滑动超过 100px
+  // 🌟 修复错误：这里应该是判断手指向上移动距离(dy < -100)，而不是使用下拉刷新的变量 pullDistance！
   if (isExplodeReady.value && dy < -100) {
-    triggerExplosion(touch.clientX, touch.clientY)
-    return // 引爆后立刻终止后续拖拽行为
+    const cat = bubbleCategories.value[draggingIndex.value]
+    const bubbleColor = cat ? cat.color : '#FFD700'
+    triggerExplosion(touch.clientX, touch.clientY, draggingIndex.value, bubbleColor)
+    return
   }
 
   const cat = bubbleCategories.value[draggingIndex.value]
@@ -225,29 +353,9 @@ const onTouchEnd = (e, index) => {
     isDragging.value = false
     draggingIndex.value = null
     dragStyle.value = {}
-    saveLayout()
+    if (!isExplodeReady.value) saveLayout()
   }
-}
-
-const triggerExplosion = (x, y) => {
-  // 1. 清除拖拽状态
-  clearTimeout(explodeTimer)
-  isDragging.value = false
   isExplodeReady.value = false
-  draggingIndex.value = null
-  dragStyle.value = {}
-  
-  // 2. 触发爆炸特效和手机长震动
-  if (navigator.vibrate) navigator.vibrate(200)
-  explosionData.value = { show: true, x, y }
-  
-  setTimeout(() => {
-    explosionData.value.show = false
-  }, 600) // 动画结束后隐藏粒子特效
-
-  // 3. 数组乱序：直接把气泡数组打乱，Vue 的 transition-group 会自动生成飞天重排动画
-  bubbleCategories.value = [...bubbleCategories.value].sort(() => 0.5 - Math.random())
-  saveLayout()
 }
 
 const getIndexAtPoint = (x, y) => {
@@ -269,7 +377,6 @@ onMounted(() => {
   initBubbles()
 })
 
-// PC 拖拽逻辑保持
 const onDragStart = (e, index) => {
   if (isMobile.value) return
   draggingIndex.value = index
@@ -306,13 +413,10 @@ const goToMeme = (id) => {
   router.push(`/meme/${id}`)
 }
 
-// 🌟 新增：只刷新气泡内的词条，不改变气泡位置和大小
 const refreshBubbleContents = () => {
-  // 1. 获取最新梗库数据
   const memes = getMemes() || []
   const categoryMap = {}
 
-  // 2. 重新按分类整理词条
   memes.forEach(meme => {
     let cats = meme.category || '其他'
     if (!Array.isArray(cats)) cats = [cats]
@@ -323,36 +427,27 @@ const refreshBubbleContents = () => {
     })
   })
 
-  // 3. 遍历当前屏幕上的气泡，只替换内部的 previewItems
   bubbleCategories.value = bubbleCategories.value
   .filter(cat => allowedCategories.has(cat.name))
   .map(cat => {
     const allItems = categoryMap[cat.name] || []
-    
-    // 随机打乱该分类下的词条
     const shuffledItems = [...allItems].sort(() => 0.5 - Math.random())
-    
-    // 保持原来的词条数量显示逻辑 (根据气泡当前大小)
     let maxTerms = cat.size < 100 ? 2 : (cat.size < 130 ? 3 : 4)
 
     return {
       ...cat,
-      // 截取全新的一批随机词条
       previewItems: shuffledItems.slice(0, Math.max(2, maxTerms))
     }
   })
-
-  // 4. 将更新了词条的新状态保存到本地
   saveLayout()
 }
 </script>
 
 <template>
   <div class="categories-page"
-        @touchstart="onPageTouchStart"
+        @touchstart="handleTouchStart"
         @touchmove="onPageTouchMove"
-        @touchend="onPageTouchEnd">
-    <!-- 🌟 修改后的下拉刷新指示器 -->
+        @touchend="handleTouchEnd">
     <div class="refresh-bar" :style="{ height: pullDistance + 'px' }">
       <div class="refresh-content" :style="{ opacity: Math.min(pullDistance / 70, 1) }">
         <div class="bubbles-loader" v-if="isRefreshing">
@@ -366,7 +461,6 @@ const refreshBubbleContents = () => {
       </div>
     </div>
 
-    <!-- 气泡列表容器 -->
     <transition-group name="bubble-list" tag="div" class="bubbles-wrapper">
       <div
         v-for="(cat, index) in bubbleCategories"
@@ -413,7 +507,6 @@ const refreshBubbleContents = () => {
       </div>
     </transition-group>
 
-    <!-- 拖拽克隆体 (仅移动端) -->
     <div
       v-if="isDragging && draggingIndex !== null"
       class="drag-clone"
@@ -428,17 +521,32 @@ const refreshBubbleContents = () => {
         <strong class="cat-name">{{ bubbleCategories[draggingIndex]?.name }}</strong>
       </div>
     </div>
-    <div 
-      v-if="explosionData.show" 
-      class="boom-effect"
-      :style="{ left: explosionData.x + 'px', top: explosionData.y + 'px' }"
-    >
-      💥
+    
+    <div v-for="part in particles" :key="part.id" class="explosion-particle"
+         :style="{
+           left: part.x + 'px',
+           top: part.y + 'px',
+           width: part.size + 'px',
+           height: part.size + 'px',
+           color: part.color, /* 传入边框颜色 */
+           opacity: Math.min(part.opacity, 1),
+           transform: 'translate(-50%, -50%)'
+         }">
     </div>
   </div>
 </template>
 
 <style scoped>
+/* 🌟 核心修复：彻底禁用系统选词和长按菜单 */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+.categories-page, .bubble-item, .drag-clone, .bubble-item * {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-touch-callout: none !important;
+}
+
 .categories-page {
   padding: 20px 10px 40px;
   min-height: 100vh;
@@ -448,45 +556,36 @@ const refreshBubbleContents = () => {
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
-  /* 禁止系统默认刷新动画以便我们自定义 */
   overscroll-behavior-y: contain; 
   padding-top: calc(16px + env(safe-area-inset-top));
 }
-
-/* 🌟 下拉刷新样式：更明显、更靠下 */
 .refresh-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
   display: flex;
-  align-items: flex-end; /* 关键：内容在底部 */
+  align-items: flex-end; 
   justify-content: center;
   background: transparent;
   z-index: 1000;
   overflow: hidden;
   transition: height 0.2s cubic-bezier(0.2, 0, 0.2, 1);
 }
-
 .refresh-content {
-  padding-bottom: 15px; /* 增加距离顶部的距离感 */
+  padding-bottom: 15px; 
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
 }
-
 .refresh-icon { font-size: 26px; display: inline-block; }
 .refresh-text { font-size: 12px; font-weight: 700; color: var(--text-secondary); }
-
 .bubbles-loader { display: flex; flex-direction: column; align-items: center; }
 .bubble-pop { font-size: 30px; animation: bubbleBounce 0.8s infinite ease-in-out; }
 .loading-text { font-size: 11px; font-weight: bold; color: var(--text-main); margin-top: 50px;}
-
 @keyframes bubbleBounce {
   0%, 100% { transform: scale(1) translateY(0); opacity: 0.8; }
   50% { transform: scale(1.3) translateY(-8px); opacity: 1; }
 }
-
-/* 气泡列表样式保持 */
 .bubbles-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -496,12 +595,10 @@ const refreshBubbleContents = () => {
   max-width: 1100px;
   padding: 40px 20px;
 }
-
 @keyframes smoothFloat {
   0%, 100% { transform: translate(var(--ox), var(--oy)); }
   50% { transform: translate(calc(var(--ox) * -1), calc(var(--oy) * -1.2)); }
 }
-
 .bubble-item {
   border-radius: 50%;
   background: var(--card-bg);
@@ -517,10 +614,7 @@ const refreshBubbleContents = () => {
   overflow: hidden;
   text-align: center;
   padding: 12px;
-  user-select: none;
-  -webkit-touch-callout: none;
 }
-
 .is-ghost {
   opacity: 0.25;
   background: var(--bg-color) !important;
@@ -528,13 +622,11 @@ const refreshBubbleContents = () => {
   transform: scale(0.85) !important;
   animation: none !important;
 }
-
 .is-pc-ghost {
   opacity: 0.3;
   border: 1px dashed var(--border-color);
   animation: none;
 }
-
 .drag-clone {
   position: fixed;
   z-index: 9999;
@@ -552,43 +644,33 @@ const refreshBubbleContents = () => {
   transition: none;
   margin: 0 !important;
 }
-
 .bubble-list-move { transition: transform 0.5s cubic-bezier(0.2, 0, 0, 1); }
-
-.bubble-inner { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.cat-name { font-size: 1.1em; color: var(--text-main); font-weight: 800; }
-.preview-cloud { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
-
+.bubble-inner { display: flex; flex-direction: column; align-items: center; gap: 4px; pointer-events: none; }
+.cat-name { font-size: 1.1em; color: var(--text-main); font-weight: 800; pointer-events: none; }
+.preview-cloud { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; pointer-events: auto; }
 .preview-tag {
   font-size: 0.65em; 
   padding: 3px 8px; 
   border-radius: 10px;
-  /* 背景和边框颜色通过内联样式动态设置 */
   transition: all 0.2s;
   max-width: 80px; 
   overflow: hidden; 
   text-overflow: ellipsis; 
   white-space: nowrap;
-  border: 0.5px solid rgba(0,0,0,0.1); /* 使用极淡的黑色做边框线即可 */
-  font-weight: 600; /* 加粗文字 */
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* 增加轻微阴影提升质感 */
+  border: 0.5px solid rgba(0,0,0,0.1); 
+  font-weight: 600; 
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
-
 @media (max-width: 768px) {
   .bubbles-wrapper { gap: 12px; }
   .bubble-item { animation-duration: 10s !important; }
 }
-/* ==================== 
-   🌟 狂暴模式与爆炸特效
-   ==================== */
-/* 3秒后的引爆准备状态：发红、发光且剧烈抖动 */
 .is-exploding {
   border-color: #ff4757 !important;
   box-shadow: 0 0 40px rgba(255, 71, 87, 0.6) !important;
   animation: explodeShake 0.3s infinite ease-in-out !important;
   filter: hue-rotate(-20deg) saturate(1.5);
 }
-
 @keyframes explodeShake {
   0% { transform: scale(1.1) rotate(0deg); }
   25% { transform: scale(1.15) rotate(-5deg); }
@@ -596,29 +678,16 @@ const refreshBubbleContents = () => {
   75% { transform: scale(1.15) rotate(5deg); }
   100% { transform: scale(1.1) rotate(0deg); }
 }
-
-/* 爆炸瞬间的 Emoji 粒子特效 */
-.boom-effect {
+/* 🌟 全新的气泡破碎质感 CSS */
+.explosion-particle {
   position: fixed;
-  font-size: 80px;
-  transform: translate(-50%, -50%);
+  border-radius: 50%;
   pointer-events: none;
-  z-index: 100000;
-  animation: boomBlast 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-@keyframes boomBlast {
-  0% { 
-    transform: translate(-50%, -50%) scale(0.2); 
-    opacity: 1; 
-  }
-  50% { 
-    transform: translate(-50%, -50%) scale(2.5); 
-    opacity: 1; 
-  }
-  100% { 
-    transform: translate(-50%, -50%) scale(3); 
-    opacity: 0; 
-  }
+  z-index: 20000;
+  will-change: transform, opacity, width, height;
+  /* 制作气泡质感：半透明白底 + 当前分类颜色的边框 + 顶部的高光 */
+  border: 2px solid currentColor;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.8);
 }
 </style>

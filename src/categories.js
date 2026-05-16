@@ -17,5 +17,4 @@ export const categoryConfig = {
   '消费': { icon: '🛍️', color: '#FFCCBC' },
   '时尚': { icon: '✨', color: '#F8BBD0' },
   '吐槽': { icon: '🗣️', color: '#CFD8DC' }, 
-  '默认': { icon: '💡', color: '#F0F0F0' },
 }
